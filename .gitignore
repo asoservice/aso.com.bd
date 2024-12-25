@@ -5,6 +5,7 @@
 /public/mix_build/*
 /public/hot
 /public/storage
+/public/storage/*
 /bootstrap/cache/*
 /bootstrap/cache/config.php
 /bootstrap/cache/livewire-components.php

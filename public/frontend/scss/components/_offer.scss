@@ -1,0 +1,76 @@
+/**=====================
+Offer scss
+==========================**/
+
+
+.offer-section {
+    .offer-content {
+        .sale-tag {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            background-color: $danger-color;
+            padding: 4px 36px 4px 16px;
+            color: white;
+            clip-path: polygon(0 0, 28% 0%, 67% -24%, 83% 7%, 84% 14%, 84% 27%, 84% 0%, 84% 32%, 82% 41%, 81% 49%, 81% 78%, 81% 74%, 80% 44%, 84% 65%, 84% 74%, 84% 77%, 82% 93%, 79% 100%, 84% 100%, 68% 100%, 0 100%);
+
+            [dir="rtl"] & {
+                left: unset;
+                right: 0;
+                transform: scaleX(-1);
+                span{
+                    transform: scaleX(-1);
+                }
+            }
+        }
+        .offer-img{
+            border-radius: 10px;
+            min-height: 240px;
+            max-height: 250px;
+
+            // [dir="rtl"] & {
+            //     transform: scaleX(-1);
+            // }
+        }
+
+        .offer-detail {
+            position: absolute;
+            top: 75px;
+            left: 20px;
+
+            [dir="rtl"] & {
+                left: unset;
+                right: 20px;
+            }
+
+            h3 {
+                font-size: 24px;
+                font-weight: 700;
+                line-height: 33px;
+            }
+
+            p {
+                color: rgba($title-color, 0.5);
+                line-height: 20px;
+                width: 70%;
+                margin-top: 4px;
+
+            }
+
+            .btn {
+                padding: 10px 20px;
+                line-height: 1;
+                width: max-content;
+                color: $title-color;
+
+                &.btn-outline {
+                    margin-top: 24px;
+                    border: 2px solid $title-color;
+                    border-radius: 30px;
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

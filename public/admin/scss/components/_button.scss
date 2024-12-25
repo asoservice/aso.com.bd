@@ -1,0 +1,157 @@
+/*=====================
+ button css start
+==========================*/
+
+button {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.btn {
+    font-size: $btn-font-size;
+    padding: $btn-padding;
+    padding: $btn-padding;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    --Iconsax-Size: 20px;
+    --Iconsax-Color: #fff;
+
+    &.btn-primary {
+        background-color: $primary-color;
+        border: 1px solid $primary-color;
+    }
+
+    &:focus {
+        box-shadow: none !important;
+    }
+
+    &.btn-secondary {
+        background-color: $secondary-color;
+        border: 1px solid $secondary-color;
+
+        &:active,
+        &:focus {
+            background-color: $secondary-color;
+            border: 1px solid $secondary-color;
+            box-shadow: none;
+        }
+
+        .cancel {
+            background-color: rgba($dark-color, 0.04);
+            color: rgba($dark-color, 0.8);
+        }
+
+        span {
+            color: $white !important;
+            font-size: 14px !important;
+        }
+
+        &.deleteConfirmationBtn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+    }
+
+    &.btn-gray {
+        background-color: rgba($dark-color, 0.04);
+        border: 1px solid rgba($dark-color, 0.01);
+        color: rgba($dark-color, 0.8);
+
+        &:focus {
+            background-color: rgba($dark-color, 0.04);
+            border: 1px solid rgba($dark-color, 0.01);
+            color: rgba($dark-color, 0.8);
+        }
+    }
+}
+
+.remove-time-slot {
+    background-color: $danger-color;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        height: 18px;
+        width: 18px;
+        color: $white;
+    }
+}
+
+.btn-close {
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-left: auto;
+    margin-top: 24px;
+}
+
+.btn-popup {
+    a {
+        background-color: $primary-color;
+        color: $white;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        &.btn {
+            &:hover {
+                color: $white;
+                background-color: $primary-color;
+            }
+        }
+    }
+
+    i {
+        --Iconsax-Size: 19px;
+        --Iconsax-Color: White;
+    }
+}
+
+.credit,
+.debit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px !important;
+
+    input {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        color: $white;
+        font-size: 14px;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/**=====================
+ Button CSS end
+==========================**/

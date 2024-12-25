@@ -1,0 +1,168 @@
+.newsletter-section {
+    .newsletter-content {
+        position: relative;
+        background-image: url(@/newsletter.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 100%;
+        padding-top: 1px;
+      
+        @include mq-max(md) {
+            background-image: none;
+        }
+
+        .newsletter-detail {
+            color: $white;
+            padding: calc(60px + (100 - 60) * ((100vw - 992px) / (1920 - 992))) 0 calc(20px + (30 - 20) * ((100vw - 992px) / (1920 - 992)));
+            padding-right: calc(40px + (100 - 40) * ((100vw - 992px) / (1920 - 992)));
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            // [dir="rtl"] & {
+            //     padding-left: calc(40px + (100 - 40) * ((100vw - 992px) / (1920 - 992)));
+            //     padding-right: unset;
+            // }
+
+            @include mq-max(md) {
+                padding: calc(15px + (30 - 15) * ((100vw - 320px) / (1920 - 320)));
+                background-image: url(@/newsletter-1.png);
+                background-position: center;
+                background-size: cover;
+                background-size: unset;
+                border-radius: 20px;
+                background-repeat: no-repeat;
+            }
+
+            h2 {
+                text-transform: uppercase;
+                font-weight: 700;
+                line-height: 1.5;
+                font-size: calc(20px + (30 - 20) * ((100vw - 320px) / (1920 - 320)));
+                letter-spacing: 0.9px;
+            }
+
+            p {
+                font-size: calc(16px + (18 - 16) * ((100vw - 320px) / (1920 - 320)));
+                line-height: 23px;
+                color: rgba($white, 0.60);
+                margin: 0;
+                width: 100%;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
+            }
+
+            .form-group {
+                @include flex_common_1 ($dis: flex, $align: center);
+                gap: 6px;
+                padding-top: calc(14px + (24 - 14) * ((100vw - 320px) / (1920 - 320)));
+                margin: 0;
+
+                @include mq-max(sm) {
+                    flex-direction: column;
+                }
+
+                .form-control {
+                    border-radius: 6px;
+                    background-color: $white;
+                    color: $light-color;
+                    padding: 14px 20px;
+                    border: none;
+
+                    @include mq-max(sm) {
+                        padding: 10px 13px;
+                    }
+                }
+
+                .btn {
+                    border-radius: 6px;
+                    width: max-content;
+                    padding: 14px 20px;
+
+                    span {
+                        padding: 0;
+                    }
+
+                    @include mq-max(sm) {
+                        padding: 10px 16px;
+                        font-size: 14px;
+
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            span {
+                padding-top: calc(10px + (60 - 10) * ((100vw - 768px) / (1920 - 768)));
+                font-size: 18px;
+
+                @include mq-max(md) {
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        .newsletter-icons {
+             [dir="rtl"] & {
+                    order: 1;
+                }
+            @include mq-max(md) {
+                display: none;
+            }
+
+            img {
+                position: absolute;
+                animation: mover 2s infinite alternate;
+                animation-delay: 1s;
+            }
+
+            .newsletter-1 {
+                top: 140px;
+                left: 70px;
+                height: 90px;
+            }
+
+            .newsletter-2 {
+                top: 50px;
+                right: 90px;
+                height: 16px;
+
+                [dir="rtl"] & {
+                    right: unset;
+                    left: 90px;
+                }
+                @include mq-max(lg) {
+                    display: none;
+                }
+            }
+
+            .newsletter-3 {
+                bottom: -30px;
+                right: 330px;
+                height: 90px;
+
+                [dir="rtl"] & {
+                    right: unset;
+                    left: 330px;
+                }
+
+                @include mq-max(2xl) {
+                    display: none;
+                }
+            }
+
+            .man-image {
+                position: relative;
+                animation: none;
+
+
+            }
+        }
+    }
+}

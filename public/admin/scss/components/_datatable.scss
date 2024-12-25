@@ -1,0 +1,176 @@
+// .dataTables_wrapper {
+//     .dataTables_processing {
+//         margin: 0;
+//         width: 100%;
+//         height: calc(100% - 28px - 31px - 28px - 30px);
+//         inset: unset;
+//         bottom: 55px;
+//         transform: unset;
+//         padding: 0;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         background: none;
+//         background-color: #ffffffb0;
+//         z-index: 1;
+//         padding-block: 28px 31px;
+//         backdrop-filter: blur(1.1px);
+//     }
+// }
+
+div {
+    &.dataTables_wrapper {
+        &:has(.dataTables_processing[style="display: block;"]) {
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba($white, 0.69);
+                z-index: 1;
+                backdrop-filter: blur(1.1px);
+            }
+        }
+
+        // .dataTables_processing {
+        //     &[style="display: block;"] {
+        //         &::before {
+        //             content: "";
+        //             position: absolute;
+        //             top: 0;
+        //             left: 0;
+        //             width: 100%;
+        //             height: 100%;
+        //             background-color: rgba(255, 255, 255, 0.69); // Replace with $white variable if needed
+        //             z-index: 1;
+        //             backdrop-filter: blur(1.1px);
+        //         }
+        //     }
+        // }
+
+        // &::before {
+        //     content: "";
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     width: 100%;
+        //     height: 100%;
+        //     background-color: rgba($white, 0.69);
+        //     z-index: 1;
+        //     backdrop-filter: blur(1.1px);
+        // }
+
+        div {
+            &.dataTables_processing {
+                z-index: 2;
+                font-size: 20px;
+                font-weight: 500;
+                color: #222;
+                width: 100%;
+                transform: translateX(-50%);
+                // background: rgba(255, 255, 255, 0.69);
+                left: 50%;
+                margin-left: 0;
+                height: 56px;
+                margin-top: -34px;
+            }
+        }
+
+        .dataTable {
+            thead {
+                z-index: 1;
+                position: relative;
+            }
+        }
+
+        .dataTables_length,
+        .dataTables_filter,
+        .dataTables_info,
+        .dataTables_paginate {
+            z-index: 1;
+            position: relative;
+        }
+    }
+}
+
+// .table-responsive table.dataTable thead .sorting:before,
+// .table-responsive table.dataTable thead .:before,
+// .table-responsive table.dataTable thead .:before,
+// .table-responsive table.dataTable thead .:before,
+.table-responsive {
+    table {
+        &.dataTable {
+            thead {
+
+                // .sorting_asc_disabled,
+                .sorting,
+                .sorting_desc,
+                .sorting_asc,
+                .sorting_desc_disabled {
+                    &:before {
+                        right: 20px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// table.dataTable.table thead th.,
+// table.dataTable.table thead th.,
+// table.dataTable.table thead th.,
+// table.dataTable.table thead td.,
+// table.dataTable.table thead td.sorting_asc,
+table {
+    &.dataTable {
+        &.table {
+            thead {
+
+                td,
+                th {
+
+                    // &.sorting,
+                    // &.sorting_desc,
+                    &.sorting_asc,
+                    &.sorting_desc,
+                    &.sorting {
+                        padding-right: 38px;
+                    }
+
+                    &:first-child {
+                        padding-right: 9px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.selected-booking{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+    color: var(--theme-color);
+    padding: 4px 9px 3px;
+    border-radius: 100px;
+    gap: 3px;
+    background-color: rgba(84, 101, 255, 0.08);
+    >span{
+        line-height: 1.3;
+        font-weight: 500;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+    // .ri-close-line{
+
+    // }
+}
+
+.select-service-box{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

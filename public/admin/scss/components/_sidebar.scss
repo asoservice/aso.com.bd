@@ -1,0 +1,406 @@
+/**=====================
+    Sidebar CSS Start
+==========================**/
+.page-wrapper {
+  .page-body-wrapper {
+    .sidebar {
+      height: calc(100vh - #{$header-size});
+      overflow: auto;
+      box-shadow: $sidebar-shadow;
+
+      &.custom-scrollbar {
+        &::-webkit-scrollbar {
+          width: 0;
+          transition: 0.1s;
+        }
+
+        &::-webkit-scrollbar-track {
+          -webkit-box-shadow: none;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(247, 247, 247, 0.3);
+          border-radius: 100px;
+        }
+
+        &:hover {
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+        }
+      }
+    }
+
+    .page-sidebar {
+      width: $sidebar-width;
+      position: $sidebar-position;
+      background: $sidebar-background-color;
+      top: 0;
+      height: calc(100vh);
+      z-index: $sidebar-z-index;
+      transition: $sidebar-transition;
+      border-radius: $sidebar-radius;
+
+      @media (max-width: 1199.98px) {
+        display: block;
+        margin-left: calc(-#{$sidebar-width + 5px});
+
+        &.open {
+          margin-left: 0;
+        }
+      }
+
+      .main-header-left {
+        display: inline-flex;
+        width: 100%;
+        height: $header-size;
+        padding: $main-header-padding;
+        align-items: center;
+        background-color: $main-header-left-bg-color;
+        z-index: $main-header-z-index;
+        box-shadow: -3px 1px 3px 1px rgba(68, 102, 242, 0.1);
+
+        .logo-wrapper {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          a {
+            height: 53px;
+            width: max-content;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            img {
+              height: 34px;
+            }
+
+            i {
+              --Iconsax-Size: 18px;
+              --Iconsax-Color: White;
+            }
+          }
+
+          .close-sidebar {
+            color: $white;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            display: none;
+
+            @media (max-width: 991px) {
+              display: flex;
+            }
+          }
+        }
+      }
+
+      .sidebar-menu {
+        list-style: $sidebar-menu-list-style;
+        margin: $sidebar-menu-list-margin;
+        padding: $sidebar-menu-padding;
+
+        .sidebar-main-title {
+          border-top: 1px solid rgba($sidebar-font-color, 0.15);
+          margin-top: 12px;
+          padding-top: 20px;
+          padding-bottom: 10px;
+
+          div {
+            h6 {
+              font-size: 14px;
+              font-weight: 500;
+              color: rgba($white, 0.8);
+              text-transform: uppercase;
+              margin-bottom: 0;
+              letter-spacing: 0.75px;
+            }
+          }
+
+          &:first-child {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+          }
+        }
+
+        li {
+          width: 100%;
+
+          .sidebar-header {
+            font-size: $sidebar-font-size;
+            letter-spacing: $sidebar-letter-spacing;
+            padding: $sidebar-padding-top-bottom 0;
+            text-transform: $sidebar-txt-transform;
+            font-weight: $sidebar-font-weight;
+            color: rgba($sidebar-font-color, 0.9);
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 8px;
+
+            .stroke-icon {
+              width: 18px;
+              height: 18px;
+              stroke: white;
+              margin-left: auto;
+              margin-right: 0;
+              // transform: rotate(-90deg);
+              filter: invert(1) brightness(100);
+              transition: all 0.25s ease;
+            }
+
+            .inactive-icon {
+              margin-right: $sidebar-icon-margin;
+              stroke-width: $sidebar-icon-stroke-width;
+              vertical-align: text-bottom;
+              width: 20px;
+              height: 20px;
+              filter: invert(1) brightness(100);
+            }
+
+            svg {
+              margin-right: $sidebar-icon-margin;
+              stroke-width: $sidebar-icon-stroke-width;
+              vertical-align: text-bottom;
+              width: 20px;
+              height: 20px;
+            }
+
+            .active-icon {
+              width: 20px;
+              height: 20px;
+            }
+
+            &.active {
+              .feather {
+                display: none;
+              }
+
+              .active-icon {
+                display: block;
+              }
+            }
+          }
+
+          .sidebar-submenu {
+            display: none;
+            transform-style: preserve-3d;
+            transform: rotateX(-90deg);
+            list-style: none;
+            position: relative;
+
+            &:before {
+              content: "";
+              width: 1px;
+              height: calc(100% - 16px);
+              background-color: $sidebar-font-color;
+              position: absolute;
+              left: -7px;
+              top: -7px;
+            }
+
+            > li {
+              padding-left: 12px;
+              position: relative;
+              .badge {
+                margin-left: auto;
+                background-color: rgba(84, 101, 255, 0.4);
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 0;
+              }
+              > a {
+                padding: $sidebar-padding-top-bottom 0;
+                font-size: 14px;
+                color: rgba($sidebar-font-color, 0.5);
+                transition: $sidebar-transition;
+                text-transform: $sidebar-text-transform;
+                position: relative;
+                padding-left: 10px;
+                line-height: 2.5;
+                letter-spacing: 0.7px;
+
+                &:before {
+                  content: "";
+                  position: absolute;
+                  top: 0;
+                  width: 16px;
+                  height: 26px;
+                  border-bottom-left-radius: 9px;
+                  border-left: 1.5px solid $sidebar-font-color;
+                  border-bottom: 1.5px solid $sidebar-font-color;
+                  left: -19px;
+                }
+
+                &:hover {
+                  color: $sidebar-font-color;
+                  font-weight: 600;
+                }
+
+                &.active {
+                  color: $sidebar-font-color;
+                  font-weight: 600;
+
+                  &:after {
+                    content: "";
+                    position: absolute;
+                    height: 7px;
+                    width: 7px;
+                    border-right: 1.5px solid $sidebar-font-color;
+                    border-bottom: 1.5px solid $sidebar-font-color;
+                    top: 22px;
+                    transform: rotate(318deg);
+                    left: -10px;
+                  }
+
+                  ~.badge{
+                    background-color: rgba(84, 101, 255, 0.6);
+                  }
+                }
+              }
+
+              &.active > a {
+                color: $theme-body-font-color;
+
+                &.active {
+                  color: $primary-color;
+                }
+              }
+            }
+
+            &.menu-open {
+              display: block;
+              transform: rotateX(0deg);
+              transform-origin: 10% 10%;
+              transition: transform 0.3s, opacity 0.3s;
+              transform-style: preserve-3d;
+              margin-left: 23px;
+
+              li {
+                &.active {
+                  .fa-angle-down {
+                    &:before {
+                      content: "\f104";
+                      transition: $sidebar-transition;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.active {
+            .stroke-icon {
+              transform: rotate(90deg);
+              transition: all 0.25s ease;
+            }
+          }
+        }
+
+        > li {
+          > a {
+            display: block;
+            transition: $sidebar-transition;
+
+            span {
+              line-height: 1;
+              transform: translateX(0px);
+              transition: all 0.3s ease;
+            }
+
+            &:hover {
+              span {
+                transform: translateX(3px);
+                transition: all 0.3s ease;
+              }
+            }
+
+            &.active {
+              font-weight: 600;
+
+              .without-active {
+                display: none;
+              }
+
+              .inactive-icon {
+                display: none;
+              }
+
+              .active-icon {
+                display: none;
+                filter: invert(1) brightness(100);
+                margin-right: 14px;
+              }
+            }
+
+            .active-icon {
+              display: none;
+            }
+
+            i {
+              --Iconsax-Size: 20px;
+              --Iconsax-Color: White;
+            }
+          }
+        }
+      }
+
+      ~ .page-body {
+        margin-left: $sidebar-width;
+        transition: $sidebar-transition;
+
+        @media (max-width: 1199.98px) {
+          margin-left: 0;
+        }
+      }
+
+      &.open {
+        display: block;
+        margin-left: calc(-#{$sidebar-width + 5px});
+
+        @media (max-width: 1199.98px) {
+          margin-left: 0;
+        }
+
+        ~ .page-body {
+          margin-left: 0;
+          transition: $sidebar-transition;
+
+          @media (max-width: 1199.98px) {
+            margin-left: $sidebar-width;
+          }
+
+          @media (max-width: 575.98px) {
+            margin: 0;
+          }
+        }
+
+        ~ footer {
+          margin-left: 0;
+          padding-right: 15px;
+        }
+      }
+    }
+
+    .sidebar-close {
+      .page-sidebar {
+        transition: $sidebar-transition;
+        transform: translate(-$sidebar-width);
+      }
+
+      .page-body {
+        transition: $sidebar-transition;
+        margin-left: 0 !important;
+      }
+    }
+  }
+}
+
+/**=====================
+    Sidebar CSS Ends
+==========================**/

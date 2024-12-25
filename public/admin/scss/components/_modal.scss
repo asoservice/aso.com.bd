@@ -1,0 +1,304 @@
+/**=====================
+      Modal CSS Start
+==========================**/
+.modal {
+    z-index: 13;
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        border-top: 6px solid $primary-color;
+
+        .modal-header {
+            h5 {
+                font-size: 20px;
+                margin-bottom: 0;
+                text-transform: capitalize;
+                font-weight: 600;
+                line-height: 25px;
+                color: $dark-color;
+            }
+
+            .btn-close {
+                background: unset;
+                opacity: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img,
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    color: $dark-color;
+                }
+            }
+        }
+
+        .modal-body {
+            padding: calc(16px + (32 - 16) * ((100vw - 320px) / (1920 - 320)));
+            padding-bottom: 12px;
+
+            .main-img {
+                // padding: 30px;
+                background-color: rgba($input-bg, 0.4);
+                width: 80px;
+                height: 80px;
+                border-radius: 100%;
+                margin: 0 auto;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    --Iconsax-Size: calc(30px + (50 - 30) * ((100vw - 320px) / (1920 - 320)));
+                    --Iconsax-Color: #00162E;
+                    background-color: rgba($input-bg, 0.4);
+                }
+
+                img,
+                svg {
+                    width: 39px;
+                    height: auto;
+                    color: rgba($dark-color, 0.75);
+                }
+            }
+
+            .text-center {
+                margin: 0 calc(0px + (40 - 0) * ((100vw - 320px) / (1920 - 320)));
+            }
+
+            .modal-title {
+                font-weight: 500;
+                color: rgba($dark-color, 0.88);
+                font-size: calc(17px + (23 - 17) * ((100vw - 320px) / (1920 - 320)));
+                margin-bottom: 7px;
+            }
+
+            p {
+                font-size: 14px;
+                color: $tab-border;
+                white-space: normal;
+                line-height: 1.5;
+            }
+        }
+    }
+
+    &.wallet-modal {
+        .modal-content {
+            .modal-body {
+                padding: 1rem;
+
+
+                .col-md-2 {
+                    width: 100%;
+                }
+
+                .col-md-10 {
+                    width: 100%;
+                }
+
+                .form-group {
+                    margin-bottom: 0;
+                }
+
+                .wallet {
+                    h5 {
+                        font-size: 16px;
+                        margin: 0;
+                        color: rgba($dark-color, 0.8);
+                    }
+
+                    h3 {
+                        font-size: 20px;
+                        font-weight: 500;
+                        line-height: 1;
+                        color: $dark-color;
+                    }
+                }
+
+                .wallet-icon {
+                    height: 40px;
+                    width: 40px;
+                    padding: 0;
+                    background-color: unset;
+                    color: $primary-color;
+                }
+            }
+
+            .modal-footer {
+                .btn {
+                    margin: 0;
+                    width: 100%;
+                    padding: 0.75rem;
+                    justify-content: center;
+
+                    svg {
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .submit-form {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        width: max-content;
+        margin-left: auto;
+        margin-top: 24px;
+
+        input {
+            background: $transparent-color;
+            border: none;
+            box-shadow: none;
+            color: $white;
+        }
+    }
+
+    &.withdrow-modal {
+        .modal-body {
+            padding: 1rem;
+
+            .form-group {
+                .col-md-10 {
+                    width: 100%;
+                }
+            }
+
+            textarea {
+                &.form-control {
+                    min-height: 80px;
+                }
+            }
+
+            .modal-message {
+                color: $dark-color;
+                opacity: 0.8;
+            }
+        }
+
+        .modal-footer {
+            justify-content: center;
+
+            .submit-form {
+                margin: 0;
+                width: 100%;
+                justify-content: center;
+                font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+                padding: 0.75rem;
+
+                input {
+                    line-height: 1.25;
+                }
+            }
+        }
+    }
+
+    padding-left: 0 !important;
+}
+
+.modal-header {
+    padding: 1rem;
+}
+
+.modal-footer {
+    padding: 1rem;
+    border: none;
+    gap: 12px;
+    flex-wrap: nowrap;
+
+    .btn {
+        margin: 0 !important;
+    }
+
+    &.category-footer {
+        .btn {
+            margin: 0;
+        }
+
+        input {
+            background-color: $transparent-color;
+            border: none;
+            color: $white;
+            font-size: 16px;
+
+            &.confirm {
+                background-color: $primary-color;
+            }
+        }
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0;
+    }
+
+    .cancel {
+        width: 100%;
+        background-color: rgba($dark-color, 0.04);
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem;
+        color: rgba($dark-color, 0.8);
+        font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+
+        &:active {
+            background-color: rgba($dark-color, 0.04);
+            color: rgba($dark-color, 0.8);
+        }
+    }
+
+    .delete,
+    .confirm {
+        width: 100%;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem;
+        color: $white;
+        font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+    }
+
+    .rejected,
+    .accepted {}
+
+}
+
+.service-man {
+    .modal-body {
+        padding: 20px !important;
+    }
+
+    .service-man-detail {
+        .form-group {
+            .col-md-2 {
+                width: 100%;
+            }
+
+            .col-md-10 {
+                width: 100%;
+            }
+        }
+    }
+
+    .assign-btn {
+        background-color: $primary-color;
+        color: $white;
+        padding: 10px 18px;
+        border-radius: 8px;
+    }
+}
+
+.modal-backdrop {
+    z-index: 12;
+}
+
+/**=====================
+      Modal CSS End
+==========================**/

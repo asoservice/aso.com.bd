@@ -1,0 +1,31 @@
+.email-template-box {
+  height: 40rem;
+  box-shadow: none;
+  .card-body {
+    background-color: #f8f9f9;
+    border-radius: 6px;
+  }
+
+  .card-title{
+    border-bottom: 1px solid #edeff1;
+    padding-bottom: 9px;
+    color: #00162ea3;
+    font-weight: 500;
+  }
+  .card-text {
+    &:empty {
+      display: none;
+    }
+  }
+
+  .email-btn{
+    // display: inline-block;
+    margin-top: 15px;
+    border-top: 1px solid #edeff1;
+    padding-top: 15px;
+  }
+
+  .card-footer{
+    border-top: 1px dashed rgba(0, 22, 46, 0.1);
+  }
+}

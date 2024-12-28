@@ -714,7 +714,7 @@ $homePage = Helpers::getCurrentHomePage();
 
             // Function to fetch services
             const fetchServices = debounce(function(query) {
-                $.get('{{ route('frontend.service.search') }}', {query: query},
+                $.get("{{ route('frontend.service.search') }}", {query: query},
                     function(data) {
                         const resultsContainer = $('#searchResults');
                         resultsContainer.empty(); // Clear previous results
@@ -758,7 +758,7 @@ $homePage = Helpers::getCurrentHomePage();
             $('#findServiceBtn').on('click', function() {
                 let searchTerm = $('#searchInput').val().trim();
                 if (searchTerm) {
-                    window.location.href = '{{ route('frontend.service.index') }}?search=' + encodeURIComponent(searchTerm);
+                    window.location.href = "{{ route('frontend.service.index') }}?search=" + encodeURIComponent(searchTerm);
                 }
             });
 

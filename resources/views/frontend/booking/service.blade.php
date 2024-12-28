@@ -337,7 +337,7 @@
                                 @forelse($cart as $cartItem)
                                 @php
                                 $service = Helpers::getServiceById($cartItem['service_id']);
-                                $provider =Helpers::getProviderById($service?->user_id);
+                                $provider = Helpers::getProviderById($service?->user_id);
                                 @endphp
                                 <div class="cart-item">
                                     <div class="cart-heading">

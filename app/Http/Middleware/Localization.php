@@ -16,14 +16,22 @@ class Localization
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $locale = null;
+
         if (Session::has('locale')) {
-            app()->setLocale(Session::get('locale'));
+            $locale = Session::get('locale');
         } elseif ($request->hasHeader("Accept-Language")) {
-            app()->setLocale($request->header("Accept-Language"));
-        } else {
-            app()->setLocale(app()->getLocale());
+            $locale = $request->header("Accept-Language");
         }
-        
+    
+        // Validate if the locale is supported
+        $supportedLocales = ['en', 'en_US', 'ar_SA', 'bn_BD']; // Add all your supported locales here
+        if ($locale && in_array($locale, $supportedLocales)) {
+            app()->setLocale($locale);
+        } else {
+            app()->setLocale('en'); // Fallback to default locale
+        }
+            
         return $next($request);
     }
 }

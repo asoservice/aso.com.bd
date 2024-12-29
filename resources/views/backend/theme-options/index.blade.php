@@ -216,7 +216,7 @@ $providers = Helpers::getProviders()?->pluck('name', 'id');
                                     <div class="form-group row">
                                         <label class="col-md-2" for="general[app_store_url]">{{ __('App Store link') }}</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="general[app_store_url]" name="general[app_store_url]" value="{{ $themeOptions['general']['app_store_url'] ?? old('general[app_store_url]') }}" placeholder="{{ _('Enter App Store link') }}">
+                                            <input class="form-control" type="text" id="general[app_store_url]" name="general[app_store_url]" value="{{ $themeOptions['general']['app_store_url'] ?? old('general[app_store_url]') }}" placeholder="{{ __('Enter App Store link') }}">
                                             @error('general[app_store_url]')
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -228,7 +228,7 @@ $providers = Helpers::getProviders()?->pluck('name', 'id');
                                     <div class="form-group row">
                                         <label class="col-md-2" for="general[google_play_store_url]">{{ __('Google play store link') }}</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="general[google_play_store_url]" name="general[google_play_store_url]" value="{{ $themeOptions['general']['google_play_store_url'] ?? old('general[google_play_store_url]') }}" placeholder="{{ _('Enter google play store link') }}">
+                                            <input class="form-control" type="text" id="general[google_play_store_url]" name="general[google_play_store_url]" value="{{ $themeOptions['general']['google_play_store_url'] ?? old('general[google_play_store_url]') }}" placeholder="{{ __('Enter google play store link') }}">
                                             @error('general[google_play_store_url]')
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -1054,7 +1054,7 @@ $providers = Helpers::getProviders()?->pluck('name', 'id');
                                                 <input class="form-control" type="text"
                                                     id="about_us[provider_title]" name="about_us[provider_title]"
                                                     value="{{ $themeOptions['about_us']['provider_title'] ?? old('about_us[provider_title]') }}"
-                                                    placeholder="{{ _('Enter Title') }}">
+                                                    placeholder="{{ __('Enter Title') }}">
                                                 @error('about_us[provider_title]')
                                                 <span class="invalid-feedback d-block" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -1122,7 +1122,7 @@ $providers = Helpers::getProviders()?->pluck('name', 'id');
                                                     id="about_us[testimonial_title]"
                                                     name="about_us[testimonial_title]"
                                                     value="{{ $themeOptions['about_us']['testimonial_title'] ?? old('about_us[testimonial_title]') }}"
-                                                    placeholder="{{ _('Enter Title') }}">
+                                                    placeholder="{{ __('Enter Title') }}">
                                                 @error('about_us[testimonial_title]')
                                                 <span class="invalid-feedback d-block" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -1323,7 +1323,7 @@ $providers = Helpers::getProviders()?->pluck('name', 'id');
                                     <div class="form-group row">
                                         <label class="col-md-2" for="authentication[title]">{{ __('Heading') }}</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="authentication[title]" name="authentication[title]" value="{{ $themeOptions['authentication']['title'] ?? old('authentication[title]') }}" placeholder="{{ _('Enter App Store link') }}">
+                                            <input class="form-control" type="text" id="authentication[title]" name="authentication[title]" value="{{ $themeOptions['authentication']['title'] ?? old('authentication[title]') }}" placeholder="{{ __('Enter App Store link') }}">
                                             @error('authentication[title]')
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -1335,7 +1335,7 @@ $providers = Helpers::getProviders()?->pluck('name', 'id');
                                     <div class="form-group row">
                                         <label class="col-md-2" for="authentication[description]">{{ __('Description') }}</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="authentication[description]" name="authentication[description]" value="{{ $themeOptions['authentication']['description'] ?? old('authentication[description]') }}" placeholder="{{ _('Enter App Store link') }}">
+                                            <input class="form-control" type="text" id="authentication[description]" name="authentication[description]" value="{{ $themeOptions['authentication']['description'] ?? old('authentication[description]') }}" placeholder="{{ __('Enter App Store link') }}">
                                             @error('authentication[description]')
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $message }}</strong>

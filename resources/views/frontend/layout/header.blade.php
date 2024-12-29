@@ -17,7 +17,7 @@
                                 <img src="{{ asset($themeOptions['general']['header_logo']) }}" alt="">
                                 @endisset
                             </a>
-                            @if(Helpers::isZoneExists())
+                            {{-- @if(Helpers::isZoneExists())
                             <div class="dropdown location-dropdown d-md-flex">
                                 <button id="add-btn" class="location-btn">
                                     <i class="iconsax" icon-name="location"></i>
@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
+                            @endif --}}
                         </div>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="navbar-header d-xl-none d-flex">

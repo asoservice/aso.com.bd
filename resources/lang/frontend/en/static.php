@@ -547,5 +547,9 @@ return [
         'country' => 'Country',
         'submit' => 'Submit'
     ],
+
+    'affiliate_dashboard' =>[
+        'title' => 'Affiliate Dashboard',
+    ],
 ];
  

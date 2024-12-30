@@ -19,6 +19,9 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 
 <!-- Bootstrap css-->
+<link rel="stylesheet" rel="preload" type="text/css" href="{{ asset('frontend/css/afstyle.css') }}">
+
+<!-- Bootstrap css-->
 <link rel="stylesheet" rel="preload" type="text/css" href="{{ asset('frontend/css/vendors/swiper-bundle.min.css') }}">
 
 <!-- Bootstrap css-->

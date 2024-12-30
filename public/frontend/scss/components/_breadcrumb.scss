@@ -44,7 +44,7 @@
 }
 
 .breadcrumb-section {
-    padding-block: calc(90px + (154 - 90) * ((100vw - 320px) / (1920 - 320))) calc(28px + (61 - 28) * ((100vw - 320px) / (1920 - 320)));
+    padding-block: calc(90px + .04*(0vw - 320px)) calc(2px + (61 - 28) * ((100vw - 320px) / (1920 - 320)));
 
     .breadcrumb-contain {
         @include flex_common;

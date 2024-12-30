@@ -2,7 +2,9 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "start": "concurrently \"php artisan serve\" \"vite\"",
+        "clear": "concurrently \"php artisan route:clear\" \"php artisan cache:clear\" \"php artisan config:clear\" \"php artisan view:clear\" \"php artisan event:clear\""
     },
     "devDependencies": {
         "axios": "^0.21",
@@ -22,6 +24,7 @@
         "@popperjs/core": "^2.9.2",
         "alpinejs": "^3.12.3",
         "ckeditor": "^4.12.1",
+        "concurrently": "^9.1.1",
         "datatables.net": "^1.10.25",
         "feather-icons": "^4.29.0",
         "font-awesome": "^4.7.0",

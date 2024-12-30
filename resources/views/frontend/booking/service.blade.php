@@ -337,7 +337,7 @@
                                 @forelse($cart as $cartItem)
                                 @php
                                 $service = Helpers::getServiceById($cartItem['service_id']);
-                                $provider =Helpers::getProviderById($service?->user_id);
+                                $provider = Helpers::getProviderById($service?->user_id);
                                 @endphp
                                 <div class="cart-item">
                                     <div class="cart-heading">
@@ -368,11 +368,11 @@
                                                 <ul class="date">
                                                     <li class="d-flex align-items-center gap-1">
                                                         <i class="iconsax" icon-name="calendar-1"></i>
-                                                        <span>{{ \Carbon\Carbon::parse($cartItem['date_time'])?->format('j F, Y');  }}</span>
+                                                        <span>{{ \Carbon\Carbon::parse($cartItem['date_time'])?->format('j F, Y')  }}</span>
                                                     </li>
                                                     <li class="d-flex align-items-center gap-1">
                                                         <i class="iconsax" icon-name="clock"></i>
-                                                        <span>{{ \Carbon\Carbon::parse($cartItem['date_time'])?->format('g:i A');  }}</span>
+                                                        <span>{{ \Carbon\Carbon::parse($cartItem['date_time'])?->format('g:i A')  }}</span>
                                                     </li>
                                                 </ul>
                                                 @endif

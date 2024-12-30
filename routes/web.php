@@ -64,6 +64,11 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     // Home
     Route::get('/', 'HomeController@index')->name('home');
 
+    // Become a Affiliate
+    Route::get('become-affiliate', 'BecomeAffiliateController@index')->name('becomeAffiliate.index');
+
+    Route::get('affiliate-dashboard','AffiliateDashboardController@dashboard')->name('affiliate_dashboard.index');
+
     // Category
     Route::get('category', 'CategoryController@index')->name('category.index');
 

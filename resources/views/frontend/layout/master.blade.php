@@ -24,15 +24,7 @@ $lang = Helpers::getLanguageByLocale(Session::get('locale', 'en'));
     <!-- Home Section Start -->
     <section class="breadcrumb-section ratio_18">
         <img src="{{asset('frontend/images/bg.jpg')}}" alt="bg" class="bg-img">
-        <div class="container-fluid-lg">
-            <div class="breadcrumb-contain">
-                <div>
-                    <h2><span>@yield('title')</span></h2>
-                    <p>{{ $themeOptions['general']['breadcrumb_description'] }}</p>
-                    @yield('breadcrumb')
-                </div>
-            </div>
-        </div>
+        
     </section>
     <!-- Home Section End -->
     @endif

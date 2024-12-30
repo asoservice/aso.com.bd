@@ -1,0 +1,167 @@
+
+.hero__item {
+    display: flex;
+    align-items: center;
+    /* padding-left: 75px; */
+    /* padding-top: 75px; */
+}
+
+.hero__text h2 {
+	font-size: 46px;
+	color: #252525;
+	line-height: 52px;
+	font-weight: 700;
+	margin: 10px 0;
+}
+
+.hero__text p {
+    margin-bottom: 35px;
+    font-size: 31px;
+    line-height: 1;
+}
+
+.hero__text a:hover {
+    color: #fff;
+}
+
+.set-bg {
+    padding-top: 75px;
+}
+
+.primary-btn {
+	display: inline-block;
+	font-size: 14px;
+	padding: 10px 28px 10px;
+	color: #ffffff;
+	text-transform: uppercase;
+	font-weight: 700;
+	background: linear-gradient(144deg,#92e92e 7.85%,#009417 103.28%);
+	letter-spacing: 2px;
+    border-radius: 10px;
+}
+
+.content-nav{
+    padding: 0.7px 0;
+}
+
+.nav-tabs .nav-link.active {
+    color: #FF9500 !important;
+    border-bottom: 2px solid #FF9500 !important;
+}
+
+
+.nav-tabs .nav-link, .nav-tabs .nav-link {
+    border: none !important;
+    color: #000 !important;
+}
+
+.nav-tabs:hover{
+    color: #000 !important;
+}
+
+.content-nav ul{
+    width: 50%;
+    margin:  auto ; 
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    padding: 0 0 0 0;
+    border-bottom: none;
+}
+
+.content-nav ul li{
+    list-style: none;
+    display: block;
+    padding: 0px 10px;
+}
+
+@media(max-width:976px){
+    .content-nav ul{
+    width: 80%;
+    }
+}
+
+@media(max-width: 570px){
+    .content-nav ul{
+        width: 90%;
+        justify-content:space-between;
+    }
+
+    .content-nav ul li{
+        padding: 15px 0px;
+
+    }
+    .content-nav-flex-2 ul{
+        justify-content: space-around;
+
+    }
+}
+
+.content-area{
+    margin:auto;
+}
+
+@media(max-width:976px){
+    .content-area{
+        width: 80%;
+    }
+}
+
+@media(max-width:576px){
+    .content-area{
+        width: 90%;
+    }
+}
+
+.content-banner img{
+    border-radius: 5px;
+    margin-top: 17px;
+    width: 100%;
+}
+
+.content-title{
+    font-weight: bold;
+    text-align: center;
+    color: #f85606;
+}
+
+.tab_text {
+	padding-top: 44px;
+}
+
+.tab_text h3 {
+	font-weight: 700;
+	font-size: 25px;
+}
+
+.tab_text p {
+	color: #666666;
+    line-height: 27px;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.tab_text span {
+    color: #666666;
+    line-height: 27px;
+    font-size: 17px;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+.income_tab_text h3 {
+	font-weight: 700;
+	font-size: 25px;
+}
+
+.income_tab_text p {
+	color: #666666;
+    line-height: 27px;
+}
+
+div.sticky {
+    position: sticky !important;
+    top: 82px !important;
+    font-size: 20px;
+    background: #fff;
+}

@@ -1,4 +1,5 @@
 /.phpunit.cache
+/composer.lock
 /node_modules
 /public/build
 /public/mix_build
@@ -27,3 +28,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+package-lock.json
+composer.lock
+yarn.lock

@@ -59,6 +59,9 @@
                         <li class="nav-item" role="presentation">
                             <a href="#income"><button class="nav-link" id="contact-tab" type="button" aria-selected="false">Income</button></a>
                         </li>
+                        <li class="nav_button">
+                            <a href="#" class="primary-btn">Join Now</a>
+                        </li>
                     </ul>
                 </div>
             </div>

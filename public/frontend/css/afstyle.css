@@ -83,17 +83,19 @@
 
 @media(max-width: 570px){
     .content-nav ul{
-        width: 90%;
-        justify-content:space-between;
+        width: 80%;
     }
 
     .content-nav ul li{
-        padding: 15px 0px;
+        padding: 0px 0px;
 
     }
     .content-nav-flex-2 ul{
         justify-content: space-around;
 
+    }
+    div.sticky {
+        top: 59px !important;
     }
 }
 
@@ -164,4 +166,12 @@ div.sticky {
     top: 82px !important;
     font-size: 20px;
     background: #fff;
+    scroll-behavior: smooth;
+}
+
+.nav_button a {
+    font-size: 10px !important;
+}
+.nav_button a:hover {
+    color: #fff;
 }

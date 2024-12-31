@@ -17,6 +17,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 @push('js')
 <script src="{{ asset('admin/js/apex-chart.js') }}"></script>

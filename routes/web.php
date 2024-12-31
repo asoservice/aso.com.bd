@@ -66,6 +66,7 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
 
     // Become a Affiliate
     Route::get('become-affiliate', 'BecomeAffiliateController@index')->name('becomeAffiliate.index');
+    Route::get('join-affiliate/{id}', 'BecomeAffiliateController@join_affiliate')->name('becomeAffiliate.index');
 
     Route::get('affiliate-dashboard','AffiliateDashboardController@dashboard')->name('affiliate_dashboard.index');
 

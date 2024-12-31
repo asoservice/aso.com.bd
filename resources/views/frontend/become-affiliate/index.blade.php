@@ -28,6 +28,8 @@
 </style>
 @endpush
 
+
+
 @section('content')
     <div class="container mt-5">
         <div class="row">
@@ -36,7 +38,17 @@
                     <div class="hero__text">
                         <h2>Become an aso Affiliate</h2>
                         <p>Join the aso Affiliate Program and start earning by recommending service provider and their service.</p>
-                        <a href="#" class="primary-btn">Join Now</a>
+                        @if(Auth::check())
+                        @php
+                            $user = App\Models\User::find(Auth::user()->id);
+                            $checkRole = $user->hasRole('Marketer');
+                        @endphp
+                        @if($checkRole)
+                        <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
+                        @else
+                        <a href="{{url('join-affiliate')}}/{{ Auth::user()->id }}" class="primary-btn">Join Now</a>
+                        @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -60,7 +72,17 @@
                             <a href="#income"><button class="nav-link" id="contact-tab" type="button" aria-selected="false">Income</button></a>
                         </li>
                         <li class="nav_button">
-                            <a href="#" class="primary-btn">Join Now</a>
+                            @if(Auth::check())
+                            @php
+                                $user = App\Models\User::find(Auth::user()->id);
+                                $checkRole = $user->hasRole('Marketer');
+                            @endphp
+                            @if($checkRole)
+                            <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
+                            @else
+                            <a href="{{url('join-affiliate')}}/{{ Auth::user()->id }}" class="primary-btn">Join Now</a>
+                            @endif
+                            @endif
                         </li>
                     </ul>
                 </div>

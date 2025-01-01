@@ -29,7 +29,6 @@ Route::get('set-currency/{currency}', function ($currency) {
     session(['currency' => $currency]);
     return redirect()->back();
 })->name('set.currency');
-
 Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     Route::middleware(['guest'])->group(function () {
         Route::get('login', 'LoginController@index')->name('login.index');
@@ -65,7 +64,10 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::get('/', 'HomeController@index')->name('home');
 
     // Become a Affiliate
+    Route::get('join-affiliate', 'BecomeAffiliateController@joinAffiliate')->name('becomeAffiliate.join');
+
     Route::get('become-affiliate', 'BecomeAffiliateController@index')->name('becomeAffiliate.index');
+
 
     Route::get('affiliate-dashboard','AffiliateDashboardController@dashboard')->name('affiliate_dashboard.index');
 
@@ -117,7 +119,7 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::resource('address', 'AddressController', ['except' => ['show']]);
 
     // Subscribe
-    Route::post('subscribe', action: 'SubscribeController@store')->name('subscribe');
+    Route::post('subscribe', 'SubscribeController@store')->name('subscribe');
 
     // Comment
     Route::post('blogs/{blog}/comments', 'CommentController@store')->middleware('auth')->name('comments.store');
@@ -127,7 +129,7 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::get('privacy-policy', 'PageController@privacy')->name('privacy.index');
     Route::get('terms-conditions', 'PageController@terms')->name('terms.index');
 
-    Route::group(['middleware' => ['auth']], routes: function () {
+    Route::group(['middleware' => ['auth']], function () {
 
         // Account
         Route::get('account/profile', 'AccountController@profile')->name('account.profile.index');

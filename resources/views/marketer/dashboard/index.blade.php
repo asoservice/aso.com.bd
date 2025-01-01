@@ -16,7 +16,7 @@
             <div class="col-12">
                 <a href="javascript:void(0)" class="widget-card card">
                     <div>
-                        {{ Auth::user()->roles->pluck('name') }}
+                        
                         @role('admin')
                         <h3>{{ Helpers::getDefaultCurrencySymbol() }}{{ array_sum($data['revenues'] ?? []) }}</h3>
                         @elserole('provider')

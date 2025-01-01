@@ -47,9 +47,11 @@
                             @endphp
                             @if($checkRole)
                                 <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                            @else
-                                <a href="{{ route('becomeAffiliate.join', Auth::id()) }}" class="primary-btn">Join Now</a>
                             @endif
+                        @endif
+                        @if($checkRole)
+                        @else
+                        <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                         @endif
                     </div>
                 </div>
@@ -81,9 +83,12 @@
                             @endphp
                             @if($checkRole)
                             <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                            @else
-                            <a href="{{url('join-affiliate')}}/{{ Auth::user()->id }}" class="primary-btn">Join Now</a>
                             @endif
+                            @endif
+
+                            @if($checkRole)
+                            @else
+                            <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                             @endif
                         </li>
                     </ul>

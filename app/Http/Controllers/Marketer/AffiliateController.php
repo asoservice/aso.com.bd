@@ -46,4 +46,28 @@ class AffiliateController extends Controller
     {
         return view($this->path.'.pages.marketing_guidelines');
     }
+    public function customer_affiliate()
+    {
+        return view($this->path.'.pages.customer_affiliate');
+    }
+    public function provider_affiliate()
+    {
+        return view($this->path.'.pages.provider_affiliate');
+    }
+    public function downline_marketer()
+    {
+        return view($this->path.'.pages.downline_marketer');
+    }
+    public function order_comm_reports()
+    {
+        return view($this->path.'.pages.order_comm_reports');
+    }
+    public function campaign_reports()
+    {
+        return view($this->path.'.pages.campaign_reports');
+    }
+    public function referrals_history()
+    {
+        return view($this->path.'.pages.referrals_history');
+    }
 }

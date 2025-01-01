@@ -28,7 +28,9 @@
 </style>
 @endpush
 
-
+@php
+    $routes = ['faq-category'=> route('backend.faq-category.index')]
+@endphp
 
 @section('content')
     <div class="container mt-5">

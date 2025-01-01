@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('status', ['published', 'draft', 'archived'])->default('draft');
             $table->integer('helpful_votes')->unsigned()->default(0);
             $table->integer('not_helpful_votes')->unsigned()->default(0);
-            $table->foreignId('created_by')->constrained('support_users', 'user_id');
+            $table->foreignId('created_by')->constrained('users', 'user_id');
             $table->timestamps();
 
             $table->index('status');

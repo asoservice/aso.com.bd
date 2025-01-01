@@ -13,7 +13,7 @@ class BecomeAffiliateController extends Controller
         return view('frontend.become-affiliate.index');
     }
 
-    public function join_affiliate($id)
+    public function joinAffiliate($id)
     {
         $user = User::find($id);
 

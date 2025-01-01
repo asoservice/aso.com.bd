@@ -66,7 +66,7 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
 
     // Become a Affiliate
     Route::get('become-affiliate', 'BecomeAffiliateController@index')->name('becomeAffiliate.index');
-    Route::get('join-affiliate/{id}', 'BecomeAffiliateController@join_affiliate')->name('becomeAffiliate.index');
+    Route::get('join-affiliate/{id}', 'BecomeAffiliateController@joinAffiliate')->name('becomeAffiliate.join');
 
     Route::get('affiliate-dashboard','AffiliateDashboardController@dashboard')->name('affiliate_dashboard.index');
 
@@ -118,7 +118,7 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::resource('address', 'AddressController', ['except' => ['show']]);
 
     // Subscribe
-    Route::post('subscribe', action: 'SubscribeController@store')->name('subscribe');
+    Route::post('subscribe', 'SubscribeController@store')->name('subscribe');
 
     // Comment
     Route::post('blogs/{blog}/comments', 'CommentController@store')->middleware('auth')->name('comments.store');
@@ -128,7 +128,7 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::get('privacy-policy', 'PageController@privacy')->name('privacy.index');
     Route::get('terms-conditions', 'PageController@terms')->name('terms.index');
 
-    Route::group(['middleware' => ['auth']], routes: function () {
+    Route::group(['middleware' => ['auth']], function () {
 
         // Account
         Route::get('account/profile', 'AccountController@profile')->name('account.profile.index');

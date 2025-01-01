@@ -23,7 +23,7 @@
 @push('css')
 <style>
     .breadcrumb-section {
-    padding: 50px !important;!i;!;
+    padding: 50px !important;
 }
 </style>
 @endpush
@@ -39,15 +39,15 @@
                         <h2>Become an aso Affiliate</h2>
                         <p>Join the aso Affiliate Program and start earning by recommending service provider and their service.</p>
                         @if(Auth::check())
-                        @php
-                            $user = App\Models\User::find(Auth::user()->id);
-                            $checkRole = $user->hasRole('Marketer');
-                        @endphp
-                        @if($checkRole)
-                        <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                        @else
-                        <a href="{{url('join-affiliate')}}/{{ Auth::user()->id }}" class="primary-btn">Join Now</a>
-                        @endif
+                            @php
+                                $user = App\Models\User::find(Auth::user()->id);
+                                $checkRole = $user->hasRole('Marketer');
+                            @endphp
+                            @if($checkRole)
+                                <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
+                            @else
+                                <a href="{{ route('becomeAffiliate.join', Auth::id()) }}" class="primary-btn">Join Now</a>
+                            @endif
                         @endif
                     </div>
                 </div>

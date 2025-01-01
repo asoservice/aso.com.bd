@@ -13,7 +13,7 @@
 <div class="row g-sm-4 g-3">
     <div class="card">
         <div class="card-header">
-            <h4><b>@lang('static.marketer.provider_affiliate_links')</b></h4>
+            <h4>@lang('static.marketer.provider_affiliate_links')</h4>
             <div class="btn-action">
                 <div class="row">
                     <div class="col-6">

@@ -147,7 +147,6 @@
                                                     <ul>
                                                         <li>Our Privacy Policy might get updated periodically. If we do, we will inform you by updating the Privacy Policy on this page.</li>
                                                         <li>We will bring it to your knowledge via email or clear notice on our website before any changes to this Privacy Policy take effect. Remember to check this Privacy Policy from time to time for updates. Changes are effective when posted here.</li>
-                                                    
                                                     </ul>
                                                 </div>
                                             </div>

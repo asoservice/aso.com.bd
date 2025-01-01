@@ -13,7 +13,19 @@
 <div class="row g-sm-4 g-3">
     <div class="card">
         <div class="card-header">
-            <h4>@lang('static.marketer.campaigns')</h4>
+            <h4><b>@lang('static.marketer.campaigns')</b></h4>
+            <div class="btn-action">
+                <div class="row">
+                    <div class="col-6">
+                        <h4 style="color: #009417;"><b>৳ 230.32</b></h4>
+                        <span>My Affiliate Earnings (Last 30 days)</span>
+                    </div>
+                    <div class="col-6">
+                        <h4 style="color:rgb(243, 13, 9);"><b>৳ 510.32</b></h4>
+                        <span>Affiliate Wallet Balance</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

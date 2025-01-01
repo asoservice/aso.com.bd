@@ -29,7 +29,6 @@ Route::get('set-currency/{currency}', function ($currency) {
     session(['currency' => $currency]);
     return redirect()->back();
 })->name('set.currency');
-
 Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     Route::middleware(['guest'])->group(function () {
         Route::get('login', 'LoginController@index')->name('login.index');
@@ -65,8 +64,10 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::get('/', 'HomeController@index')->name('home');
 
     // Become a Affiliate
+    Route::get('join-affiliate', 'BecomeAffiliateController@joinAffiliate')->name('becomeAffiliate.join');
+
     Route::get('become-affiliate', 'BecomeAffiliateController@index')->name('becomeAffiliate.index');
-    Route::get('join-affiliate/{id}', 'BecomeAffiliateController@joinAffiliate')->name('becomeAffiliate.join');
+
 
     Route::get('affiliate-dashboard','AffiliateDashboardController@dashboard')->name('affiliate_dashboard.index');
 

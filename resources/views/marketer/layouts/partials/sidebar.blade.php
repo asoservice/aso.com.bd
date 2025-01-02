@@ -123,84 +123,84 @@
             </li>
             <li>
                 <a href="javascript:void(0);"
-                    class="sidebar-header {{ Request::is('affiliate/*') || Request::is('affiliate/*') ? 'active' : '' }}">
+                    class="sidebar-header {{ Request::is('affiliate/earnings') || Request::is('affiliate/payments') ? 'active' : '' }}">
                     <!-- <i data-feather="users"></i> -->
                     <img class="inactive-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-line.svg') }}">
                     <img class="active-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-fill.svg') }}">
                     <span>{{ __('static.marketer.earning_payment') }}</span>
                     <img class="stroke-icon" src="{{ asset('admin/images/svg/arrow-right-2.svg') }}">
                 </a>
-                <ul class="sidebar-submenu {{ Request::is('affiliate/user*') || Request::is('affiliate/role*') ? 'menu-open' : '' }}">
+                <ul class="sidebar-submenu {{ Request::is('affiliate/earnings') || Request::is('affiliate/payments') ? 'menu-open' : '' }}">
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.earnings') }}</a>
+                        <a href="{{route('affiliate.earnings')}}"
+                            class="{{ Request::is('affiliate/earnings') ? 'active' : '' }}">{{ __('static.marketer.earnings') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.payments') }}</a>
+                        <a href="{{route('affiliate.payments')}}"
+                            class="{{ Request::is('affiliate/payments') ? 'active' : '' }}">{{ __('static.marketer.payments') }}</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:void(0);"
-                    class="sidebar-header {{ Request::is('affiliate/*') || Request::is('affiliate/*') ? 'active' : '' }}">
+                    class="sidebar-header {{ Request::is('affiliate/comission_rate') || Request::is('affiliate/affiliate_faq') || Request::is('affiliate/affiliate_agreement') ? 'active' : '' }}">
                     <!-- <i data-feather="users"></i> -->
                     <img class="inactive-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-line.svg') }}">
                     <img class="active-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-fill.svg') }}">
                     <span>{{ __('static.marketer.pages') }}</span>
                     <img class="stroke-icon" src="{{ asset('admin/images/svg/arrow-right-2.svg') }}">
                 </a>
-                <ul class="sidebar-submenu {{ Request::is('affiliate/user*') || Request::is('affiliate/role*') ? 'menu-open' : '' }}">
+                <ul class="sidebar-submenu {{ Request::is('affiliate/comission_rate') || Request::is('affiliate/affiliate_faq') || Request::is('affiliate/affiliate_agreement') ? 'menu-open' : '' }}">
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.comission_rate') }}</a>
+                        <a href="{{route('affiliate.comission_rate')}}"
+                            class="{{ Request::is('affiliate/comission_rate') ? 'active' : '' }}">{{ __('static.marketer.comission_rate') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.affiliate_faq') }}</a>
+                        <a href="{{route('affiliate.affiliate_faq')}}"
+                            class="{{ Request::is('affiliate/affiliate_faq') ? 'active' : '' }}">{{ __('static.marketer.affiliate_faq') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.affiliate_agreement') }}</a>
+                        <a href="{{route('affiliate.affiliate_agreement')}}"
+                            class="{{ Request::is('affiliate/affiliate_agreement') ? 'active' : '' }}">{{ __('static.marketer.affiliate_agreement') }}</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:void(0);"
-                    class="sidebar-header {{ Request::is('affiliate/*') || Request::is('affiliate/*') ? 'active' : '' }}">
+                    class="sidebar-header {{ Request::is('affiliate/vedio_tutorial') || Request::is('affiliate/support_faq') || Request::is('affiliate/contact') || Request::is('affiliate/live_chat') || Request::is('affiliate/support_ticket') ? 'active' : '' }}">
                     <!-- <i data-feather="users"></i> -->
                     <img class="inactive-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-line.svg') }}">
                     <img class="active-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-fill.svg') }}">
                     <span>{{ __('static.marketer.help_support') }}</span>
                     <img class="stroke-icon" src="{{ asset('admin/images/svg/arrow-right-2.svg') }}">
                 </a>
-                <ul class="sidebar-submenu {{ Request::is('affiliate/user*') || Request::is('affiliate/role*') ? 'menu-open' : '' }}">
+                <ul class="sidebar-submenu {{ Request::is('affiliate/vedio_tutorial') || Request::is('affiliate/support_faq') || Request::is('affiliate/contact') || Request::is('affiliate/live_chat') || Request::is('affiliate/support_ticket') ? 'menu-open' : '' }}">
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.vedio_tutorial') }}</a>
+                        <a href="{{route('affiliate.vedio_tutorial')}}"
+                            class="{{ Request::is('affiliate/vedio_tutorial') ? 'active' : '' }}">{{ __('static.marketer.vedio_tutorial') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.support_faq') }}</a>
+                        <a href="{{route('affiliate.support_faq')}}"
+                            class="{{ Request::is('affiliate/support_faq') ? 'active' : '' }}">{{ __('static.marketer.support_faq') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.contact') }}</a>
+                        <a href="{{route('affiliate.contact')}}"
+                            class="{{ Request::is('affiliate/contact') ? 'active' : '' }}">{{ __('static.marketer.contact') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.live_chat') }}</a>
+                        <a href="{{ route('affiliate.live_chat') }}"
+                            class="{{ Request::is('affiliate/live_chat') ? 'active' : '' }}">{{ __('static.marketer.live_chat') }}</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="{{ Request::is('affiliate') && !Request::is('affiliate') ? 'active' : '' }}">{{ __('static.marketer.support_ticket') }}</a>
+                        <a href="{{route('affiliate.support_ticket')}}"
+                            class="{{ Request::is('affiliate/support_ticket') ? 'active' : '' }}">{{ __('static.marketer.support_ticket') }}</a>
                     </li>
                 </ul>
             </li>
 
             <li>
-                <a href="#"
-                    class="sidebar-header {{ Request::is('affiliate/dashboard*') ? 'active' : '' }}">
+                <a href="{{route('affiliate.setting')}}"
+                    class="sidebar-header {{ Request::is('affiliate/setting') ? 'active' : '' }}">
                     <img class="inactive-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-line.svg') }}">
                     <img class="active-icon" src="{{ asset('admin/images/svg/sidebar-icon/setting-fill.svg') }}">
                     <span>{{ __('static.marketer.setting') }}</span>

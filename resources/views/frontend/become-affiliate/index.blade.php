@@ -47,7 +47,8 @@
                                 <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
                             @endif
                         @endif
-                        @if($checkRole)
+                        @if(isset($checkRole))
+
                         @else
                         <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                         @endif
@@ -84,7 +85,7 @@
                             @endif
                             @endif
 
-                            @if($checkRole)
+                            @if(isset($checkRole))
                             @else
                             <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                             @endif

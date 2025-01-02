@@ -176,54 +176,7 @@
                     <i data-feather="arrow-right"></i>
                 </a>
             </div>
-            <div class="card-body pt-0">
-                <div
-                    class="table-responsive provider-box custom-scrollbar @if (isset($fetchTopProviders) && count($fetchTopProviders) == 0) h-100 @endif">
-                    <table class="table @if (isset($fetchTopProviders) && count($fetchTopProviders) == 0) h-100 @endif">
-                        <tbody>
-                            @forelse ($fetchTopProviders as $provider)
-                            @if (Helpers::getProviderReviewRatings($provider) !== 0)
-                            <tr>
-                                <td>
-                                    <div class="provider-detail">
-                                        <img class="provider-img"
-                                            src="{{ $provider?->media?->first()?->getUrl() ?? asset('admin/images/avatar/1.png') }}">
-                                        <div class="text-start">
-                                            <h5>{{ $provider->name }}</h5>
-                                            <div class="location">
-                                                <i data-feather="map-pin"></i>
-                                                <h6>{{ $provider->getPrimaryAddressAttribute()->state->name ?? null }}-{{ $provider->getPrimaryAddressAttribute()->country->name ?? null }}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    @isset($provider->review_ratings)
-                                    <div class="rate">
-                                        @for ($i = 0; $i < Helpers::getProviderReviewRatings($provider); ++$i) <img
-                                            src="{{ asset('admin/images/svg/star.svg') }}" alt="star"
-                                            class="img-fluid star">
-                                            @endfor
-                                            <small>({{ $provider->review_ratings }})</small>
-                                    </div>
-                                    @endisset
-                                </td>
-                            </tr>
-                            @endif
-                            @empty
-                            <tr>
-                                <td>
-                                    <div class="table-no-data">
-                                        <h4>{{ __('static.data_not_found') }}</h4>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
     @endcan
@@ -335,60 +288,7 @@
                     <i data-feather="arrow-right"></i>
                 </a>
             </div>
-            <div class="card-body pb-0">
-                <div class="table-responsive service-box custom-scrollbar">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    {{ __('static.name') }}
-                                </th>
-                                <th>
-                                    {{ __('static.price') }}
-                                </th>
-                                <th>
-                                    {{ __('static.bookings') }}
-                                </th>
-                                <th>
-                                    {{ __('static.edit') }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($services as $service)
-                            <tr>
-                                <td>
-                                    <div class="service-detail">
-                                        <img class="service-img"
-                                            src="{{ $service?->media?->first()?->getUrl() ?? asset('admin/images/service/1.png') }}">
-                                        {{ $service->title }}
-                                    </div>
-                                </td>
-                                <td>
-                                    {{ Helpers::getDefaultCurrencySymbol() }}{{ $service->price }}
-                                </td>
-                                <td>
-                                    {{ $service->bookings_count }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('backend.service.edit', $service?->id) }}" class="show-icon">
-                                        <i data-feather="edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="4">
-                                    <div class="table-no-data">
-                                        <h4>{{ __('static.data_not_found') }}</h4>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
     @endcan

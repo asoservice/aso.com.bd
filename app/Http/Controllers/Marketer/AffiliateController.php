@@ -70,4 +70,49 @@ class AffiliateController extends Controller
     {
         return view($this->path.'.pages.referrals_history');
     }
+
+    public function earnings()
+    {
+        return view($this->path.'.pages.earnings');
+    }
+    public function payments()
+    {
+        return view($this->path.'.pages.payments');
+    }
+    public function comission_rate()
+    {
+        return view($this->path.'.pages.comission_rate');
+    }
+    public function affiliate_faq()
+    {
+        return view($this->path.'.pages.affiliate_faq');
+    }
+    public function affiliate_agreement()
+    {
+        return view($this->path.'.pages.affiliate_agreement');
+    }
+    public function vedio_tutorial()
+    {
+        return view($this->path.'.pages.vedio_tutorial');
+    }
+    public function support_faq()
+    {
+        return view($this->path.'.pages.support_faq');
+    }
+    public function contact()
+    {
+        return view($this->path.'.pages.contact');
+    }
+    public function live_chat()
+    {
+        return view($this->path.'.pages.live_chat');
+    }
+    public function support_ticket()
+    {
+        return view($this->path.'.pages.support_ticket');
+    }
+    public function setting()
+    {
+        return view($this->path.'.pages.setting');
+    }
 }

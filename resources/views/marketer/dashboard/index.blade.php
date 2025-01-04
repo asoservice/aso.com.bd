@@ -338,60 +338,7 @@
                     <i data-feather="arrow-right"></i>
                 </a>
             </div>
-            <div class="card-body pb-0">
-                <div class="table-responsive service-box custom-scrollbar">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    {{ __('static.name') }}
-                                </th>
-                                <th>
-                                    {{ __('static.price') }}
-                                </th>
-                                <th>
-                                    {{ __('static.bookings') }}
-                                </th>
-                                <th>
-                                    {{ __('static.edit') }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($services as $service)
-                            <tr>
-                                <td>
-                                    <div class="service-detail">
-                                        <img class="service-img"
-                                            src="{{ $service?->media?->first()?->getUrl() ?? asset('admin/images/service/1.png') }}">
-                                        {{ $service->title }}
-                                    </div>
-                                </td>
-                                <td>
-                                    {{ Helpers::getDefaultCurrencySymbol() }}{{ $service->price }}
-                                </td>
-                                <td>
-                                    {{ $service->bookings_count }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('backend.service.edit', $service?->id) }}" class="show-icon">
-                                        <i data-feather="edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="4">
-                                    <div class="table-no-data">
-                                        <h4>{{ __('static.data_not_found') }}</h4>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
     @endcan

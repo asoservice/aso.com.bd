@@ -23,4 +23,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('order_comm_reports','Marketer\AffiliateController@order_comm_reports')->name('affiliate.order_comm_reports');
     Route::get('campaign_reports','Marketer\AffiliateController@campaign_reports')->name('affiliate.campaign_reports');
     Route::get('referrals_history','Marketer\AffiliateController@referrals_history')->name('affiliate.referrals_history');
+    Route::get('earnings','Marketer\AffiliateController@earnings')->name('affiliate.earnings');
+    Route::get('payments','Marketer\AffiliateController@payments')->name('affiliate.payments');
+    Route::get('comission_rate','Marketer\AffiliateController@comission_rate')->name('affiliate.comission_rate');
+    Route::get('affiliate_faq','Marketer\AffiliateController@affiliate_faq')->name('affiliate.affiliate_faq');
+    Route::get('affiliate_agreement','Marketer\AffiliateController@affiliate_agreement')->name('affiliate.affiliate_agreement');
+    Route::get('vedio_tutorial','Marketer\AffiliateController@vedio_tutorial')->name('affiliate.vedio_tutorial');
+    Route::get('support_faq','Marketer\AffiliateController@support_faq')->name('affiliate.support_faq');
+    Route::get('contact','Marketer\AffiliateController@contact')->name('affiliate.contact');
+    Route::get('live_chat','Marketer\AffiliateController@live_chat')->name('affiliate.live_chat');
+    Route::get('support_ticket','Marketer\AffiliateController@support_ticket')->name('affiliate.support_ticket');
+    Route::get('setting','Marketer\AffiliateController@setting')->name('affiliate.setting');
 });

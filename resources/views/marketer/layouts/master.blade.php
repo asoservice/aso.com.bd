@@ -134,6 +134,8 @@
     <script src="{{ asset('admin/js/jquery-validation/additional-methods.js') }}"></script>
     <script src="{{ asset('admin/js/jquery-validation/additional-methods.min.js') }}"></script>
 
+    @stack('css')
+    
     @stack('js')
 
     <script src="{{ asset('admin/js/dropzone.js') }}"></script>

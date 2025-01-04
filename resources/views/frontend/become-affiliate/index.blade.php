@@ -28,8 +28,34 @@
 </style>
 @endpush
 
+
 @php
-    $routes = ['faq-category'=> route('backend.faq-category.index')]
+    // $newPermissionNames =  \Illuminate\Support\Facades\DB::table('permissions')->pluck('name')->toArray();
+
+    // $role = \App\Models\Role::where('name', 'admin')->first();
+    // $message = $role->syncPermissions($newPermissionNames);
+ 
+    $routes = json_encode([
+        'faqCategories'=> [
+            'index' => route('backend.faq-category.index'),
+            'create' => route('backend.faq-category.create'),
+            'edit' => route('backend.faq-category.edit', 0),
+            'store' => route('backend.faq-category.store'),
+            'update' => route('backend.faq-category.update', 0),
+            'destroy' => route('backend.faq-category.destroy', 0),
+        ],
+        'faqs'=> [
+            'index' => route('backend.faq.index'),
+            'create' => route('backend.faq.create'),
+            'edit' => route('backend.faq.edit', 0),
+            'store' => route('backend.faq.store'),
+            'update' => route('backend.faq.update', 0),
+            'destroy' => route('backend.faq.destroy', 0),
+        ],
+        'roles'=> Helpers::getRoleDetails(),
+        // 'message' => $message,
+    ]);
+    echo "<script>console.log({$routes});</script>";
 @endphp
 
 @section('content')
@@ -40,18 +66,10 @@
                     <div class="hero__text">
                         <h2>Become an aso Affiliate</h2>
                         <p>Join the aso Affiliate Program and start earning by recommending service provider and their service.</p>
-                        @if(Auth::check())
-                            @php
-                                $user = App\Models\User::find(Auth::user()->id);
-                                $checkRole = $user->hasRole('Marketer');
-                            @endphp
-                            @if($checkRole)
-                                <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                            @endif
-                        @endif
-                        @if($checkRole)
+                        @if(Helpers::hasRole('Marketer'))
+                            <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
                         @else
-                        <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
+                            <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                         @endif
                     </div>
                 </div>
@@ -76,19 +94,10 @@
                             <a href="#income"><button class="nav-link" id="contact-tab" type="button" aria-selected="false">Income</button></a>
                         </li>
                         <li class="nav_button">
-                            @if(Auth::check())
-                            @php
-                                $user = App\Models\User::find(Auth::user()->id);
-                                $checkRole = $user->hasRole('Marketer');
-                            @endphp
-                            @if($checkRole)
-                            <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                            @endif
-                            @endif
-
-                            @if($checkRole)
+                            @if (Helpers::hasRole('Marketer'))
+                                <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
                             @else
-                            <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
+                                <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                             @endif
                         </li>
                     </ul>

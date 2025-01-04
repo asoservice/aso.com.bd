@@ -176,49 +176,52 @@
                     <i data-feather="arrow-right"></i>
                 </a>
             </div>
+            @php
+                $isFetchTopProviders = (isset($fetchTopProviders) && count($fetchTopProviders) == 0);
+                $isFetchTopProvidersClass = $isFetchTopProviders ? 'h-100' : '';
+            @endphp
             <div class="card-body pt-0">
-                <div
-                    class="table-responsive provider-box custom-scrollbar @if (isset($fetchTopProviders) && count($fetchTopProviders) == 0) h-100 @endif">
-                    <table class="table @if (isset($fetchTopProviders) && count($fetchTopProviders) == 0) h-100 @endif">
+                <div class="table-responsive provider-box custom-scrollbar {{ $isFetchTopProvidersClass }}">
+                    <table class="table {{ $isFetchTopProvidersClass }}">
                         <tbody>
                             @forelse ($fetchTopProviders as $provider)
-                            @if (Helpers::getProviderReviewRatings($provider) !== 0)
-                            <tr>
-                                <td>
-                                    <div class="provider-detail">
-                                        <img class="provider-img"
-                                            src="{{ $provider?->media?->first()?->getUrl() ?? asset('admin/images/avatar/1.png') }}">
-                                        <div class="text-start">
-                                            <h5>{{ $provider->name }}</h5>
-                                            <div class="location">
-                                                <i data-feather="map-pin"></i>
-                                                <h6>{{ $provider->getPrimaryAddressAttribute()->state->name ?? null }}-{{ $provider->getPrimaryAddressAttribute()->country->name ?? null }}
-                                                </h6>
+                                @if (Helpers::getProviderReviewRatings($provider) !== 0)
+                                    <tr>
+                                        <td>
+                                            <div class="provider-detail">
+                                                <img class="provider-img"
+                                                    src="{{ $provider?->media?->first()?->getUrl() ?? asset('admin/images/avatar/1.png') }}">
+                                                <div class="text-start">
+                                                    <h5>{{ $provider->name }}</h5>
+                                                    <div class="location">
+                                                        <i data-feather="map-pin"></i>
+                                                        <h6>{{ $provider->getPrimaryAddressAttribute()->state->name ?? null }}-{{ $provider->getPrimaryAddressAttribute()->country->name ?? null }}
+                                                        </h6>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    @isset($provider->review_ratings)
-                                    <div class="rate">
-                                        @for ($i = 0; $i < Helpers::getProviderReviewRatings($provider); ++$i) <img
-                                            src="{{ asset('admin/images/svg/star.svg') }}" alt="star"
-                                            class="img-fluid star">
-                                            @endfor
-                                            <small>({{ $provider->review_ratings }})</small>
-                                    </div>
-                                    @endisset
-                                </td>
-                            </tr>
-                            @endif
+                                        </td>
+                                        <td>
+                                            @isset($provider->review_ratings)
+                                            <div class="rate">
+                                                @for ($i = 0; $i < Helpers::getProviderReviewRatings($provider); ++$i) <img
+                                                    src="{{ asset('admin/images/svg/star.svg') }}" alt="star"
+                                                    class="img-fluid star">
+                                                    @endfor
+                                                    <small>({{ $provider->review_ratings }})</small>
+                                            </div>
+                                            @endisset
+                                        </td>
+                                    </tr>
+                                @endif
                             @empty
-                            <tr>
-                                <td>
-                                    <div class="table-no-data">
-                                        <h4>{{ __('static.data_not_found') }}</h4>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <div class="table-no-data">
+                                            <h4>{{ __('static.data_not_found') }}</h4>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

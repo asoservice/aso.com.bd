@@ -183,6 +183,7 @@ Route::get('/clear-cache', function () {
     Artisan::call('clear-compiled');
     Artisan::call('storage:link');
     Artisan::call('module:publish');
+    Artisan::call('cache:forget spatie.permission.cache');
 
     return "cache cleared successfully";
 });

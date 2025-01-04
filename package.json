@@ -4,6 +4,7 @@
         "dev": "vite",
         "build": "vite build",
         "start": "concurrently \"php artisan serve\" \"vite\"",
+        "push": "git add . && git commit -m \"working on faqs\" && git push origin dev",
         "clear": "concurrently \"php artisan route:clear\" \"php artisan cache:clear\" \"php artisan config:clear\" \"php artisan view:clear\" \"php artisan event:clear\""
     },
     "devDependencies": {

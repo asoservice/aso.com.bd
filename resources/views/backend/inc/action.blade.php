@@ -345,14 +345,14 @@
         @endisset
         @isset($edit)
             @can($edit_permission ?? $edit, $data)
-                @if (isset($data->system_reserve) ? !$data->system_reserve : true)
+                {{-- @if (isset($data->system_reserve) ? !$data->system_reserve : true) --}}
                     <a href="{{ route($edit, $data) }}" class="edit-icon">
                         <i data-feather="edit"></i>
-                    @else
+                    {{-- @else --}}
                         <a href="javascript:void(0)" class="lock-icon">
                             <i data-feather="lock"></i>
                         </a>
-                @endif
+                {{-- @endif --}}
             @endcan
         @endisset
         @isset($translate)

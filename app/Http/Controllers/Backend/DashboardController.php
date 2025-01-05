@@ -9,6 +9,8 @@ use App\Models\Review;
 use App\Models\Service;
 use App\Repositories\Backend\DashboardRepository;
 use Illuminate\Http\Request;
+use App\Models\Role;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -17,6 +19,54 @@ class DashboardController extends Controller
     public function __construct(DashboardRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function permission()
+    {
+        $permission = DB::table('permissions')->orderBy('id','ASC')->pluck('name')->toArray();
+        // return $permission;
+        // return $permission;
+        $role = Role::find(1);
+
+        $role->syncPermissions($permission);
+        
+        return redirect()->back();
+    }
+
+    public function create_permission(Request $request)
+    {
+        // dd($request->all());
+        $actions = '{"index":"backend.'.$request->route.'.index","create":"backend.'.$request->route.'.create","edit":"backend.'.$request->route.'.edit","destroy":"backend.'.$request->route.'.destroy"}';
+
+        $permissions = [
+            "backend.$request->route.index",
+            "backend.$request->route.create",
+            "backend.$request->route.edit",
+            "backend.$request->route.destroy",
+        ];
+        // return $permissions;
+        $check = DB::table('modules')->where('name',$request->route)->count();
+        if($check == 0)
+        {
+            for ($i=0; $i < count($permissions) ; $i++) 
+            { 
+                DB::table('permissions')->insert([
+                    'name' => $permissions[$i],
+                    'guard_name' => 'web',
+                ]);
+            }
+
+            DB::table('modules')->insert([
+                'name'=>$request->route,
+                'actions' => $actions,   
+            ]);
+        }
+        else
+        {
+            return redirect()->back()->with('message', 'This Route is already taken !.');
+        }
+
+        return redirect()->back();
     }
 
     /**

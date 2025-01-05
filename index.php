@@ -62,7 +62,7 @@ function bootModules(array $modulesData) {
 
 $routes = [
     'faqs' => createRouteName('faqs'),
-    'faq_categories' => createRouteName('faq-categories'),
+    'faq-categories' => createRouteName('faq-categories'),
 ];
 
 function insertPermissions(array $routes){

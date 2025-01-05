@@ -25,6 +25,9 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()?->back();
 })->name('lang');
 
+Route::get('/sync_permission','Backend\DashboardController@permission')->name('backend.sync_permission');
+Route::post('/create-permission','Backend\DashboardController@create_permission')->name('backend.create_permissions');
+
 Route::get('set-currency/{currency}', function ($currency) {
     session(['currency' => $currency]);
     return redirect()->back();

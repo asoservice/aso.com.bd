@@ -613,48 +613,48 @@
                     @endcanAny
 
                     <!-- Faq Category Management -->
-                    {{-- @canAny(['backend.faq-category.index', 'backend.faq.index']) --}}
+                    @canAny(['backend.faq-categories.index', 'backend.faq.index'])
                         <li>
                             <a href="javascript:void(0);"
-                                class="sidebar-header {{ Request::is('backend/tag*') || Request::is('backend/faq_category*') || Request::is('backend/faq-category*') ? 'active' : '' }}">
+                                class="sidebar-header {{ Request::is('backend/tag*') || Request::is('backend/faq_category*') || Request::is('backend/faq-categories*') ? 'active' : '' }}">
                                 <img class="inactive-icon" src="{{ asset('admin/images/svg/sidebar-icon/coupon-line.svg') }}">
                                 <img class="active-icon" src="{{ asset('admin/images/svg/sidebar-icon/coupon-fill.svg') }}">
                                 <span>{{ 'Faqs' }}</span>
                                 <img class="stroke-icon" src="{{ asset('admin/images/svg/arrow-right-2.svg') }}">
                             </a>
                             <ul
-                                class="sidebar-submenu {{ Request::is('backend/faq_category*') || Request::is('backend/faq-category*') ? 'menu-open' : '' }}">
-                                {{-- @can('backend.faq-category.index') --}}
+                                class="sidebar-submenu {{ Request::is('backend/faq_category*') || Request::is('backend/faq-categories*') ? 'menu-open' : '' }}">
+                                @can('backend.faq-categories.index')
                                     <li>
-                                        <a href="{{ route('backend.faq-category.index') }}" class="{{ Request::is('backend/faq-category') ? 'active' : '' }}">
+                                        <a href="{{ route('backend.faq-categories.index') }}" class="{{ Request::is('backend/faq-categories') ? 'active' : '' }}">
                                             {{ 'All Faq Categories' }}
                                         </a>
                                     </li>
-                                {{-- @endcan --}}
-                                {{-- @can('backend.faq-category.create') --}}
+                                @endcan
+                                @can('backend.faq-categories.create')
                                     <li>
-                                        <a href="{{ route('backend.faq-category.create') }}" class="{{ Request::is('backend/faq-category/create') ? 'active' : '' }}">
+                                        <a href="{{ route('backend.faq-categories.create') }}" class="{{ Request::is('backend/faq-categories/create') ? 'active' : '' }}">
                                             {{ 'Add Faq Category' }}
                                         </a>
                                     </li>
-                                {{-- @endcan --}}
-                                {{-- @can('backend.faq.index') --}}
+                                @endcan
+                                @can('backend.faq.index')
                                     <li>
                                         <a href="{{ route('backend.faq.index') }}" class="{{ Request::is('backend/faq*') ? 'active' : '' }}">
                                             {{ 'All Faqs' }}
                                         </a>
                                     </li>
-                                {{-- @endcan --}}
-                                {{-- @can('backend.faq.index') --}}
+                                @endcan
+                                @can('backend.faq.index')
                                     <li>
                                         <a href="{{ route('backend.faq.index') }}" class="{{ Request::is('backend/faq*') ? 'active' : '' }}">
                                             {{ 'Add Faq' }}
                                         </a>
                                     </li>
-                                {{-- @endcan --}}
+                                @endcan
                             </ul>
                         </li>
-                    {{-- @endcanAny --}}
+                    @endcanAny
                 @endif
                 @can('backend.page.index')
                     <li>

@@ -13,7 +13,8 @@ class FaqsCategoryController extends Controller
 {
     public $repository;
     public function __construct(FaqsCategoryRepositoryEloquent $repository){
-        $this->authorizeResource(FaqCategory::class, 'faqs_category');
+        $this->middleware(['permission:backend.faq-categories.index'])->only('index');
+        $this->authorizeResource(FaqCategory::class, 'faq-categories');
         $this->repository = $repository;
     }
     /**

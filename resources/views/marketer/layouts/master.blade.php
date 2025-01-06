@@ -54,6 +54,7 @@
     .table-dark th{
         background: #00162e !important;
     }
+    
 </style>
 @endpush
 <body class="theme {{ session('dir', 'ltr') }} {{ session('theme', '') }}">

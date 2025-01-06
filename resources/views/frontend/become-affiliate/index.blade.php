@@ -29,6 +29,34 @@
 @endpush
 
 
+@php
+    // $newPermissionNames =  \Illuminate\Support\Facades\DB::table('permissions')->pluck('name')->toArray();
+
+    // $role = \App\Models\Role::where('name', 'admin')->first();
+    // $message = $role->syncPermissions($newPermissionNames);
+ 
+    $routes = json_encode([
+        'faqCategories'=> [
+            'index' => route('backend.faq-categories.index'),
+            'create' => route('backend.faq-categories.create'),
+            'edit' => route('backend.faq-categories.edit', 0),
+            'store' => route('backend.faq-categories.store'),
+            'update' => route('backend.faq-categories.update', 0),
+            'destroy' => route('backend.faq-categories.destroy', 0),
+        ],
+        'faqs'=> [
+            'index' => route('backend.faq.index'),
+            'create' => route('backend.faq.create'),
+            'edit' => route('backend.faq.edit', 0),
+            'store' => route('backend.faq.store'),
+            'update' => route('backend.faq.update', 0),
+            'destroy' => route('backend.faq.destroy', 0),
+        ],
+        'roles'=> Helpers::getRoleDetails(),
+        // 'message' => $message,
+    ]);
+    echo "<script>console.log({$routes});</script>";
+@endphp
 
 @section('content')
     <div class="container mt-5">
@@ -38,19 +66,10 @@
                     <div class="hero__text">
                         <h2>Become an aso Affiliate</h2>
                         <p>Join the aso Affiliate Program and start earning by recommending service provider and their service.</p>
-                        @if(Auth::check())
-                            @php
-                                $user = App\Models\User::find(Auth::user()->id);
-                                $checkRole = $user->hasRole('Marketer');
-                            @endphp
-                            @if($checkRole)
-                                <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                            @endif
-                        @endif
-                        @if(isset($checkRole))
-
+                        @if(Helpers::hasRole('Marketer'))
+                            <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
                         @else
-                        <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
+                            <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                         @endif
                     </div>
                 </div>
@@ -75,19 +94,10 @@
                             <a href="#income"><button class="nav-link" id="contact-tab" type="button" aria-selected="false">Income</button></a>
                         </li>
                         <li class="nav_button">
-                            @if(Auth::check())
-                            @php
-                                $user = App\Models\User::find(Auth::user()->id);
-                                $checkRole = $user->hasRole('Marketer');
-                            @endphp
-                            @if($checkRole)
-                            <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
-                            @endif
-                            @endif
-
-                            @if(isset($checkRole))
+                            @if (Helpers::hasRole('Marketer'))
+                                <a href="{{ route('affiliate.dashboard') }}" class="primary-btn">Go To Dashboard</a>
                             @else
-                            <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
+                                <a href="{{route('frontend.becomeAffiliate.join')}}" class="primary-btn">Join Now</a>
                             @endif
                         </li>
                     </ul>
@@ -175,6 +185,7 @@
                                                     <ul>
                                                         <li>Our Privacy Policy might get updated periodically. If we do, we will inform you by updating the Privacy Policy on this page.</li>
                                                         <li>We will bring it to your knowledge via email or clear notice on our website before any changes to this Privacy Policy take effect. Remember to check this Privacy Policy from time to time for updates. Changes are effective when posted here.</li>
+                                                    
                                                     </ul>
                                                 </div>
                                             </div>

@@ -50,8 +50,31 @@ use MatanYadaev\EloquentSpatial\Objects\Point;
 use Nwidart\Modules\Facades\Module as NwidartModule;
 use Illuminate\Database\Eloquent\Builder;
 
+trait RoleTrait {
+    public static function hasRole(string $roleName, int $userId = null){
+        if(!Auth::check()) return false; // if use is not authorized
+
+        if(is_null($userId)) $userId = Auth::id();
+        $user = User::find($userId);
+
+        if($user) return $user->hasRole($roleName);
+        return false;
+    }
+
+    public static function getRoleDetails(int $userId = null){
+        if(!Auth::check()) return ['Unknown'];
+
+        if(is_null($userId)) $userId = Auth::id();
+        $user = User::find($userId);
+
+        if($user) return $user->roles()->get();
+        return ['Unknown'];
+    }
+}
+
 class Helpers
 {
+    use RoleTrait;
 
     public static function canCancelBooking($booking)
     {
@@ -353,17 +376,12 @@ class Helpers
         switch ($catgoryType) {
             case BannerTypeEnum::BANNERTYPE['category']:
                 return Category::where(['status' => true])->get(['title', 'id']);
-                break;
 
             case BannerTypeEnum::BANNERTYPE['provider']:
                 return User::role('provider')->where('status', true)->get();
-                break;
             default:
                 return Service::where(['status' => true])->get(['title', 'id']);
-                break;
         }
-
-        return $categoryType;
     }
 
     public static function getCurrentRoleName()
@@ -717,10 +735,7 @@ class Helpers
         switch ($req_status) {
             case BookingStatusReq::PENDING:
                 $status = BookingEnum::PENDING;
-                break;
-            case BookingStatusReq::PENDING:
-                $status = BookingEnum::PENDING;
-                break;
+                break; 
             case BookingStatusReq::ASSIGNED:
                 $status = BookingEnum::ASSIGNED;
                 break;

@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5 mb-5 p-3">
+        <div class="row mt-5 p-3">
             <div class="col-md-4 col-12">
                 <a href="{{ route('backend.provider.index') }}" class="widget-card">
                     <div>
@@ -135,9 +135,31 @@
         </div>
         <div class="card-body p-3">
             <div class="container table-responsive py-5"> 
-                <table class="table table-striped table-responsive">
-                    <thead class="thead-dark">
-                        <tr>
+                <table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
                             <th>Affiliate Link</th>
                             <th>Campaign</th>
                             <th>Created</th>
@@ -149,13 +171,17 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>demotext</td>
-                            <td>demotext</td>
-                            <td>demotext</td>
-                            <td>demotext</td>
-                            <td>demotext</td>
-                            <td>demotext</td>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

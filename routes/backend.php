@@ -248,13 +248,19 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'as' => 'backe
     Route::get('consumer/{id}/bookings','UserDashboardController@getBookings')->name('consumer.get-bookings')->middleware('can:backend.consumer_dashboard.index');
     Route::get('consumer/{id}/reviews','UserDashboardController@getUserReviews')->name('consumer.get-reviews')->middleware('can:backend.servicemen_dashboard.index');
 
-    //unverified-users
+    // Unverified Users
     Route::get('unverified-users', 'UnverifiedUserController@index')->name('unverfied-users.index')->middleware('can:backend.unverified_user.index');
     Route::put('unverified-users/{id}', 'UnverifiedUserController@verify')->name('unverfied-users.action')->middleware('can:backend.unverified_user.edit');
 
     // Serviceman Locations
     Route::get('serviceman-location', 'ServicemanController@servicemanLocation')->name('serviceman-location.index')->middleware('can:backend.serviceman_location.index');
     Route::get('serviceman-coordinates/{id}', 'ServicemanController@servicemanCordinates')->name('serviceman-cordinates.index')->middleware('can:backend.serviceman_location.index');
+
+    // Faq Categories
+    Route::resource('faq-categories', 'FaqsCategoryController');
+
+    // Faq
+    Route::resource('faq', 'FaqController');
 
     Route::get('/clear-cache', function () {
         Artisan::call('cache:clear');

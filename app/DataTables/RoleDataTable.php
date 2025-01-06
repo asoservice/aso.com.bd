@@ -46,7 +46,7 @@ class RoleDataTable extends DataTable
      */
     public function query(Role $model): QueryBuilder
     {
-        $roles = $model->newQuery()->where('system_reserve', 0);
+        $roles = $model->newQuery()/* ->where('system_reserve', 0) */;
         if (request()->order) {
             if ((bool) head(request()->order)['column']) {
                 $index = head(request()->order)['column'];

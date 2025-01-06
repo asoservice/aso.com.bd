@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+
 <div class="row g-sm-4 g-3">
     <div class="col-xxl-4 col-xl-5">
         <div class="row g-sm-4 g-3">

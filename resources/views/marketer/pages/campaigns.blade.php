@@ -42,12 +42,31 @@
         </div>
         <div class="card-body p-3">
             <div class="container table-responsive py-5"> 
-                <div class="table-header">
-                    <h1>My Campaigns</h1>
-                </div>
-                <table class="table table-striped table-responsive">
-                    <thead class="thead-dark">
-                        <tr>
+                <table class="table table-striped table-responsive pb-5">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>My Campaigns</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
                             <th>Affiliate Link</th>
                             <th>Campaign</th>
                             <th>Created</th>
@@ -65,18 +84,39 @@
                             <td>demotext</td>
                             <td>demotext</td>
                             <td>demotext</td>
-                            <td>demotext</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="container table-responsive py-5"> 
-                <div class="table-header">
-                    <h1>Cleaning Service Campaign</h1>
-                </div>
                 <table class="table table-striped table-responsive">
-                    <thead class="thead-dark">
-                        <tr>
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Cleaning Service Campaign</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
                             <th>Affiliate Link</th>
                             <th>Campaign</th>
                             <th>Created</th>
@@ -94,18 +134,39 @@
                             <td>demotext</td>
                             <td>demotext</td>
                             <td>demotext</td>
-                            <td>demotext</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="container table-responsive py-5"> 
-                <div class="table-header">
-                    <h1>Traffic Log</h1>
-                </div>
                 <table class="table table-striped table-responsive">
-                    <thead class="thead-dark">
-                        <tr>
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Traffic Log</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
                             <th>Affiliate Link</th>
                             <th>Campaign</th>
                             <th>Created</th>
@@ -123,7 +184,11 @@
                             <td>demotext</td>
                             <td>demotext</td>
                             <td>demotext</td>
-                            <td>demotext</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faq_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 100);
-            $table->string('slug', 120)->unique();
-            $table->text('description')->nullable();
-            $table->string('icon', 50)->nullable();
-            $table->integer('sort_order')->default(0);
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->timestamps();
-        });
+        Schema::create('faq-categories', function (Blueprint $table) {
+            $table->id(); // Primary key
+            $table->string('name', 100); // Name of the category
+            $table->string('slug', 120)->unique(); // Unique slug for the category
+            $table->text('description')->nullable(); // Optional description
+            $table->string('icon', 50)->nullable(); // Optional icon
+            $table->integer('sort_order')->default(0); // Sorting order
+            $table->enum('status', ['active', 'inactive'])->default('active'); // Active or inactive status
+            $table->timestamps(); // Created at and updated at
+        });        
     }
 
     /**
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faq_categories');
+        Schema::dropIfExists('faq-categories');
     }
 };

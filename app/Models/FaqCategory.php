@@ -8,5 +8,4 @@ class FaqCategory extends Model
 {
     // protected $table = 'faq_categories';
     protected $fillable = ['name', 'slug', 'description', 'icon', 'sort_order', 'status'];
-    protected $guarded = $this->fillable;
 }

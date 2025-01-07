@@ -29,7 +29,7 @@
 
                     <div class="jstree-anchor">
                         <span>
-                            {{ $category->title }} ({{ count($category->childs) }})
+                            {{ $category->name }} ({{-- count($category->childs) --}})
                         </span>
                         @canAny(['backend.blog_category.edit', 'backend.blog_category.destroy'])
                         <div class="actions">
@@ -45,13 +45,7 @@
                             @endcan
                         </div>
                         @endcanAny
-                    </div>
-                    @if (count($category->childs))
-                    @include('backend.blog-category.child', [
-                    'childs' => $category->childs,
-                    'cat' => $cat,
-                    ])
-                    @endif
+                    </div> 
                 </li>
                 @empty
                 <li class="d-flex flex-column no-data-detail">
@@ -90,33 +84,6 @@
             </div>
         </div>
     </div>
-</div>
-@if (count($category->childs))
-@foreach($category->childs as $category)
-<div class="modal fade" id="confirmationModal{{$category->id}}" tabindex="-1" aria-labelledby="confirmationModalLabel{{$category->id}}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-start">
-                <div class="main-img">
-                    <img src="{{ asset('admin/images/svg/trash-dark.svg') }}" alt="">
-                </div>
-                <div class="text-center">
-                    <div class="modal-title"> {{ __('static.delete_message') }}</div>
-                    <p>{{ __('static.delete_note') }}</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('backend.blog-category.destroy',$category->id) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button class="btn cancel" data-bs-dismiss="modal" type="button">{{ __('static.cancel') }}</button>
-                    <button class="btn btn-primary delete" type="submit">{{ __('static.delete') }}</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-@endif
+</div> 
 @endforeach
 @endisset

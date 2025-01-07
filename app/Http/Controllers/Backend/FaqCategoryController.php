@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Entities\Backend\FaqCategory;
+use App\Models\FaqCategory;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\FaqCategoryRepositoryEloquent;
 use Illuminate\Http\Request;

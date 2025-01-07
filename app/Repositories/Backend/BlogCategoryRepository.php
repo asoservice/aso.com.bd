@@ -99,20 +99,22 @@ class BlogCategoryRepository extends BaseRepository
     {
         DB::beginTransaction();
         try {
-            $blog_category = $this->model->findOrFail($id);
+            $blogCategory = $this->model->findOrFail($id);
 
-            $blog_category = $this->model->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'parent_id' => $request->parent_id,
-                'status' => $request->status,
-                'category_type' => $request->category_type,
-                'created_by' => Auth::user()->id,
-            ]);
+            if(is_object($request)){
+                if ($request->file('image') && $request->file('image')->isValid()) {
+                    $blogCategory->clearMediaCollection('image');
+                    $blogCategory->addMediaFromRequest('image')->toMediaCollection('image');
+                }
 
-            if ($request->file('image') && $request->file('image')->isValid()) {
-                $category->clearMediaCollection('image');
-                $category->addMediaFromRequest('image')->toMediaCollection('image');
+                $blogCategory = $this->model->update([
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'parent_id' => $request->parent_id,
+                    'status' => $request->status,
+                    'category_type' => $request->category_type,
+                    'created_by' => Auth::user()->id,
+                ]);
             }
 
             DB::commit();

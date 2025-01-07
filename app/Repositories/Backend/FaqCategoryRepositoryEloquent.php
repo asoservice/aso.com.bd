@@ -5,7 +5,7 @@ namespace App\Repositories\Backend;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\FaqCategoryRepository;
-use App\Entities\Backend\FaqCategory;
+use App\Models\FaqCategory;
 use App\Helpers\Helpers;
 use App\Validators\Backend\FaqCategoryValidator;
 use Exception;
@@ -68,7 +68,7 @@ class FaqCategoryRepositoryEloquent extends BaseRepository implements FaqCategor
                 [
                     'name' => $request->name,
                     'description' => $request->description,
-                    'sort_order' => $request->sort_order,
+                    'sort_order' => $request->sort_order ?? 0,
                     'status' => $status,
                     'slug' => $slug,
                     'created_by' => $request->user()->id,

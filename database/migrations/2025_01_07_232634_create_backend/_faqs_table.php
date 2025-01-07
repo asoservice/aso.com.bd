@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -13,7 +12,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('backend/_faq_categories', function(Blueprint $table) {
+		Schema::create('backend/_faqs', function(Blueprint $table) {
             $table->increments('id');
 
             $table->timestamps();
@@ -27,6 +26,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('backend/_faq_categories');
+		Schema::drop('backend/_faqs');
 	}
 };

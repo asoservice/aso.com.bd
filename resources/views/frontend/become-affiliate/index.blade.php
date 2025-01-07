@@ -37,12 +37,12 @@
  
     $routes = json_encode([
         'faqCategories'=> [
-            'index' => route('backend.faq-category.index'),
-            'create' => route('backend.faq-category.create'),
-            'edit' => route('backend.faq-category.edit', 0),
-            'store' => route('backend.faq-category.store'),
-            'update' => route('backend.faq-category.update', 0),
-            'destroy' => route('backend.faq-category.destroy', 0),
+            'index' => route('backend.faq-categories.index'),
+            'create' => route('backend.faq-categories.create'),
+            'edit' => route('backend.faq-categories.edit', 0),
+            'store' => route('backend.faq-categories.store'),
+            'update' => route('backend.faq-categories.update', 0),
+            'destroy' => route('backend.faq-categories.destroy', 0),
         ],
         'faqs'=> [
             'index' => route('backend.faq.index'),

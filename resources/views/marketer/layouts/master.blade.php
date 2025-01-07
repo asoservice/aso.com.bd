@@ -49,7 +49,14 @@
     <script src="{{ asset('admin/js/toastr.min.js') }}"></script>
     <script src="{{ asset('admin/js/admin-cart.min.js') }}"></script>
 </head>
-
+@push('css')
+<style>
+    .table-dark th{
+        background: #00162e !important;
+    }
+    
+</style>
+@endpush
 <body class="theme {{ session('dir', 'ltr') }} {{ session('theme', '') }}">
 
     <div class="page-wrapper">

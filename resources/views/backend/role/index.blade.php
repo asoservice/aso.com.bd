@@ -4,6 +4,24 @@
 
 @section('content')
 <div class="card">
+    <div class="card-body">
+        <div class="form-group row">
+            <form method="post" class="row" action="{{ route('backend.create_permissions') }}">
+                @csrf
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" name="route" id="route" placeholder="Route Name">
+                </div>
+                <div class="col-lg-4">
+                    <button class="btn btn-sm btn-success">Create Permission</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-3">
+            <a href="{{route('backend.sync_permission')}}" class="btn btn-sm btn-info">Sync Permission</a>
+        </div>
+    </div>
+</div>
+<div class="card">
     <div class="card-header d-flex align-items-center">
         <h5>{{ __('static.roles.roles') }}</h5>
         <div class="btn-action">

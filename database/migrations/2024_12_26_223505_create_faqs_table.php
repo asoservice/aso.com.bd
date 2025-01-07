@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
             
             $table->foreignId('created_by')->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreignId('category_id')->constrained('faq_categories', 'id')->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained('faq-categories', 'id')->cascadeOnDelete();
 
             $table->index('status');
         }); 

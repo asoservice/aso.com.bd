@@ -1,19 +1,19 @@
 <div class="card">
     <div class="card-header d-flex align-items-center">
-        <h5>{{ __('static.categories.categories') }}</h5>
+        <h5>{{ __('All Faq Categories') }}</h5>
         @isset($cat)
-        <div class="btn-popup ms-auto mb-0">
-            <a href="{{ route('backend.blog-category.index') }}" class="btn btn-primary btn-sm">
-                <i data-feather="plus"></i>
-                {{ __('static.categories.category') }}
-            </a>
-        </div>
+            <div class="btn-popup ms-auto mb-0">
+                <a href="{{ route('backend.blog-category.index') }}" class="btn btn-primary btn-sm">
+                    <i data-feather="plus"></i>
+                    {{ __('static.categories.category') }}
+                </a>
+            </div>
         @endisset
     </div>
     <div class="card-body position-relative no-data">
         <form class="row" action="" method="get">
             <div class="col-md-10">
-                <input type="text" name="search" id="searchCategory" value="{{request()->search}}" class="form-control" placeholder="Search Category...">
+                <input type="text" name="search" id="searchCategory" value="{{ request()->search }}" class="form-control" placeholder="Search Category...">
             </div>
             <div class="col-md-2">
                 <button id="submitBtn" type="submit" class="btn btn-primary"> {{ __('Search') }}</button>

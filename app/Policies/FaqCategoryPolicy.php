@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\FaqCategory;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -16,7 +17,7 @@ class FaqCategoryPolicy
      */
     public function viewAny(User $user)
     {
-        if ($user->can('backend.faq-categories.index')) {
+        if ($user->can('backend.faq-category.index')) {
             return true;
         }
     }
@@ -26,9 +27,9 @@ class FaqCategoryPolicy
      *
      * @return mixed
      */
-    public function view(User $user, Category $category)
+    public function view(User $user, FaqCategory $category)
     {
-        if ($user->can('backend.faq-categories.index')) {
+        if ($user->can('backend.faq-category.index')) {
             return true;
         }
     }
@@ -40,7 +41,7 @@ class FaqCategoryPolicy
      */
     public function create(User $user)
     {
-        if ($user->can('backend.faq-categories.create')) {
+        if ($user->can('backend.faq-category.create')) {
 
             return true;
         }
@@ -51,9 +52,9 @@ class FaqCategoryPolicy
      *
      * @return mixed
      */
-    public function update(User $user, Category $category)
+    public function update(User $user, FaqCategory $category)
     {
-        if ($user->can('backend.faq-categories.edit') || $user->id == $category->created_by) {
+        if ($user->can('backend.faq-category.edit') || $user->id == $category->created_by) {
 
             return true;
         }
@@ -64,9 +65,9 @@ class FaqCategoryPolicy
      *
      * @return mixed
      */
-    public function delete(User $user, Category $category)
+    public function delete(User $user, FaqCategory $category)
     {
-        if ($user->can('backend.faq-categories.destroy') && $user->id == $category->created_by) {
+        if ($user->can('backend.faq-category.destroy') && $user->id == $category->created_by) {
 
             return true;
         }
@@ -77,7 +78,7 @@ class FaqCategoryPolicy
      *
      * @return mixed
      */
-    public function restore(User $user, Category $category)
+    public function restore(User $user, FaqCategory $category)
     {
         //
     }
@@ -87,7 +88,7 @@ class FaqCategoryPolicy
      *
      * @return mixed
      */
-    public function forceDelete(User $user, Category $category)
+    public function forceDelete(User $user, FaqCategory $category)
     {
         //
     }

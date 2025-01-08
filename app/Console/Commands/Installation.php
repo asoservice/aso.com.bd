@@ -35,7 +35,6 @@ class Installation extends Command
                 $this->call('fixit:import');
                 $this->info('Dummy Data Imported Successfully!');
             } else {
-
                 $this->info('Migration is being run to build tables...');
                 $this->call('migrate:fresh');
                 $this->info('The seeder is being used for Generating the Administrator Credentials.');

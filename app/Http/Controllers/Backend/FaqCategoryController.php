@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Entities\Backend\FaqsCategoryRepository;
-use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use App\Models\FaqCategory;
-use App\Repositories\Backend\FaqsCategoryRepositoryEloquent;
+use App\Http\Controllers\Controller;
+use App\Repositories\Backend\FaqCategoryRepositoryEloquent;
+use Illuminate\Http\Request;
 
-class FaqsCategoryController extends Controller
+class FaqCategoryController extends Controller
 {
     public $repository;
-    public function __construct(FaqsCategoryRepositoryEloquent $repository){
+    public function __construct(FaqCategoryRepositoryEloquent $repository){
         $this->authorizeResource(FaqCategory::class, 'faq-categories');
         $this->repository = $repository;
     }
@@ -27,9 +25,9 @@ class FaqsCategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // return $this->repository->create($request);
     }
 
     /**
@@ -37,7 +35,7 @@ class FaqsCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->repository->store($request);
     }
 
     /**

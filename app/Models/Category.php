@@ -62,7 +62,7 @@ class Category extends Model implements HasMedia
         return $query->whereNull('parent_id');
     }
 
-    public static function getHierarchy($zoneId): array
+    public static function getHierarchy($zoneId = 0): array
     {
         return self::buildHierarchy($zoneId);
     }

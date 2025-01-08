@@ -4,16 +4,16 @@ namespace App\Repositories\Backend;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Backend\FaqsCategoryRepository;
-use App\Entities\Backend\FaqsCategory;
-use App\Validators\Backend\FaqsCategoryValidator;
+use App\Repositories\Backend\FaqRepository;
+use App\Models\Faq;
+use App\Validators\Backend\FaqValidator;
 
 /**
- * Class FaqsCategoryRepositoryEloquent.
+ * Class FaqRepositoryEloquent.
  *
  * @package namespace App\Repositories\Backend;
  */
-class FaqsCategoryRepositoryEloquent extends BaseRepository implements FaqsCategoryRepository
+class FaqRepositoryEloquent extends BaseRepository implements FaqRepository
 {
     /**
      * Specify Model class name
@@ -22,10 +22,8 @@ class FaqsCategoryRepositoryEloquent extends BaseRepository implements FaqsCateg
      */
     public function model()
     {
-        return FaqsCategory::class;
+        return Faq::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -33,10 +31,6 @@ class FaqsCategoryRepositoryEloquent extends BaseRepository implements FaqsCateg
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    public function index() {
-        return 'Hello';
     }
     
 }

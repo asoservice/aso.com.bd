@@ -257,7 +257,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'as' => 'backe
     Route::get('serviceman-coordinates/{id}', 'ServicemanController@servicemanCordinates')->name('serviceman-cordinates.index')->middleware('can:backend.serviceman_location.index');
 
     // Faq Categories
-    Route::resource('faq-categories', 'FaqsCategoryController');
+    Route::resource('faq-category', 'FaqCategoryController');
 
     // Faq
     Route::resource('faq', 'FaqController');

@@ -1,19 +1,19 @@
 <div class="card">
     <div class="card-header d-flex align-items-center">
-        <h5>{{ __('static.categories.categories') }}</h5>
+        <h5>{{ __('All Faq Categories') }}</h5>
         @isset($cat)
-        <div class="btn-popup ms-auto mb-0">
-            <a href="{{ route('backend.blog-category.index') }}" class="btn btn-primary btn-sm">
-                <i data-feather="plus"></i>
-                {{ __('static.categories.category') }}
-            </a>
-        </div>
+            <div class="btn-popup ms-auto mb-0">
+                <a href="{{ route('backend.blog-category.index') }}" class="btn btn-primary btn-sm">
+                    <i data-feather="plus"></i>
+                    {{ __('static.categories.category') }}
+                </a>
+            </div>
         @endisset
     </div>
     <div class="card-body position-relative no-data">
         <form class="row" action="" method="get">
             <div class="col-md-10">
-                <input type="text" name="search" id="searchCategory" value="{{request()->search}}" class="form-control" placeholder="Search Category...">
+                <input type="text" name="search" id="searchCategory" value="{{ request()->search }}" class="form-control" placeholder="Search Category...">
             </div>
             <div class="col-md-2">
                 <button id="submitBtn" type="submit" class="btn btn-primary"> {{ __('Search') }}</button>
@@ -29,7 +29,7 @@
 
                     <div class="jstree-anchor">
                         <span>
-                            {{ $category->title }} ({{ count($category->childs) }})
+                            {{ $category->name }} ({{-- count($category->childs) --}})
                         </span>
                         @canAny(['backend.blog_category.edit', 'backend.blog_category.destroy'])
                         <div class="actions">
@@ -45,13 +45,7 @@
                             @endcan
                         </div>
                         @endcanAny
-                    </div>
-                    @if (count($category->childs))
-                    @include('backend.blog-category.child', [
-                    'childs' => $category->childs,
-                    'cat' => $cat,
-                    ])
-                    @endif
+                    </div> 
                 </li>
                 @empty
                 <li class="d-flex flex-column no-data-detail">
@@ -90,33 +84,6 @@
             </div>
         </div>
     </div>
-</div>
-@if (count($category->childs))
-@foreach($category->childs as $category)
-<div class="modal fade" id="confirmationModal{{$category->id}}" tabindex="-1" aria-labelledby="confirmationModalLabel{{$category->id}}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-start">
-                <div class="main-img">
-                    <img src="{{ asset('admin/images/svg/trash-dark.svg') }}" alt="">
-                </div>
-                <div class="text-center">
-                    <div class="modal-title"> {{ __('static.delete_message') }}</div>
-                    <p>{{ __('static.delete_note') }}</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('backend.blog-category.destroy',$category->id) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button class="btn cancel" data-bs-dismiss="modal" type="button">{{ __('static.cancel') }}</button>
-                    <button class="btn btn-primary delete" type="submit">{{ __('static.delete') }}</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-@endif
+</div> 
 @endforeach
 @endisset

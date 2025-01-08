@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class BecomeAffiliateController extends Controller
 {
@@ -19,13 +19,10 @@ class BecomeAffiliateController extends Controller
         if(Auth::check())
         {
             $user = User::find(Auth::user()->id);
-    
             $user->assignRole('Marketer');
     
             return redirect(route('affiliate.dashboard'));
-        }
-        else
-        {
+        } else {
             return redirect(route('frontend.login.index'));
         }
     }

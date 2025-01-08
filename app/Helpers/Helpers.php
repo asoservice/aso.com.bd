@@ -49,6 +49,7 @@ use Modules\Coupon\Entities\Coupon;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Nwidart\Modules\Facades\Module as NwidartModule;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 trait RoleTrait {
     public static function hasRole(string $roleName, int $userId = null){
@@ -69,6 +70,23 @@ trait RoleTrait {
 
         if($user) return $user->roles()->get();
         return ['Unknown'];
+    }
+
+    public static function slug($model, string $string = '1')
+    {
+        $slug = Str::slug($string);
+
+        if ($model->where('slug', $slug)->exists()) {
+            $counter = 1;
+
+            while ($model->where('slug', $slug . '-' . $counter)->exists()) {
+                $counter++;
+            }
+
+            $slug = $slug . '-' . $counter;
+        }
+
+        return $slug;
     }
 }
 

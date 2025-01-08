@@ -6,23 +6,23 @@
 @section('content')
     <div class="row g-sm-4 g-2">
         @can('backend.blog_category.index')
-            <div class="col-xxl-4 col-xl-5 col-12">
-                @include('backend.faqs-category.tree', [
-                    'categories' => $categories->where('category_type', 'blog'),
+            <div class="col-xl-5 col-12">
+                @include('backend.faq-category.tree', [
+                    'categories' => $categories,
                     'cat' => isset($cat) ? $cat : null,
-                ])
+                ]) {{-- --}}
             </div>
         @endcan
         @can('backend.blog_category.create')
-            <div class="col-xxl-8 col-xl-7 col-12">
+            <div class="col-xl-7 col-12">
                 <div class="card tab2-card">
                     <div class="card-header">
-                        <h5>{{ __('static.categories.create') }}</h5>
+                        <h5>{{ 'Add New Faq Category' }}</h5>
                     </div>
-                    <form action="{{ route('backend.faqs-category.store') }}" id="categoryForm" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('backend.faq-category.store') }}" id="categoryForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
-                            @include('backend.faqs-category.fields')
+                            @include('backend.faq-category.fields')
                             <div class="footer">
                                 <button id='submitBtn' type="submit" class="btn btn-primary spinner-btn">{{ __('static.submit') }}</button>
                             </div>
@@ -68,12 +68,12 @@
 
                     $('#treeBasic').on('click', '.edit-icon', function(e) {
                         var id = $(this).attr('value');
-                        window.location.href = '/backend/faqs-category/' + id + '/edit';
+                        window.location.href = '/backend/faq-category/' + id + '/edit';
                     });
 
                     $('#treeBasic').on('click', '.edit-child', function(e) {
                         var id = $(this).attr('value');
-                        window.location.href = '/backend/faqs-category/' + id + '/edit';
+                        window.location.href = '/backend/faq-category/' + id + '/edit';
                     });
                 }
             };

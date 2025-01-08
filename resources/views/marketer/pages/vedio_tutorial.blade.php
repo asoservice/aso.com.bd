@@ -42,22 +42,18 @@
         <div class="card-body p-3 pt-0">
             <div class="container p-5"> 
                 <div class="row">
-                <div class="col-md-6 col-12 p-3">
-                    <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
-                </div>
-                <div class="col-md-6 col-12 p-3">
-                    <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
-                </div>
-                <div class="col-md-6 col-12 p-3">
-                    <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
-                </div>
-                <div class="col-md-6 col-12 p-3">
-                    <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
-                </div>
+                    <div class="col-md-6 col-12 p-3">
+                        <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                    </div>
+                    <div class="col-md-6 col-12 p-3">
+                        <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                    </div>
+                    <div class="col-md-6 col-12 p-3">
+                        <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                    </div>
+                    <div class="col-md-6 col-12 p-3">
+                        <iframe width="450" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                    </div>
                 </div>
             </div>
         </div>

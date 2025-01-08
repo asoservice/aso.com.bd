@@ -14,7 +14,496 @@
     <div class="card">
         <div class="card-header">
             <h4><b>@lang('static.marketer.earnings')</b></h4>
-        
+            <div class="row">
+                <div class="col-6">
+                    <h4 style="color: #009417;"><b>৳ 230.32</b></h4>
+                    <span>My Affiliate Earnings (Last 30 days)</span>
+                </div>
+                <div class="col-6">
+                    <h4 style="color:rgb(243, 13, 9);"><b>৳ 510.32</b></h4>
+                    <span>Affiliate Wallet Balance</span>
+                </div>
+            </div>
+            <div class="col-12 gap-sm-3 gap-2 mt-5">
+                <div class="d-flex gap-3 align-items-end">
+                    <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                    <h5 style="text-wrap: nowrap;line-height: 16px;">Select Service Zone</h5>
+                    <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                </div>
+            </div>
+            <div class="col-12 d-flex gap-2 p-3">
+                <div class="col-3 mt-2">
+                    <label for="" class="form-label">Country</label>
+                    <select name="" id="" class="form-control bg-white"> 
+                        <option value="">Bangladesh</option>
+                    </select>
+                </div>
+                <div class="col-3 mt-2">
+                    <label for="" class="form-label">Division</label>
+                    <select name="" id="" class="form-control bg-white"> 
+                        <option value="">Chittagong</option>
+                    </select>
+                </div>
+                <div class="col-3 mt-2">
+                    <label for="" class="form-label">District</label>
+                    <select name="" id="" class="form-control bg-white"> 
+                        <option value="">Feni</option>
+                    </select>
+                </div>
+                <div class="col-3 mt-2">
+                    <label for="" class="form-label">Service Zone</label>
+                    <select name="" id="" class="form-control bg-white"> 
+                        <option value="">Feni Town</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12 mt-2 d-flex">
+                <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                <select name="" id="" class="form-control bg-white"> 
+                    <option value="">Lifetime</option>
+                </select>
+            </div>
+            <div class="col-md-8 col-12 mt-5">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <a href="#" class="widget-card">
+                            <div>
+                                <h5>5.89%</h5>
+                                <span>Conversion Rate</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <a href="#" class="widget-card">
+                            <div>
+                                <h5>31,210</h5>
+                                <span>Total Click</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-12 mt-2">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <a href="#" class="widget-card">
+                            <div>
+                                <h5>5.89%</h5>
+                                <span>Conversion Rate</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <a href="#" class="widget-card">
+                            <div>
+                                <h5>31,210</h5>
+                                <span>Total Click</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-12 mt-2">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <a href="#" class="widget-card">
+                            <div>
+                                <h5>5.89%</h5>
+                                <span>Conversion Rate</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <a href="#" class="widget-card">
+                            <div>
+                                <h5>31,210</h5>
+                                <span>Total Click</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <div class="container table-responsive py-5"> 
+                <table class="table table-striped table-responsive">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-7 col-12 gap-sm-3 gap-2 mt-5">
+                            <div class="d-flex gap-3 align-items-end">
+                                <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                                <h5 style="text-wrap: nowrap;line-height: 16px;">My Affiliate Customers (1,236)</h5>
+                                <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12 mt-2 d-flex gap-2">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <h6 style="font-size: 15px !important;!i;!;color: #000;margin-top: 11px;">Filter</h6>
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Signup</th>
+                            <th>Order</th>
+                            <th>Commission</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Shakibul Hasan Kabir</td>
+                            <td>01575454888 <br>emailname@gmail.com</td>
+                            <td>17 Dec 2024 <br>12.29 PM</td>
+                            <td>1,098 Tk <br>05 Order</td>
+                            <td>109.80 Tk</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">More Info</a>
+                                <a href="" class="btn btn-outline-secondary">Order History</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped table-responsive">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-7 col-12 gap-sm-3 gap-2 mt-5">
+                            <div class="d-flex gap-3 align-items-end">
+                                <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                                <h5 style="text-wrap: nowrap;line-height: 16px;">My Affiliate Customers (1,236)</h5>
+                                <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12 mt-2 d-flex gap-2">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <h6 style="font-size: 15px !important;!i;!;color: #000;margin-top: 11px;">Filter</h6>
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Signup</th>
+                            <th>Order</th>
+                            <th>Commission</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Shakibul Hasan Kabir</td>
+                            <td>01575454888 <br>emailname@gmail.com</td>
+                            <td>17 Dec 2024 <br>12.29 PM</td>
+                            <td>1,098 Tk <br>05 Order</td>
+                            <td>109.80 Tk</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">More Info</a>
+                                <a href="" class="btn btn-outline-secondary">Order History</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Affiliate Link</th>
+                            <th>Campaign</th>
+                            <th>Created</th>
+                            <th>Visits</th>
+                            <th>Order</th>
+                            <th>Conversion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Affiliate Link</th>
+                            <th>Campaign</th>
+                            <th>Created</th>
+                            <th>Visits</th>
+                            <th>Order</th>
+                            <th>Conversion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Affiliate Link</th>
+                            <th>Campaign</th>
+                            <th>Created</th>
+                            <th>Visits</th>
+                            <th>Order</th>
+                            <th>Conversion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Affiliate Link</th>
+                            <th>Campaign</th>
+                            <th>Created</th>
+                            <th>Visits</th>
+                            <th>Order</th>
+                            <th>Conversion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Affiliate Link</th>
+                            <th>Campaign</th>
+                            <th>Created</th>
+                            <th>Visits</th>
+                            <th>Order</th>
+                            <th>Conversion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><table class="table table-striped">
+                    <div class="row gap-2 align-items-center">
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <h5>Generated Affiliate Links</h5>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Lifetime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-12 mt-2">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Number of items</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                            <select name="" id="" class="form-control bg-white"> 
+                                <option value="">Search</option>
+                            </select>
+                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                        </div>
+                    </div>
+                    <thead>
+                        <tr class="table-dark">
+                            <th>Affiliate Link</th>
+                            <th>Campaign</th>
+                            <th>Created</th>
+                            <th>Visits</th>
+                            <th>Order</th>
+                            <th>Conversion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
+                            <td>Cleaning Service campaign</td>
+                            <td>17 Dec 2024</td>
+                            <td>1,25,026</td>
+                            <td>1,098 <br>19</td>
+                            <td>3.25%</td>
+                            <td>
+                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                <a href="" class="btn btn-outline-secondary">Performance</a>
+                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

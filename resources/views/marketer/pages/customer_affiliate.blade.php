@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <thead>
-                        <tr>
+                        <tr class="table-dark">
                             <th>Name</th>
                             <th>Contact</th>
                             <th>Signup</th>

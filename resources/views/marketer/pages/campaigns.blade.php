@@ -31,9 +31,7 @@
             <div class="col-12 d-flex align-items-center gap-sm-3 gap-2 p-3">
                 <div class="col-7 mt-2">
                     <label for="" class="form-label">Campaign Name:</label>
-                    <select name="" id="" class="form-control form-control-sm bg-white mb-4"> 
-                        <option value="">Cleaning Service campaign</option>
-                    </select>
+                    <input type="text" class="form-control form-control-sm" name="ca">
                 </div>
                 <div class="col-4 mt-2">
                     <button class="btn btn-warning w-100">Generate Link</button>

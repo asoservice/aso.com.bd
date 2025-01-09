@@ -97,6 +97,17 @@
                                     @csrf
                                 </form>
                             </li>
+                            @if(Auth::user()->hasRole('Marketer'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('affiliate.dashboard') }}">
+                                    <i class="iconsax deactivate-icon" icon-name="star"></i>
+                                    <img src="{{ asset('frontend/images/svg/star-rate.svg') }}" class="active-icon"
+                                        alt="star">
+                                    <span>{{ __('static.marketer.affiliate_dashboard') }}</span>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

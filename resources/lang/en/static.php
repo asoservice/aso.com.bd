@@ -1936,6 +1936,7 @@ return [
     'setting' => 'Setting',
     'affiliate_dashboard' => 'Afiiliate Dashboard',
     'select_service_zone' => 'select_service_zone',
+    'campaign_required' => 'Please give campaign name',
 ],
 
 

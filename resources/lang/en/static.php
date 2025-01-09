@@ -1934,7 +1934,9 @@ return [
     'live_chat' => 'Live Chat',
     'support_ticket' => 'Support Ticket',
     'setting' => 'Setting',
+    'affiliate_dashboard' => 'Afiiliate Dashboard',
     'select_service_zone' => 'select_service_zone',
+    'campaign_required' => 'Please give campaign name',
 ],
 
 

@@ -2,11 +2,17 @@
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Marketer\CampaignController;
 
 // use App\Http\Controllers\Marketer\{AffiliateController};
 
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::resources([
+        'campaign' => CampaignController::class,
+    ]);
+
     Route::get('dashboard','Marketer\AffiliateController@index')->name('affiliate.dashboard');
     
     Route::get('generate_affiliate_link','Marketer\AffiliateController@generate_affiliate_link')->name('affiliate.generate_affiliate_link');

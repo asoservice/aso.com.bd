@@ -1934,7 +1934,7 @@ return [
     'live_chat' => 'Live Chat',
     'support_ticket' => 'Support Ticket',
     'setting' => 'Setting',
-    ''
+    'affiliate_dashboard' => 'Afiiliate Dashboard',
 ],
 
 

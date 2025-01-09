@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Marketer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\Marketer\CampaignRepository;
 
 class AffiliateController extends Controller
 {
-    protected $path;
+    protected $path,$campaign_repo;
     public function __construct()
     {   
         $this->path = 'marketer';
+        $this->campaign_repo = new CampaignRepository();
     }
     public function index()
     {
@@ -24,7 +26,9 @@ class AffiliateController extends Controller
 
     public function campaigns()
     {
-        return view($this->path.'.pages.campaigns');
+        $data['my_camp'] = $this->campaign_repo->getCampaign();
+        $data['sl'] = 1;
+        return view($this->path.'.pages.campaigns',compact('data'));
     }
     public function service_affiliate_links()
     {

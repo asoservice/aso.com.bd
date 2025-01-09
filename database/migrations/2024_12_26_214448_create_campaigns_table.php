@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date')->nullable();
-            $table->decimal('commission_rate', 5, 2);
+            $table->foreignId('affiliate_id')->constrained('users');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

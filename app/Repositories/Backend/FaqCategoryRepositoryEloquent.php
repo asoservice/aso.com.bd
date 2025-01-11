@@ -23,6 +23,7 @@ class FaqCategoryRepositoryEloquent extends BaseRepository implements FaqCategor
      *
      * @return string
      */
+    public string $baseMediaPath = 'storage/media/faq-category/';
     public function model()
     {
         return FaqCategory::class;
@@ -50,7 +51,6 @@ class FaqCategoryRepositoryEloquent extends BaseRepository implements FaqCategor
     }
 
     public function store($request) {
-        // return $request->all();
         DB::beginTransaction();
 
         $request->validate([
@@ -71,12 +71,9 @@ class FaqCategoryRepositoryEloquent extends BaseRepository implements FaqCategor
                     'sort_order' => $request->sort_order ?? 0,
                     'status' => $status,
                     'slug' => $slug,
-                    'created_by' => $request->user()->id,
+                    'icon' => $request->hasFile('icon') ? Helpers::storeFile($request->file('icon'), $this->baseMediaPath) : null
                 ]
-            );
-            if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
-                $category->addMediaFromRequest('icon')->toMediaCollection('icon');
-            }
+            ); 
 
             DB::commit();
             return redirect()->route('backend.faq-category.index')->with('message', 'Faq Category Created Successfully.');
@@ -87,9 +84,66 @@ class FaqCategoryRepositoryEloquent extends BaseRepository implements FaqCategor
         }
     }
 
-    public function edit($model, string|int $id) {
+    public function edit(string|int $id) {
         $category = $this->model->find($id);
-        return view('backend.faq-category.edit', ['category' => $category]);
+        $category->status = ($category->status && ($category->status == 'active')) ? 1 : 0;
+        return view('backend.faq-category.edit', ['cat' => $category, 'categories'=> $this->model->latest('id')->get()]);
+    }
+
+    public function update(mixed $request, $id) {
+        DB::beginTransaction();
+        $faqCategory = $this->model->find($id);
+
+        if(!$faqCategory) {
+            return back()->with('error', 'Faq Category not found.');
+        }
+
+        $request->validate([
+            'name' => 'required|max:99',
+            'icon' => 'nullable|file|image',
+            'sort_order' => 'nullable|numeric',
+            'status' => 'required',
+        ]);
+
+        $status = $request->status == 1 ? 'active' : 'inactive';
+        $slug = $faqCategory->name != $request->name ? Helpers::slug($this->model, $request->name) : $faqCategory->slug;
+
+        try {
+            $faqCategory->name = $request->name;
+            $faqCategory->description = $request->description;
+            $faqCategory->sort_order = $request->sort_order ?? 0;
+            $faqCategory->status = $status;
+            $faqCategory->slug = $slug;
+
+            if ($request->hasFile('icon') && $request->file('icon')->isValid()) {
+                $faqCategory->icon = Helpers::storeFile($request->file('icon'), $this->baseMediaPath, $faqCategory->icon);
+            }
+
+            $faqCategory->save();
+            DB::commit();
+            return redirect()->route('backend.faq-category.index')->with('message', 'Faq Category Created Successfully.');
+        } catch (Exception $e) {
+
+            DB::rollback();
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function destroy($id) {
+        DB::beginTransaction();
+        try {
+            $category = $this->model->find($id);
+            if(file_exists($category->icon)) {
+                unlink($category->icon);
+            }
+            $category->delete();
+            DB::commit();
+            return redirect()->route('backend.faq-category.index')->with('message', 'Faq Category Deleted Successfully.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('backend.faq-category.index')->with('error', $e->getMessage());
+        }
     }
     
 }
+

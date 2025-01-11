@@ -53,12 +53,13 @@ class RoleRepository extends BaseRepository
 
     public function update($request, $id)
     {
+        // return $request['permissions'];
         DB::beginTransaction();
         try {
 
             $role = $this->model->findOrFail($id);
 
-            if ($role->system_reserve) {
+            if ($role->system_reserve && env('APP_ENV') == 'production') {
                 return redirect()->route('backend.role.index')->with('error', 'This Role Cannot be Update. It is System reserved.');
             }
 

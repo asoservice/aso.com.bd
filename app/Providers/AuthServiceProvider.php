@@ -10,6 +10,7 @@ use App\Models\Blog;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\FaqCategory;
 use App\Models\Service;
 use App\Models\ServicePackage;
 use App\Models\ServiceRequest;
@@ -28,6 +29,7 @@ use App\Policies\BlogPolicy;
 use App\Policies\CurrencyPolicy;
 use App\Policies\CustomerPolicy;
 use App\Policies\DocumentPolicy;
+use App\Policies\FaqCategoryPolicy;
 use App\Policies\ServicePackagePolicy;
 use App\Policies\ServicePolicy;
 use App\Policies\ServiceRequestPolicy;
@@ -74,6 +76,7 @@ class AuthServiceProvider extends ServiceProvider
         Zone::class => ZonePolicy::class,
         ServiceRequest::class => ServiceRequestPolicy::class,
         Bid::class => BidPolicy::class,
+        FaqCategory::class => FaqCategoryPolicy::class,
     ];
 
     /**

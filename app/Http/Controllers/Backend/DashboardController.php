@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Booking;
@@ -10,7 +11,7 @@ use App\Models\Service;
 use App\Repositories\Backend\DashboardRepository;
 use Illuminate\Http\Request;
 use App\Models\Role;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -24,10 +25,8 @@ class DashboardController extends Controller
     public function permission()
     {
         $permission = DB::table('permissions')->orderBy('id','ASC')->pluck('name')->toArray();
-        // return $permission;
-        // return $permission;
+        
         $role = Role::find(1);
-
         $role->syncPermissions($permission);
         
         return redirect()->back();
@@ -36,7 +35,53 @@ class DashboardController extends Controller
     public function create_permission(Request $request)
     {
         // dd($request->all());
-        $actions = '{"index":"backend.'.$request->route.'.index","create":"backend.'.$request->route.'.create","edit":"backend.'.$request->route.'.edit","destroy":"backend.'.$request->route.'.destroy"}';
+        $routeName = $request->input('route');
+        $prefix = $request->input('prefix') ?? 'backend';
+        $routeResources = ['index','create','store','edit','update','destroy','show'];
+        if(empty($routeName)) return redirect()->back()->with('error', 'Resource route point name or route name is required !.');
+
+        $messages = [];
+        $actions = [];
+        foreach ($routeResources as $routeResource) {
+            if(str_ends_with($routeName, ".{$routeResource}")) {
+                $strRouteResource = implode(', ', $routeResources);
+                return redirect()->back()->with('error', "Route name should not end with [{$strRouteResource}]");
+            }
+
+            $action = "{$prefix}.{$routeName}.{$routeResource}";
+            $actions[$routeResource] = $action;
+            
+            if(DB::table('permissions')->where('name', $action)->exists()) {
+                $messages[$routeResource] = "Permission [{$action}] already exists.";
+            } else {
+                DB::table('permissions')->insert([
+                    'name' => $action,
+                    'guard_name' => 'web',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]);
+    
+                $messages[$routeResource] = "[{$action}] permission created successfully.";
+            }
+        }
+
+        if(DB::table('modules')->where('name', $routeName)->exists()) {
+            $messages['module'] = "Module [{$routeName}] already exists.";
+            return redirect()->back()->with('error', $messages);
+        }
+
+        DB::table('modules')->insert([
+            'name' => $routeName,
+            'actions' => json_encode($actions),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $messages['module'] = "Module [{$routeName}] created successfully.";
+        return redirect()->back()->with('success', $messages);
+
+
+        /* $actions = '{"index":"backend.'.$request->route.'.index","create":"backend.'.$request->route.'.create","edit":"backend.'.$request->route.'.edit","destroy":"backend.'.$request->route.'.destroy"}';
 
         $permissions = [
             "backend.$request->route.index",
@@ -66,7 +111,7 @@ class DashboardController extends Controller
             return redirect()->back()->with('message', 'This Route is already taken !.');
         }
 
-        return redirect()->back();
+        return redirect()->back(); */
     }
 
     /**
@@ -80,13 +125,15 @@ class DashboardController extends Controller
             ->having('bookings_count', '>', 0)
             ->orderByDesc('bookings_count');
         $reviews = Review::with('service')->whereNotNull('service_id');
-        if (auth()->check() && auth()?->user()?->hasRole('provider')) {
+
+        if (auth()->check() && Helpers::hasRole('provider')) {
             $providerId = auth()?->user()?->id;
             $services = $services->where('user_id', $providerId);
             $reviews = $reviews->where('provider_id', $providerId);
-        } else if (auth()->check() && auth()?->user()?->hasRole('serviceman')){
+        } else if (auth()->check() && Helpers::hasRole('serviceman')) {
             $servicemanId = auth()?->user()?->id;
         }
+
         return view('backend.dashboard.index')->with([
             'data' => $this->chart($request),
             'fetchTopProviders' => $this->fetchTopProviders()?->paginate(5),

@@ -1,3 +1,7 @@
+@include('components.custom-alerts')
+
+{{-- 
+<!-- 
 <script>
     $(document).ready(function() {
         @if (Session::has('message'))
@@ -32,4 +36,6 @@
             toastr.warning("{{ session('warning') }}");
         @endif
     });
-</script>
+</script> 
+-->
+--}}

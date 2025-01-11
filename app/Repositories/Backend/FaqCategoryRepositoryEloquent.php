@@ -86,5 +86,10 @@ class FaqCategoryRepositoryEloquent extends BaseRepository implements FaqCategor
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function edit($model, string|int $id) {
+        $category = $this->model->find($id);
+        return view('backend.faq-category.edit', ['category' => $category]);
+    }
     
 }

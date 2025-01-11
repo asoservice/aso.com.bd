@@ -41,9 +41,9 @@ class FaqCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(FaqCategory $faqCategory)
     {
-        //
+        // return $this->repository->edit($faqCategory, $faqCategory?->id);
     }
 
     /**
@@ -51,7 +51,7 @@ class FaqCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return $this->repository->edit($id);
     }
 
     /**

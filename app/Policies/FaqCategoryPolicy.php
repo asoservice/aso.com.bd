@@ -47,6 +47,12 @@ class FaqCategoryPolicy
         }
     }
 
+    public function edit(User $user, FaqCategory $category){
+        if ($user->can('backend.faq-category.edit') || $user->id == $category->created_by) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can update the model.
      *

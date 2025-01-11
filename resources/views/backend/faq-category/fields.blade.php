@@ -35,7 +35,20 @@
 <div class="form-group row">
     <label for="icon" class="col-md-2">{{ __('Icon') }}</label>
     <div class="col-md-10">
-        <input class='form-control' type="file" accept=".jpg, .png, .jpeg" id="icon" name="icon">
+        <input class='form-control' type="file" accept=".jpg, .png, .jpeg, .svg" id="icon" name="icon">
+        @if(isset($cat->icon) && file_exists($cat->icon))
+            <div class="image-list mt-3">
+                <div class="image-list-detail">
+                    <div class="position-relative">
+                        <img src="{{ asset($cat->icon) }}" id="{{ $cat->name }}" alt="User Image"
+                            class="image-list-item">
+                        <div class="close-icon">
+                            <i data-feather="x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         @error('icon')
             <span class="invalid-feedback d-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -44,7 +57,7 @@
     </div>
 </div>
 
-@if (isset($cat))
+@if (isset($cat) && isset($cats->media))
 <div class="form-group">
     <div class="row">
         <div class="col-md-2"></div>
@@ -94,11 +107,9 @@
                 ignore: [],
                 rules: {
                     "title": "required",
-                    "description": "required",
-                    "commission": "required",
-                    "content": "required",
-                    "image": {
-                        accept: "image/jpeg, image/png"
+                    // "description": "required",
+                    "icon": {
+                        accept: "image/jpeg, image/png, image/jpg, image/svg+xml",
                     },
                 },
                 messages: {

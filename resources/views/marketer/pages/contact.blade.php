@@ -67,7 +67,7 @@
                         </div>
                         <div class="d-flex gap-4 mt-3 align-items-center">
                             <img class="active-icon" src="{{ asset('admin/images/svg/map-pin.svg') }}"> 
-                            <span>Location <br><p>Block A, Road No. 5, Uttara, Dhaka</p></span>
+                            <span>Location <br><p>Block A, Road No. 5, Uttara, Dhaka </p></span>
                         </div>
                     </div>
                 </div>

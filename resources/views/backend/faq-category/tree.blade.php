@@ -3,7 +3,7 @@
         <h5>{{ __('All Faq Categories') }}</h5>
         @isset($cat)
             <div class="btn-popup ms-auto mb-0">
-                <a href="{{ route('backend.blog-category.index') }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('backend.faq-category.index') }}" class="btn btn-primary btn-sm">
                     <i data-feather="plus"></i>
                     {{ __('static.categories.category') }}
                 </a>
@@ -12,11 +12,11 @@
     </div>
     <div class="card-body position-relative no-data">
         <form class="row" action="" method="get">
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <input type="text" name="search" id="searchCategory" value="{{ request()->search }}" class="form-control" placeholder="Search Category...">
             </div>
-            <div class="col-md-2">
-                <button id="submitBtn" type="submit" class="btn btn-primary"> {{ __('Search') }}</button>
+            <div class="col-md-3">
+                <button id="submitBtn" type="submit" class="btn btn-primary px-3"> {{ __('Search') }}</button>
             </div>
         </form>
         <div class="jstree-loader">
@@ -31,14 +31,14 @@
                         <span>
                             {{ $category->name }} ({{-- count($category->childs) --}})
                         </span>
-                        @canAny(['backend.blog_category.edit', 'backend.blog_category.destroy'])
+                        @canAny(['backend.faq-category.edit', 'backend.faq-category.destroy'])
                         <div class="actions">
-                            @can('backend.blog_category.edit', $category)
-                            <a id="edit-blog-category" href="#">
+                            @can('backend.faq-category.edit', $category)
+                            <a id="edit-faq-category" href="#">
                                 <img class="edit-icon" value="{{ $category->id }}" src="{{ asset('admin/images/svg/edit-2.svg') }}">
                             </a>
                             @endcan
-                            @can('backend.blog_category.destroy', $category)
+                            @can('backend.faq-category.destroy', $category)
                             <a href="#confirmationModal{{$category->id}}" data-bs-toggle="modal">
                                 <img class="remove-icon" src="{{ asset('admin/images/svg/trash-table.svg') }}">
                             </a>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('backend.blog-category.destroy',$category->id) }}" method="post">
+                <form action="{{ route('backend.faq-category.destroy',$category->id) }}" method="post">
                     @csrf
                     @method('delete')
                     <button class="btn cancel" data-bs-dismiss="modal" type="button">{{ __('static.cancel') }}</button>

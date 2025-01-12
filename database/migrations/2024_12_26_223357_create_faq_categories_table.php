@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faq-categories', function (Blueprint $table) {
+        Schema::create('faq_categories', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->string('name', 100); // Name of the category
             $table->string('slug', 120)->unique(); // Unique slug for the category

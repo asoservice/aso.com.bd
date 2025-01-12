@@ -77,9 +77,7 @@
                             </select>
                         </div>
                         <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Search</option>
-                            </select>
+                            <input type="search" class="form-control bg-white" placeholder="Search">
                             <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
                         </div>
                     </div>

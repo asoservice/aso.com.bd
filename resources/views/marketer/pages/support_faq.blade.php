@@ -14,7 +14,6 @@
     <div class="card">
         <div class="card-header">
             <h4><b>@lang('static.marketer.support_faq')</b></h4>
-        
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@ class CampaignRepository{
 
     public function getCampaign()
     {
-        $data = $this->model->where('affiliate_id',Auth::user()->id)->paginate(30);
+        $data = $this->model->where('affiliate_id',Auth::user()->id)->paginate(10);
 
         return $data;
     }

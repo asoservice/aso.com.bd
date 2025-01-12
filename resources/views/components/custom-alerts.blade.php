@@ -1,11 +1,11 @@
 @php
     $alert = ['type' => '', 'texts' => [], 'text'=> ''];
-    $messageTypes = ['success', 'error', 'info', 'warning'];
+    $messageTypes = ['success', 'error', 'info', 'warning', 'message'];
     foreach ($messageTypes as $type) {
         if(session()->has($type)) {
-            if($type == 'message' || $type == 'success') {
+            if (in_array($type, $messageTypes)) {
                 $alert['type'] = 'success';
-            } if (in_array($type, $messageTypes)) {
+            } else if ($type == 'message' || $type == 'success') {
                 $alert['type'] = $type;
             } else {
                 $alert['type'] = 'info';

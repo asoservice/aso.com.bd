@@ -49,6 +49,7 @@ use Modules\Coupon\Entities\Coupon;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Nwidart\Modules\Facades\Module as NwidartModule;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 trait RoleTrait {
@@ -87,6 +88,33 @@ trait RoleTrait {
         }
 
         return $slug;
+    }
+
+    public static function storeFile($file, string $path = 'storage/media/uploads/', $oldImage = NULL)
+    {
+        $createPath = public_path($path);
+        if (!File::isDirectory($createPath)) {
+            File::makeDirectory($createPath, 0777, true, true);
+        }
+
+        $ext = $file ? $file->getClientOriginalExtension() : 'jpg';
+        $filename = Carbon::now()->toDateString() . '-' . Str::random() . '.' . $ext;
+        
+        // $ext = 'webp';
+        // $file = Image::make($file);
+        // $file->resize($size, null, function ($constraint) {
+            //     $constraint->aspectRatio();
+            //     $constraint->upsize();
+            // })->stream($ext, 100);
+        
+        $filenameWithPath = $path . $filename;
+        $file->move($createPath, $filename);
+
+        if (file_exists($oldImage)) {
+            unlink($oldImage);
+        }
+
+        return $filenameWithPath;
     }
 }
 

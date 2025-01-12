@@ -24,8 +24,12 @@
                     <span>Affiliate Wallet Balance</span>
                 </div>
             </div>
-            <div class="col-12 gap-sm-3 gap-2 p-3 mt-5">
-                <h5 style="margin-left: 44px;">Select Service Zone</h5>
+            <div class="col-12 gap-sm-3 gap-2 mt-5">
+                <div class="d-flex gap-3 align-items-end">
+                    <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                    <h5 style="text-wrap: nowrap;line-height: 16px;">Select Service Zone</h5>
+                    <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                </div>
             </div>
             <div class="col-12 d-flex gap-2 p-3">
                 <div class="col-3 mt-2">

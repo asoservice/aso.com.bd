@@ -9,6 +9,7 @@ use App\Models\Module;
 use App\Repositories\Backend\RoleRepository;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -62,7 +63,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('backend.role.edit', ['role' => $role, 'modules' => $this->getModules()]);
+        $data = ['role' => $role, 'modules' => $this->getModules()];
+        return view('backend.role.edit', $data);
     }
 
     /**

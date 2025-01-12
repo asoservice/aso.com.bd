@@ -47,6 +47,13 @@
   background: #cccccc;
 }
 
+.btn-warnings{
+    border-radius: 5px;
+    border: 0.5px solid #000;
+    background: var(--aso-orange-gradiant, linear-gradient(91deg, #FECA57 0.06%, #FF9500 99.94%));
+    color: #fff;
+    font-weight: 600;
+}
 </style>
 @endpush
 
@@ -70,14 +77,18 @@
                 <img class="active-icon" src="{{ asset('frontend/images/svg/send.svg') }}">
                 <h6> Default Affiliate Link: </h6>
                 <div class="copy-link">
-                    <input type="text" class="copy-link-input" value="https://asoaffiliate.com/?ref=1" readonly>
+                    <input type="text" class="copy-link-input form-control color-dark" value="https://asoaffiliate.com/?ref=1" readonly>
                     <button type="button" class="copy-link-button">
                         <img class="active-icon" src="{{ asset('frontend/images/svg/copy.svg') }}">
                     </button>
                 </div>
             </div>
             <div class="col-12 gap-sm-3 gap-2 p-3 mt-5">
-                <h5 style="margin-left: 44px;">Affiliate Link Generator</h5>
+                <div class="d-flex gap-3 align-items-end">
+                    <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                    <h5 style="text-wrap: nowrap;line-height: 16px;">Affiliate Link Generator</h5>
+                    <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                </div>
                 <p class="p-3">If you'd like to add your own affiliate links with a different URL, follow this structure. Enter any URL from this website to generate a referral link.</p>
             </div>
             <div class="col-12 d-flex gap-sm-3 gap-2 p-3">
@@ -94,7 +105,7 @@
             </div>
             <div class="col-12 d-flex align-items-center gap-sm-3 gap-2 p-3">
                 <div class="col-4">
-                    <button class="btn btn-warning w-100">Generate Link</button>
+                    <button class="btn btn-warnings w-100">Generate Link</button>
                 </div>
                 <div class="col-7 d-flex">
                     <img class="active-icon p-1" src="{{ asset('frontend/images/svg/send.svg') }}">
@@ -107,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5 p-3">
+        <div class="row gap-3 mt-5 p-3">
             <div class="col-md-4 col-12">
                 <a href="{{ route('backend.provider.index') }}" class="widget-card">
                     <div>
@@ -137,10 +148,14 @@
             <div class="container table-responsive py-5"> 
                 <table class="table table-striped">
                     <div class="row gap-2 align-items-center">
-                        <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <h5>Generated Affiliate Links</h5>
+                        <div class="col-lg-4 col-12 gap-sm-3 gap-2 mt-5">
+                            <div class="d-flex gap-3 align-items-end">
+                                <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                                <h5 style="text-wrap: nowrap;line-height: 16px;">Generated Affiliate Links</h5>
+                                <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                            </div>
                         </div>
-                        <div class="col-lg-3 col-12 mt-2 d-flex">
+                        <div class="col-lg-2 col-12 mt-2 d-flex">
                             <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
                             <select name="" id="" class="form-control bg-white"> 
                                 <option value="">Lifetime</option>
@@ -152,9 +167,7 @@
                             </select>
                         </div>
                         <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Search</option>
-                            </select>
+                            <input type="search" class="form-control bg-white" placeholder="Search">
                             <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
                         </div>
                     </div>
@@ -171,16 +184,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>https://aso.com.bd/category/cleaning/?ref=1</td>
-                            <td>Cleaning Service campaign</td>
+                            <td>https://aso.com.bd/....</td>
+                            <td>Cleaning Ser...</td>
                             <td>17 Dec 2024</td>
                             <td>1,25,026</td>
                             <td>1,098 <br>19</td>
                             <td>3.25%</td>
                             <td>
-                                <a href="" class="btn btn-outline-secondary">Copy Link</a>
-                                <a href="" class="btn btn-outline-secondary">Performance</a>
-                                <a href="" class="btn btn-outline-secondary">Remove</a>
+                                <div class="btn-group">
+                                    <a href="" class="btn btn-outline-secondary">Copy Link</a>
+                                    <a href="" class="btn btn-outline-secondary">Performance</a>
+                                    <a href="" class="btn btn-outline-secondary">Remove</a>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

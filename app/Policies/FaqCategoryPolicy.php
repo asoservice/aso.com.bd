@@ -60,8 +60,7 @@ class FaqCategoryPolicy
      */
     public function update(User $user, FaqCategory $category)
     {
-        if ($user->can('backend.faq-category.edit') || $user->id == $category->created_by) {
-
+        if ($user->can('backend.faq-category.edit')) {
             return true;
         }
     }
@@ -73,8 +72,7 @@ class FaqCategoryPolicy
      */
     public function delete(User $user, FaqCategory $category)
     {
-        if ($user->can('backend.faq-category.destroy') && $user->id == $category->created_by) {
-
+        if ($user->can('backend.faq-category.destroy')) {
             return true;
         }
     }

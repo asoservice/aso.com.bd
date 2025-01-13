@@ -68,7 +68,15 @@
                             <div class="col-lg-2 col-12 mt-2 d-flex">
                                 <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
                                 <select name="" id="" class="form-control bg-white"> 
-                                    <option value="">Lifetime</option>
+                                    <option value="Lifetime">Lifetime</option>
+                                    <option value="Today">Today</option>
+                                    <option value="Yesterday">Yesterday</option>
+                                    <option value="7 Days">Last 7 Days</option>
+                                    <option value="15 Days">Last 15 Days</option>
+                                    <option value="30 Days">Last 30 Days</option>
+                                    <option value="60 Days">Last 60 Days</option>
+                                    <option value="180 Days">Last 180 Days</option>
+                                    <option value="1 Year">Last 1 Year</option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12 mt-2">
@@ -191,7 +199,15 @@
                             <div class="col-lg-3 col-12 mt-2 d-flex">
                                 <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
                                 <select name="" id="" class="form-control bg-white"> 
-                                    <option value="">Lifetime</option>
+                                    <option value="Lifetime">Lifetime</option>
+                                    <option value="Today">Today</option>
+                                    <option value="Yesterday">Yesterday</option>
+                                    <option value="7 Days">Last 7 Days</option>
+                                    <option value="15 Days">Last 15 Days</option>
+                                    <option value="30 Days">Last 30 Days</option>
+                                    <option value="60 Days">Last 60 Days</option>
+                                    <option value="180 Days">Last 180 Days</option>
+                                    <option value="1 Year">Last 1 Year</option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12 mt-2">

@@ -6,6 +6,7 @@ use App\Models\FaqCategory;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\FaqCategoryRepositoryEloquent;
 use Illuminate\Http\Request;
+use Auth;
 
 class FaqCategoryController extends Controller
 {

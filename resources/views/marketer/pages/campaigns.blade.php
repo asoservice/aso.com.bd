@@ -10,8 +10,12 @@
 <li class="breadcrumb-item active">{{ __('static.marketer.campaigns') }}</li>
 @endsection
 
+
 @section('content')
 
+@push('css')
+<link href="//cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css" rel="stylesheet">
+@endpush
 
 <div class="row g-sm-4 g-3">
     <div class="card">
@@ -52,7 +56,7 @@
         <div class="card-body p-3">
             <div class="container table-responsive py-5"> 
                 <div class="table-box">
-                    <table class="table table-striped table-responsive pb-5">
+                    <table class="table table-striped table-responsive pb-5" id="myTable">
                         <div class="row gap-2 align-items-center">
                             <div class="col-lg-4 col-12">
                                 <div class="d-flex gap-3 align-items-end">
@@ -235,5 +239,11 @@
 @endsection
 @push('js')
 <script src="{{ asset('admin/js/apex-chart.js') }}"></script>
-
+<script src="//cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
+<script>
+    $('#myTable').dataTable({
+        "paging": false,
+        "searching": false
+    });
+</script>
 @endpush

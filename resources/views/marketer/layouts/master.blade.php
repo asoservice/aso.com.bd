@@ -39,6 +39,7 @@
     <!-- Feather icon css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/vendors/feather-icon/feather-icon.css') }}">
     @stack('style')
+    @stack('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/vendors/toastr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/vendors/select-datatables.min.css') }}">
     <!-- Admin css-->
@@ -141,9 +142,9 @@
     <script src="{{ asset('admin/js/jquery-validation/additional-methods.js') }}"></script>
     <script src="{{ asset('admin/js/jquery-validation/additional-methods.min.js') }}"></script>
 
-    @stack('css')
     
     @stack('js')
+
 
     <script src="{{ asset('admin/js/dropzone.js') }}"></script>
 

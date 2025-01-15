@@ -145,61 +145,61 @@
             </div>
         </div>
         <div class="card-body p-3">
-            <div class="container table-responsive py-5"> 
-                <table class="table table-striped">
-                    <div class="row gap-2 align-items-center">
-                        <div class="col-lg-4 col-12 gap-sm-3 gap-2 mt-5">
-                            <div class="d-flex gap-3 align-items-end">
-                                <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
-                                <h5 style="text-wrap: nowrap;line-height: 16px;">Generated Affiliate Links</h5>
-                                <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+            <div class="container table-responsive py-5">
+                <div class="table-box mt-5">
+                    <table class="table table-striped">
+                        <div class="row gap-2 align-items-center">
+                            <div class="col-lg-4 col-12 gap-sm-3 gap-2 mt-5">
+                                <div class="d-flex gap-3 align-items-end">
+                                    <div style="width: 100px;height: 1px;background: #dfd4d4;"></div>
+                                    <h5 style="text-wrap: nowrap;line-height: 16px;">Generated Affiliate Links</h5>
+                                    <div style="width: 100%;height: 1px;background: #dfd4d4;"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-12 mt-2 d-flex">
+                                <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                                <select name="" id="" class="form-control bg-white"> 
+                                    <option value="">Lifetime</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-12 mt-2">
+                                <select name="" id="" class="form-control bg-white"> 
+                                    <option value="">Number of items</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-12 mt-2 d-flex">
+                                <input type="search" class="form-control bg-white" placeholder="Search">
+                                <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
                             </div>
                         </div>
-                        <div class="col-lg-2 col-12 mt-2 d-flex">
-                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Lifetime</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-2 col-12 mt-2">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Number of items</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <input type="search" class="form-control bg-white" placeholder="Search">
-                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
-                        </div>
-                    </div>
-                    <thead>
-                        <tr class="table-dark">
-                            <th>Affiliate Link</th>
-                            <th>Campaign</th>
-                            <th>Created</th>
-                            <th>Visits</th>
-                            <th>Order</th>
-                            <th>Conversion</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>https://aso.com.bd/....</td>
-                            <td>Cleaning Ser...</td>
-                            <td>17 Dec 2024</td>
-                            <td>1,25,026</td>
-                            <td>1,098 <br>19</td>
-                            <td>3.25%</td>
-                            <td>
-                                <div class="btn-group">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Affiliate Link</th>
+                                <th>Campaign</th>
+                                <th>Created</th>
+                                <th>Visits</th>
+                                <th>Order</th>
+                                <th>Conversion</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>https://aso.com.bd/....</td>
+                                <td>Cleaning Ser...</td>
+                                <td>17 Dec 2024</td>
+                                <td>1,25,026</td>
+                                <td>1,098 <br>19</td>
+                                <td>3.25%</td>
+                                <td>
                                     <a href="" class="btn btn-outline-secondary">Copy Link</a>
                                     <a href="" class="btn btn-outline-secondary">Performance</a>
                                     <a href="" class="btn btn-outline-secondary">Remove</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

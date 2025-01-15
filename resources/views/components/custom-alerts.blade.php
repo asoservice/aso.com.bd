@@ -24,25 +24,25 @@
 @endphp
 
 <script>
-    const alert = @json($alert);
+    const sessionAlert = @json($alert);
     
     $(document).ready(function() {
-        let texts = alert.texts;
-        if(Object.isExtensible(alert.texts)) {
-            texts = Object.values(alert.texts);
+        let texts = sessionAlert.texts;
+        if(Object.isExtensible(sessionAlert.texts)) {
+            texts = Object.values(sessionAlert.texts);
         }
 
-        if(alert.text) {
-            texts.push(alert.text);
+        if(sessionAlert.text) {
+            texts.push(sessionAlert.text);
         }
 
-        if(alert.type && texts.length > 0) {
+        if(sessionAlert.type && texts.length > 0) {
             texts.forEach(text => {
                 toastr.options = {
                     closeButton: false,
                     progressBar: true,
                 }
-                toastr[alert.type](text);
+                toastr[sessionAlert.type](text);
             });
         }
     });

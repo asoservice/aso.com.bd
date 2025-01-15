@@ -13,6 +13,8 @@ Route::group(['middleware' => ['auth']], function () {
         'campaign' => CampaignController::class,
     ]);
 
+    Route::post('get_campaign',[CampaignController::class,'get_campaign'])->name('campaign.get_campaign');
+
     Route::get('dashboard','Marketer\AffiliateController@index')->name('affiliate.dashboard');
     
     Route::get('generate_affiliate_link','Marketer\AffiliateController@generate_affiliate_link')->name('affiliate.generate_affiliate_link');

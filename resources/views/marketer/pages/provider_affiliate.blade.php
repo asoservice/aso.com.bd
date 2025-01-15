@@ -59,54 +59,54 @@
             </div>
         </div>
         <div class="card-body p-3">
-            <div class="container table-responsive py-5"> 
-                <table class="table table-striped table-responsive">
-                    <div class="row gap-2 align-items-center">
-                        <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <h5>My Affiliate Customers (1,236)</h5>
+            <div class="container table-responsive py-5">
+                <div class="table-box mt-5">
+                    <table class="table table-striped table-responsive">
+                        <div class="row gap-2 align-items-center">
+                            <div class="col-lg-3 col-12 mt-2 d-flex">
+                                <h5>My Affiliate Customers (1,236)</h5>
+                            </div>
+                            <div class="col-lg-3 col-12 mt-2 d-flex">
+                                <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
+                                <select name="" id="" class="form-control bg-white"> 
+                                    <option value="">Lifetime</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-12 mt-2">
+                                <select name="" id="" class="form-control bg-white"> 
+                                    <option value="">Number of items</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-12 mt-2 d-flex">
+                                <input type="search" class="form-control bg-white" placeholder="Search">
+                                <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
+                            </div>
                         </div>
-                        <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Lifetime</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-2 col-12 mt-2">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Number of items</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 col-12 mt-2 d-flex">
-                            <select name="" id="" class="form-control bg-white"> 
-                                <option value="">Search</option>
-                            </select>
-                            <img class="active-icon p-2" src="{{ asset('frontend/images/svg/search.svg') }}" style="background-color: #00162E;padding: 8px;margin-left: 6px;border-radius: 30%;">
-                        </div>
-                    </div>
-                    <thead>
-                        <tr class="table-dark">
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <th>Signup</th>
-                            <th>Order</th>
-                            <th>Commission</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Shakibul Hasan Kabir</td>
-                            <td>01575454888 <br>emailname@gmail.com</td>
-                            <td>17 Dec 2024 <br>12.29 PM</td>
-                            <td>1,098 Tk <br>05 Order</td>
-                            <td>109.80 Tk</td>
-                            <td>
-                                <a href="" class="btn btn-outline-secondary">More Info</a>
-                                <a href="" class="btn btn-outline-secondary">Order History</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Signup</th>
+                                <th>Order</th>
+                                <th>Commission</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Shakibul Hasan Kabir</td>
+                                <td>01575454888 <br>emailname@gmail.com</td>
+                                <td>17 Dec 2024 <br>12.29 PM</td>
+                                <td>1,098 Tk <br>05 Order</td>
+                                <td>109.80 Tk</td>
+                                <td>
+                                    <a href="" class="btn btn-outline-secondary">More Info</a>
+                                    <a href="" class="btn btn-outline-secondary">Order History</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

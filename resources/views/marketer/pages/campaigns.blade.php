@@ -67,8 +67,16 @@
                             </div>
                             <div class="col-lg-2 col-12 mt-2 d-flex">
                                 <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
-                                <select name="" id="" class="form-control bg-white"> 
-                                    <option value="">Lifetime</option>
+                                <select name="sort_by" id="sort_by" class="form-control bg-white" onchange="sortData()"> 
+                                    <option value="Lifetime">Lifetime</option>
+                                    <option value="Today">Today</option>
+                                    <option value="Yesterday">Yesterday</option>
+                                    <option value="7 Days">Last 7 Days</option>
+                                    <option value="15 Days">Last 15 Days</option>
+                                    <option value="30 Days">Last 30 Days</option>
+                                    <option value="60 Days">Last 60 Days</option>
+                                    <option value="180 Days">Last 180 Days</option>
+                                    <option value="1 Year">Last 1 Year</option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12 mt-2">
@@ -92,7 +100,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="showcampaign">
                             @forelse ($data['my_camp'] as $v)    
                             <tr>
                                 <td>{{$data['sl']++}}</td>
@@ -191,7 +199,15 @@
                             <div class="col-lg-3 col-12 mt-2 d-flex">
                                 <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
                                 <select name="" id="" class="form-control bg-white"> 
-                                    <option value="">Lifetime</option>
+                                    <option value="Lifetime">Lifetime</option>
+                                    <option value="Today">Today</option>
+                                    <option value="Yesterday">Yesterday</option>
+                                    <option value="7 Days">Last 7 Days</option>
+                                    <option value="15 Days">Last 15 Days</option>
+                                    <option value="30 Days">Last 30 Days</option>
+                                    <option value="60 Days">Last 60 Days</option>
+                                    <option value="180 Days">Last 180 Days</option>
+                                    <option value="1 Year">Last 1 Year</option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12 mt-2">
@@ -236,10 +252,47 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 @push('js')
+
 <script src="{{ asset('admin/js/apex-chart.js') }}"></script>
 <script src="//cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
+
+<script>
+    function sortData()
+    {
+        let sort_by = $('#sort_by').val();
+        // alert(sort_by);
+        if(sort_by != '')
+        {
+            $.ajax({
+                'headers' : {
+                    'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                },
+
+                url : '{{ route('campaign.get_campaign') }}',
+
+                type : 'POST',
+
+                data : {sort_by},
+
+                beforeSend : function()
+                {
+                    $('#showcampaign').html('Loading..');
+                },
+                
+                success : function(res)
+                {
+                    console.log(res);
+                    $('#showcampaign').html(res);
+                }
+            })
+        }
+    }
+</script>
+
 <script>
     $('#myTable').dataTable({
         "paging": false,

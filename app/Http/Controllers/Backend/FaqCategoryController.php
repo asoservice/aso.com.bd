@@ -12,7 +12,7 @@ class FaqCategoryController extends Controller
 {
     public $repository;
     public function __construct(FaqCategoryRepositoryEloquent $repository){
-        // $this->authorizeResource(FaqCategory::class, 'faq-category');
+        $this->authorizeResource(FaqCategory::class, 'faq-category');
         $this->repository = $repository;
     }
     /**

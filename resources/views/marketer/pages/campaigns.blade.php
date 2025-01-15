@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-lg-2 col-12 mt-2 d-flex">
                                 <img class="active-icon p-2" src="{{ asset('frontend/images/svg/filter.svg') }}">
-                                <select name="sort_by" id="sort_by" class="form-control bg-white" onchange="sortData()"> 
+                                <select name="sort_by" id="sort_by" class="form-control bg-white" onchange="sortCampaign()"> 
                                     <option value="Lifetime">Lifetime</option>
                                     <option value="Today">Today</option>
                                     <option value="Yesterday">Yesterday</option>
@@ -80,9 +80,15 @@
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12 mt-2">
-                                <select name="" id="" class="form-control bg-white"> 
-                                    <option value="">Number of items</option>
-                                </select>
+                                <form method="get" action="{{ route('affiliate.campaigns') }}">
+                                    <select name="number_of_item" id="number_of_item" class="form-control bg-white" onchange="this.form.submit()"> 
+                                        <option @if($data['item'] == 10) selected @endif value="10">10</option>
+                                        <option @if($data['item'] == 15) selected @endif value="15">15</option>
+                                        <option @if($data['item'] == 30) selected @endif value="30">30</option>
+                                        <option @if($data['item'] == 50) selected @endif value="50">50</option>
+                                        <option @if($data['item'] == 100) selected @endif value="100">100</option>
+                                    </select>
+                                </form>
                             </div>
                             <div class="col-lg-3 col-12 mt-2 d-flex">
                                 <input type="search" class="form-control bg-white" placeholder="Search">
@@ -261,7 +267,7 @@
 <script src="//cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
 
 <script>
-    function sortData()
+    function sortCampaign()
     {
         let sort_by = $('#sort_by').val();
         // alert(sort_by);

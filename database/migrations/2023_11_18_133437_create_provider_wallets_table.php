@@ -30,6 +30,16 @@ return new class extends Migration
 
             $table->foreign('serviceman_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('marketer_wallets', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('marketer_id')->nullable();
+            $table->decimal('balance', 8, 2)->default(0.0);
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('marketer_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -39,5 +49,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('provider_wallets');
         Schema::dropIfExists('serviceman_wallets');
+        Schema::dropIfExists('marketer_wallets');
     }
 };

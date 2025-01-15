@@ -24,9 +24,17 @@ class AffiliateController extends Controller
         return view($this->path.'.pages.generate_affiliate_link');
     }
 
-    public function campaigns()
+    public function campaigns(Request $request)
     {
-        $data['my_camp'] = $this->campaign_repo->getCampaign();
+        if(isset($request->number_of_item))
+        {
+            $data['item'] = $request->number_of_item;
+        }
+        else
+        {
+            $data['item'] = 10;
+        }
+        $data['my_camp'] = $this->campaign_repo->getCampaign($data['item']);
         $data['sl'] = 1;
         return view($this->path.'.pages.campaigns',compact('data'));
     }

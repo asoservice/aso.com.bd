@@ -378,18 +378,23 @@ $manager = new SyncDatabase(exportDBConfig: [
     'prefix'    => '',
 ]);
 
-$manager->boot()
+// $manager->boot()
     // ->dropTablesFromImportDB();
-;
+// ;
     // ->addImportSqlFile('/json-and-sql/demo_aso.sql')
     // ->syncExportDBFromFile();
 
-$manager->merge();
+// $manager->merge();
 // $manager->boot();
 // $manager->dropTablesFromImportDB();
 // $manager->boot()->syncExportDBFromFile();
 // echo json_encode($manager->getConfigs(), 128);
 
 
-$messages = json_encode($manager->messages, JSON_PRETTY_PRINT);
-echo "\n\n{$messages}\n\n";
+// $messages = json_encode($manager->messages, JSON_PRETTY_PRINT);
+// echo "\n\n{$messages}\n\n";
+
+$status = 'inactive';
+$stack = ['on', '1', 'true', true, 1, 'yes', 'y', 'active'];
+$checked = in_array($status, $stack, true);
+echo "\n\n". json_encode(compact('checked', 'status', 'stack'), JSON_PRETTY_PRINT) ."\n\n";

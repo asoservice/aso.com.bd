@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table id="faqCategoryTable" class="table table-striped table-bordered">
+            <table id="content-data-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         @foreach ($labels as $label)
@@ -25,8 +25,14 @@
 </div>
 
 <div class="fixed-modal" id="createModalWindow">
-    <div class="p-5">
-        <div class="container"></div>
+    <div class="container">
+        <div class="container-child"></div>
+    </div>
+</div>
+
+<div class="fixed-modal" id="editModalWindow">
+    <div class="container">
+        <div class="container-child"></div>
     </div>
 </div>
 @endsection
@@ -50,11 +56,23 @@
             z-index: 100;
         }
         .fixed-modal .container {
-            padding: 40px;
+            padding: 20px;
             background-color: #fff;
             border-radius: 12px;
+        }
+        .fixed-modal .container .container-child {
+            padding: 20px;
             overflow-y: scroll;
-            height: 90vh;
+            max-height: 90vh;
+        }
+        .toast-message {
+            text-align: center;
+        }
+        .sorting_disabled::after,
+        .sorting_disabled::before
+        {
+            display: none !important;  
+            content: '' !important;  
         }
     </style>
 @endpush

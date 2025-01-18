@@ -18,16 +18,18 @@
 </div>
 
 <script>
-    function showLoader() {
-        $('.spinner-box').addClass('active');
-    }
+    class loader {
+        static show() {
+            $('.spinner-box').addClass('active');
+        }
 
-    function hideLoader() {
-        $('.spinner-box').removeClass('active');
-    }
+        static hide() {
+            $('.spinner-box').removeClass('active');
+        }
 
-    function toggleLoader() {
-        $('.spinner-box').toggleClass('active');
+        static toggle() {
+            $('.spinner-box').toggleClass('active');
+        }
     }
 </script>
 

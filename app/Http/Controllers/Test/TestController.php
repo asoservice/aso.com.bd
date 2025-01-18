@@ -17,7 +17,7 @@ class TestController extends Controller
     public function __construct()
     {
         $this->app = new  ContentsLoader;
-        $this->app->routeName('t', '')->addViews('test')->setModel(FaqCategory::class);
+        $this->app->routeName('t', '')->addViews()->setModel(FaqCategory::class);
     }
     /**
      * Display a listing of the resource.

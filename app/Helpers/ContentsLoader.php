@@ -1,23 +1,24 @@
 <?php 
 namespace App\Helpers;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
+use Exception;
+use stdClass;
+use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use stdClass;
+use Illuminate\Support\Facades\Request;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Validation\ValidationException;
 
 final class ContentsLoader
 {
     public $data;
     public $model;
     private $dataTable;
-    private Request $request;
+    private Request|HttpRequest $request;
     public string|int $id = 0;
     private string $fields = '';
     public bool $isData = false;
@@ -25,13 +26,17 @@ final class ContentsLoader
     private array $unlikableFiles = [];
     private array $validateInputs = [];
     private bool $dataTableMake = true;
-    private string $baseAssetPath = 'uploads/media/';
+    private string $baseAssetPath = 'storage/media';
     private array $with = ['status' => 'undefined', 'message' => []];
     public array $dataTableRaws = ['rawColumns'=> [], 'columns'=> [], 'labels' => []];
     private array $views = ['index' => '', 'create' => '', 'show' => '', 'edit' => ''];
     private array $routes = ['index' => '', 'create' => '', 'show' => '', 'edit' => '', 'store' => '', 'update' => '', 'destroy' => ''];
 
-    public function addAssetPath(string $path, string $suffix = 'uploads/media/'){
+    private string $routeSuffix = 'backend.';
+    private string $routeResource = '';
+    private array $storedFilePaths = [];
+
+    public function addAssetPath(string $path, string $suffix = 'storage/media/'){
         $this->baseAssetPath = $suffix . $path;
         return $this;
     }
@@ -49,14 +54,17 @@ final class ContentsLoader
         $this->dataTableRaws['columns'][] = ['data'=> $name, 'orderable'=> false, 'searchable'=> false];
 
         $this->dataTable->addColumn($name, function ($row) use($isEditable, $isDeletable, $isVisible, $key) {
-            $editable  = $isEditable ? 
-                "<a href='{$this->routes['edit']}' class='edit-icon edit-btn' id='edit-{$row->{$key}}'>
+            $editUrl = $this->getRoute('edit', $row->id);
+            $deleteUrl = $this->getRoute('destroy', $row->id);
+ 
+            $editable = $isEditable ? 
+                "<a href='javascript:void(0)' class='edit-icon edit-btn' edit-btn='{$editUrl}' id='edit-{$row->{$key}}'>
                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-edit'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg>
                 </a>"
             : '';
 
             $deletable = $isDeletable ? 
-                "<a href='#confirmationModal{$row->id}' data-bs-toggle='modal' class='delete-svg delete-btn' id='delete-{$row->{$key}}'>
+                "<a href='javascript:void(0)' delete-btn='{$deleteUrl}' class='delete-svg delete-btn' id='delete-{$row->{$key}}'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-trash-2 remove-icon delete-confirmation'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>
                     </a>"
             : '';
@@ -129,6 +137,28 @@ final class ContentsLoader
         return $this;
     }
 
+    public function addStatusColumn(string $label = 'Status', string $name = 'status', ?string $key = 'status'){
+        $newKey = is_null($key) ? $name : $key;
+
+        $this->dataTableRaws['labels'][] = $label;
+        $this->dataTableRaws['rawColumns'][] = $name;
+        $this->dataTableRaws['columns'][] = ['data'=> $name, 'name'=> $name, 'orderable'=> false, 'searchable'=> false];
+
+        $this->dataTable->addColumn($name, function ($row) use($newKey) {
+            $isChecked = ($row->{$newKey} == 1 || $row->{$newKey} == 'active') ? 'checked' : '';
+            $url = $this->getRoute('edit', $row->id);
+
+            return "<div class='editor-space justify-content-center'>
+                        <label class='switch {$newKey}-switch table-switch'>
+                            <input class='form-check-input' type='checkbox' name='{$newKey}' id='{$newKey}-{$row->id}' value='{$row->{$newKey}}' {$isChecked} switch-key='{$newKey}' table-switch='{$url}'>
+                            <span class='switch-state'></span>
+                        </label>
+                    </div>";
+        });
+
+        return $this;
+    }
+
     public function renderDataTable(){
         if (request()->ajax()) {
             return $this->dataTable->rawColumns($this->dataTableRaws['rawColumns'])->make($this->dataTableMake);
@@ -137,7 +167,7 @@ final class ContentsLoader
         return view($this->views['index'], ['routes'=> $this->routes, 'columns' => $this->dataTableRaws['columns'], 'labels' => $this->dataTableRaws['labels']]);
     }
 
-    public function addViews(string $viewFolder, $viewFileTypes = ['index', 'create', 'show', 'edit', 'form'])
+    public function addViews(string $viewFolder = 'contents', $viewFileTypes = ['index', 'create', 'show', 'edit', 'form'])
     {
         foreach ($viewFileTypes as $fileType) {
             $this->views[$fileType] = "{$viewFolder}.{$fileType}";
@@ -171,8 +201,11 @@ final class ContentsLoader
         array $resources = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'], 
         array $requiresId = ['show', 'edit', 'update', 'destroy']
     ) {
+        $this->routeSuffix = $suffix;
+        $this->routeResource = $name;
+
         foreach ($resources as $resource) {
-            $routeName = "{$suffix}{$name}.{$resource}";
+            $routeName = "{$this->routeSuffix}{$name}.{$resource}";
             if (Route::has($routeName)) {
                 $this->routes[$resource] = in_array($resource, $requiresId, true)
                     ? route($routeName, $this->id)
@@ -182,6 +215,14 @@ final class ContentsLoader
             }
         }
         return $this;
+    }
+
+    private function getRoute(string $name, $params = []){
+        $route = "{$this->routeSuffix}{$this->routeResource}.{$name}";
+        if(Route::has($route)) return route($route, $params);
+        
+        $this->addMessage($name, "Undefined route name [{$route}]");
+        return '/undefined/';
     }
     
     protected function addMessage(string $key, string $message, string $type = 'multiple'): void
@@ -310,11 +351,15 @@ final class ContentsLoader
     }
 
     public function addSwitchInput(string $title, string $key = 'status', bool|string $value = false, bool $required = false, string $note = ''){
-        if($value === true){
-            $checked = in_array(isset($this->data->{$key}) ? $this->data->{$key} : '', ['on', '1', 'true', true, 1, 'yes', 'y']);
+        $stack = ['on', '1', 'true', true, 1, 'yes', 'y', 'active'];
+
+        if($value === true && isset($this->data->{$key})){
+            $status = $this->data->{$key};
+            $checked = in_array($status, $stack, true);
         } else {
-            $checked  = in_array((old($key) ?? $value), ['on', '1', 'true', true, 1, 'yes', 'y']);
+            $checked  = in_array((old($key) ?? $value), $stack, true);
         }
+        
         $isChecked = $checked ? 'checked' : '';
         $isRequired = $required ? 'required' : '';
 
@@ -328,7 +373,7 @@ final class ContentsLoader
                 <div class='col-md-10'>
                     <div class='editor-space'>
                         <label class='switch'>
-                            <input class='form-control' type='hidden' name='{$key}' value={$newValue}>
+                            <input class='form-control' type='hidden' name='{$key}' value='{$newValue}'>
                             <input class='form-check-input' type='checkbox' name='{$key}' id='{$key}' value='{$newValue}' {$isRequired} {$isChecked}>
                             <span class='switch-state'></span>
                         </label>
@@ -339,7 +384,6 @@ final class ContentsLoader
 
         return $this;
     }
-
     
     public function addSelectInput(string $title, string $key, callable|array $options, ?string $value = null, bool $required = false, string $note = '', bool $multiple = false){
         $newValue  = old($key) ?? $value;
@@ -391,7 +435,7 @@ final class ContentsLoader
         return $this;
     }
 
-    public function addRequest(Request $request){
+    public function addRequest(Request|HttpRequest $request){
         $this->request = $request;
         return $this;
     }
@@ -409,7 +453,7 @@ final class ContentsLoader
         return $data;
     }
 
-    public function addData(string $tableKey, ?string $inputName = null, ?string $required = null, NULL|string|int|bool $value = null, string $type = 'input')
+    public function addData(string $tableKey, ?string $inputName = null, ?string $required = null, NULL|string|int|bool $value = null, string $type = 'input', ?callable $customizeInput = null)
     {
         $name = $inputName ?? $tableKey;
         $input = $this->getRequestData($name, $type);
@@ -419,14 +463,14 @@ final class ContentsLoader
             $this->validateInputs[$name] = $required;
         }
 
-        $this->storableData[$tableKey] = $defaultValue;
+        $this->storableData[$tableKey] = is_callable($customizeInput) ? $customizeInput($defaultValue) : $defaultValue;
         return $this;
     }
 
     public function addFile(string $tableKey, ?string $inputName = null, ?string $required = null, string $module = 'images', bool|string $value = false){
         $oldFile = null;
         $name = $inputName ?? $tableKey;
-        $path = $this->baseAssetPath . $module . '/';
+        $path = $this->baseAssetPath . '/' . $module . '/';
 
         if($this->request->hasFile($name)){
             if($value === true && isset($this->data->{$tableKey})){
@@ -435,6 +479,8 @@ final class ContentsLoader
 
             if($required) $this->validateInputs[$name] = $required;
             $this->storableData[$tableKey] = $this->storeFile($this->request->file($name), $path, $oldFile);
+            info(json_encode(['addFile-storableData'=> $this->storableData], 128));
+            return $this;
         }
         
         return $this;
@@ -483,19 +529,21 @@ final class ContentsLoader
         return $this;
     }
 
-    public function storeFile($file, string $path, ?string $oldFile = null)
+    private function storeFile($file, string $path, ?string $oldFile = null)
     {
-        $create_path = public_path($path);
-
-        if (!File::isDirectory($create_path)) File::makeDirectory($create_path, 0777, true, true);
+        $createPath = public_path($path);
+        if (!File::isDirectory($createPath)) File::makeDirectory($createPath, 0777, true, true);
 
         $ext = $file->getClientOriginalExtension();
-        $file_name = Carbon::now()->toDateString() . '___' . Str::random() . '.' . $ext;
-        $file->move($create_path, $file_name);
+        $filename = Carbon::now()->toDateString() . '___' . Str::random() . '.' . $ext;
+        $file->move($createPath, $filename);
 
         if ($oldFile && file_exists($oldFile)) unlink($oldFile);
 
-        return $path . $file_name;
+        $pathname = $path . $filename;
+        $this->storedFilePaths[] = $pathname;
+        info(json_encode(compact('pathname', 'oldFile', 'createPath'), JSON_PRETTY_PRINT));
+        return $pathname;
     } 
 
     public function addCreator(string $tableKey = 'created_by', ?int $auth_id = null)
@@ -511,14 +559,14 @@ final class ContentsLoader
         $string = $this->getRequestData($inputName, $type);
         $slug = Str::slug($string);
 
-        if ($this->model::where('slug', $slug)->exists()) {
+        if ($this->model::where($tableKey, $slug)->exists()) {
             $counter = 1;
 
-            while ($this->model::where('slug', $slug . '-' . $counter)->exists()) {
+            while ($this->model::where($tableKey, "{$slug}-{$counter}")->exists()) {
                 $counter++;
             }
 
-            $slug = $slug . '-' . $counter;
+            $slug = "{$slug}-{$counter}";
         }
 
         $this->storableData[$tableKey] = $slug;
@@ -543,18 +591,29 @@ final class ContentsLoader
         return view($this->views['edit'], ['fields' => $this->fields, 'routes'=> $this->routes, 'with'=> $this->with]);
     }
 
-    public function formOnly(string $action = 'update'){
-        $route = in_array($action, array_keys($this->routes)) ? $this->routes[$action] : null;
+    public function formOnly(string $action = 'update', string $id = null){
+        $route = $this->getRoute($action, $id);
         return view($this->views['form'], ['fields' => $this->fields, 'routes'=> $this->routes, 'action'=> $route, 'onlyForm'=> true]);
+    }
+
+    private function rollbackFiles(){
+        foreach ($this->storedFilePaths as $path) {
+            if(file_exists($path)) unlink($path);
+        }
+
+        return $this;
     }
 
     public function storeData(bool $encoded = false)
     {
-        $create = function () use ($encoded) {
-            $this->request->validate($this->validateInputs);
-            $crateModel = $this->model::create($this->storableData);
+        info(json_encode($this->validateInputs, 128));
+        try {
+            info(json_encode(['validateInputs' => $this->validateInputs, 'all'=>$this->request->all()], 128));
+            $this->request->validate($this->validateInputs); // Validation
+            $crateModel = $this->model::create($this->storableData); // Data creation
+            info(json_encode(['createModel' => $crateModel, 'storableData' => $this->storableData, 'request' => $this->validateInputs], JSON_PRETTY_PRINT));
 
-            // make a json response returning data for ajax/api request handling.
+            // JSON response for API/ajax handling
             if ($encoded) {
                 $this->addMessage('success', 'Data Created Successfully!');
                 return response()->json([
@@ -564,11 +623,37 @@ final class ContentsLoader
                 ]);
             }
 
+            // Redirect for standard form submission
             $this->addMessage('success', 'Data Created Successfully!');
             return redirect($this->routes['index'])->with($this->with['status'], $this->with['message']);
-        };
+        } catch (ValidationException $e) {
+            // $this->rollbackFiles();
+            // Handle validation errors
+            if ($encoded) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Validation Failed!',
+                    'errors' => $e->errors(),
+                ], 422);
+            }
 
-        return $create();
+            // Redirect with validation errors for standard form submission
+            info('ValidationError: ' . json_encode($e->errors(), JSON_PRETTY_PRINT));
+            return redirect()->back()->with('errors',$e->errors())->withInput();
+        } catch (Exception $e) {
+            // $this->rollbackFiles();
+            // Handle unexpected exceptions
+            if ($encoded) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'An unexpected error occurred.',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+
+            info('Exception: ' . $e->getMessage());
+            return redirect($this->routes['index'])->with('error', 'An unexpected error occurred.')->withInput();
+        }
     }
 
     public function updateData(bool $isCreator = false, string $creatorKey = 'created_by', bool $encoded = false)
@@ -610,21 +695,34 @@ final class ContentsLoader
         return $update();
     }
 
-    public function updateStatus(string $tableKey = 'status', bool $isCreator = true, string $creatorKey = 'created_by', $encoded = false)
+    public function updateStatus(string $key = 'status', ?string $value = null, bool $isCreator = false, string $creatorKey = 'created_by', $encoded = false)
     {
-        $update = function () use ($tableKey, $encoded) {
-            $key = request('name') ?? $tableKey;
-            $this->data->{$key} = !$this->data->{$key};
-            $this->data->save();
-
-            if($encoded){
-                $this->addMessage('success', 'Data Updated Successfully!');
-                return response()->json(['status' => 'success', 'message' => $this->with['message']]);
+        $update = function () use ($key, $encoded, $value) {
+            if(is_bool($this->data->{$key})){
+                $this->data->{$key} = !$this->data->{$key};
+            } else if(is_string($value)){
+                $this->data->{$key} = $value;
             } else {
-                $this->addMessage('success', 'Data Updated Successfully!');
-                return redirect()->route($this->routes['index'])->with($this->with['status'], $this->with['message']);
+                $this->data->{$key} = $this->data->{$key} == 'active' ? 'inactive' : 'active';
             }
             
+            if($this->data->save()){
+                if($encoded){
+                    $this->addMessage('success', 'State Updated Successfully!');
+                    return response()->json(['status' => 'success', 'message' => $this->with['message']]);
+                } else {
+                    $this->addMessage('success', 'State Updated Successfully!');
+                    return redirect()->route($this->routes['index'])->with($this->with['status'], $this->with['message']);
+                }
+            }
+            
+            if($encoded){
+                $this->addMessage('error', 'Failed to updated state!');
+                return response()->json(['status' => 'success', 'message' => $this->with['message']]);
+            } else {
+                $this->addMessage('error', 'Failed to updated state!');
+                return redirect()->route($this->routes['index'])->with($this->with['status'], $this->with['message']);
+            }
         };
 
         if ($isCreator && isset($this->model->{$creatorKey})) {
@@ -715,6 +813,7 @@ final class ContentsLoader
     public function __destruct(){
         $this->sendMessage();
     }
-
 }
+
+
 

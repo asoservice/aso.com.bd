@@ -14,7 +14,7 @@
                 @endisset
                 <div class="footer">
                     <button id='cancelBtn' type="button" class="btn btn-danger spinner-btn">{{ __('Cancel') }}</button>
-                    <button id='submitBtn' type="submit" class="btn btn-warning spinner-btn">{{ __('Update') }}</button>
+                    <button id='submitBtn' type="submit" class="btn btn-primary spinner-btn">{{ __('Submit') }}</button>
                 </div>
             </div>
         </form>

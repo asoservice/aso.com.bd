@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::resource('t', 'App\\Http\\Controllers\\Test\\TestController');
-// route('t.create')
 
 Route::post('states', 'CountryStateController@getStates');
 Route::get('getCountryCode', 'CountryStateController@getCountryCode');

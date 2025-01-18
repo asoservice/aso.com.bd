@@ -70,4 +70,11 @@ class CampaignController extends Controller
     {
         //
     }
+
+    public function get_campaign(Request $request)
+    {
+        $data['my_camp'] = $this->repo->get_campaign($request);
+        $data['sl'] = 1;
+        return view('marketer.pages.partials.sort_campaign',compact('data'));
+    }
 }

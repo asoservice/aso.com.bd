@@ -42,6 +42,22 @@ return new class extends Migration
             $table->foreign('serviceman_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('from')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('marketer_transactions', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('marketer_wallet_id')->nullable();
+            $table->unsignedBigInteger('marketer_id')->nullable();
+            $table->decimal('amount', 8, 2)->default(0.0);
+            $table->enum('type', ['credit', 'debit'])->nullable();
+            $table->string('detail')->nullable();
+            $table->unsignedBigInteger('from')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('marketer_wallet_id')->references('id')->on('marketer_wallets')->onDelete('cascade');
+            $table->foreign('marketer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('from')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -51,5 +67,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('provider_transactions');
         Schema::dropIfExists('serviceman_transactions');
+        Schema::dropIfExists('marketer_transactions');
     }
 };

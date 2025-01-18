@@ -45,6 +45,24 @@ return new class extends Migration
             $table->foreign('serviceman_wallet_id')->references('id')->on('serviceman_wallets')->onDelete('cascade');
             $table->foreign('serviceman_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('marketer_withdraw_requests', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('amount', 8, 2)->default(0.0)->nullable();
+            $table->string('message')->nullable();
+            $table->string('admin_message')->nullable();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->nullable()->default('pending');
+            $table->unsignedBigInteger('marketer_wallet_id')->nullable();
+            $table->unsignedBigInteger('marketer_id')->nullable();
+            $table->enum('payment_type', ['paypal', 'bank'])->nullable()->default('bank');
+            $table->integer('is_used_by_admin')->default(0);
+            $table->integer('is_used')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('marketer_wallet_id')->references('id')->on('marketer_wallets')->onDelete('cascade');
+            $table->foreign('marketer_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**

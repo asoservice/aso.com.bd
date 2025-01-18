@@ -1,5 +1,85 @@
 @if (!session()->has('undefined'))    
     @php
+        function prepareAlerts() {
+            $validAlertTypes = ['success', 'error', 'info', 'warning'];
+            $alerts = [];
+
+            // Handle multiple alerts
+            if (session()->has('multiple')) {
+                $multipleAlerts = session('multiple');
+                if (is_array($multipleAlerts)) {
+                    foreach ($multipleAlerts as $alert) {
+                        $type = $alert['type'] ?? 'warning';
+                        $text = $alert['text'] ?? 'Undefined Alert Message!';
+                        
+                        $alerts[] = [
+                            'type' => in_array($type, $validAlertTypes) ? $type : 'warning',
+                            'text' => $text,
+                        ];
+
+                        if (!in_array($type, $validAlertTypes)) {
+                            $alerts[] = [
+                                'type' => 'warning',
+                                'text' => "Invalid alert [Type: '{$type}'], supported types are: success, error, info, warning"
+                            ];
+                        }
+                    }
+                }
+
+                session()->forget('multiple');
+                return $alerts;
+            }
+
+            // Handle single alerts or validation errors
+            if (session()->has('errors')) {
+                foreach (session('errors')->all() as $error) {
+                    $alerts[] = ['type' => 'error', 'text' => $error];
+                }
+                session()->forget('errors');
+            } else {
+                $messageTypes = ['success', 'error', 'info', 'warning', 'message'];
+                foreach ($messageTypes as $type) {
+                    if (session()->has($type)) {
+                        $alerts[] = [
+                            'type' => in_array($type, $validAlertTypes) ? $type : 'info',
+                            'text' => session($type)
+                        ];
+                        session()->forget($type);
+                    }
+                }
+            }
+
+            return $alerts;
+        }
+    @endphp
+
+    <script>
+        const sessionAlert = @json(prepareAlerts());
+        console.log(sessionAlert);
+
+        $(document).ready(function() {
+            toastr.options = {
+                closeButton: true,
+                progressBar: false,
+            };
+
+            if (Array.isArray(sessionAlert) && sessionAlert.length > 0) {
+                sessionAlert.forEach(({ type, text }) => {
+                    if (toastr[type]) {
+                        toastr[type](text);
+                    } else {
+                        toastr.warning(`Invalid toastr type: ${type}`);
+                    }
+                });
+            }
+        });
+    </script>
+@endif
+
+
+{{--
+@if (!session()->has('undefined'))    
+    @php
         function prepareAlerts(){
             $validAlertTypes = ['success', 'error', 'info', 'warning'];
             $alerts = ['type' => '', 'texts' => [], 'text'=> ''];
@@ -57,6 +137,7 @@
 
     <script>
         const sessionAlert = @json(prepareAlerts());
+        console.log(sessionAlert);
          
         $(document).ready(function() {
             toastr.options = {
@@ -86,3 +167,4 @@
         });
     </script>
 @endif
+--}}

@@ -1,58 +1,12 @@
 <script src="{{ asset('admin/js/password-hide-show.js') }}"></script>
 <script>
-    (function($) {
-        "use strict";
-        $(document).ready(function() {
-            $(".select-2").select2();
-
-            $('.btn.spinner-btn').click(function() {
-                $('.invalid-feedback').removeClass('d-block'); // Hide Server side error
-                if ($(this).parents('form').valid()) {
-                    $(this).prop('disabled', true);
-                    $(this).append('<span class="spinner"></span>');
-                }
-
-                $(this).parents('form').submit();
-            });
-
-            $('.select-country').on('change', function() {
-                var idCountry = $(this).val();
-                populateStates(idCountry);
-            });
-
-            function populateStates(countryId) {
-                $(".select-state").html('');
-                $.ajax({
-                    url: "{{ url('/states') }}",
-                    type: "POST",
-                    data: {
-                        country_id: countryId,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    dataType: 'json',
-                    success: function(result) {
-                        $('.select-state').html('<option value="">Select State</option>');
-                        $.each(result.states, function(key, value) {
-                            $(".select-state").append('<option value="' + value.id +
-                                '">' + value.name + '</option>');
-                        });
-                        var defaultStateId = $(".select-state").data("default-state-id");
-                        if (defaultStateId !== '') {
-                            $('.select-state').val(defaultStateId);
-                        }
-                    }
-                });
-            }
-        });
-
-        // Select Permission
-        $(document).on('click', '.select-all-permission', function() {
-            $('.module_' + this.value).prop('checked', this.checked ? true : false);
-        });
-
-
+    function initTinyMce(selector = '.summary-ckeditor') {
+        if (tinymce.editors.length > 0) {
+            tinymce.editors.forEach(editor => editor.remove());
+        }
+        
         tinymce.init({
-            selector: '.summary-ckeditor',
+            selector,
             image_class_list: [{
                 title: 'Responsive',
                 value: 'img-fluid'
@@ -106,6 +60,61 @@
             },
             placeholder: 'Enter your text here...',
         });
+    }
+
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            $(".select-2").select2();
+
+            $('.btn.spinner-btn').click(function() {
+                $('.invalid-feedback').removeClass('d-block'); // Hide Server side error
+                if ($(this).parents('form').valid()) {
+                    $(this).prop('disabled', true);
+                    $(this).append('<span class="spinner"></span>');
+                }
+
+                $(this).parents('form').submit();
+            });
+
+            $('.select-country').on('change', function() {
+                var idCountry = $(this).val();
+                populateStates(idCountry);
+            });
+
+            function populateStates(countryId) {
+                $(".select-state").html('');
+                $.ajax({
+                    url: "{{ url('/states') }}",
+                    type: "POST",
+                    data: {
+                        country_id: countryId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        $('.select-state').html('<option value="">Select State</option>');
+                        $.each(result.states, function(key, value) {
+                            $(".select-state").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                        var defaultStateId = $(".select-state").data("default-state-id");
+                        if (defaultStateId !== '') {
+                            $('.select-state').val(defaultStateId);
+                        }
+                    }
+                });
+            }
+        });
+
+        // Select Permission
+        $(document).on('click', '.select-all-permission', function() {
+            $('.module_' + this.value).prop('checked', this.checked ? true : false);
+        });
+
+
+        // Init TinyMCE Editor
+        initTinyMce();
 
         $(document).ready(function() {
             // Show All Country Flag beside Country Code in Select Box

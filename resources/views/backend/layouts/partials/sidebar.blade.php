@@ -735,8 +735,7 @@
                         </a>
                     </li>
                 @endcan
-                @canAny(['backend.email_template.index', 'backend.sms_template.index',
-                    'backend.push_notification_template.index'])
+                @canAny(['backend.email_template.index', 'backend.sms_template.index', 'backend.push_notification_template.index'])
                     <li>
                         <a href="javascript:void(0);"
                             class="sidebar-header {{ Request::is('backend/tag*') || Request::is('backend/blog*') || Request::is('backend/blog-category*') ? 'active' : '' }}">

@@ -4,6 +4,7 @@
 <head>
     @use('App\Models\Setting')
     @php
+        // $defaultLoader = true;
         $settings = Setting::first()->values;
     @endphp
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -117,7 +118,7 @@
 
     <!-- Select2 -->
     <script src="{{ asset('admin/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('admin/js/dropzone.js') }}"></script>
+    {{-- <script src="{{ asset('admin/js/dropzone.js') }}"></script> --}}
 
     <script src="{{ asset('admin/js/datatables.min.js')}}"></script>
     <script src="{{ asset('admin/js/buttons.server-side.js')}}"></script>
@@ -133,13 +134,12 @@
     <script src="{{ asset('admin/js/jquery-validation/additional-methods.js') }}"></script>
     <script src="{{ asset('admin/js/jquery-validation/additional-methods.min.js') }}"></script>
 
-    @stack('js')
-
     <script src="{{ asset('admin/js/dropzone.js') }}"></script>
-
     <script src="{{ asset('admin/js/admin-script.js') }}"></script>
-
+    
     @include('backend.layouts.partials.script')
+    @stack('js')
+    @include('components.loader')
 </body>
     @yield('modal')
 </html>

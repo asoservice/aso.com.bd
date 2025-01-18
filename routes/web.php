@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+Route::resource('t', 'App\\Http\\Controllers\\Test\\TestController');
+// route('t.create')
+
 Route::post('states', 'CountryStateController@getStates');
 Route::get('getCountryCode', 'CountryStateController@getCountryCode');
 Route::get('booking/invoice/{booking_number}', 'App\Http\Controllers\API\BookingController@getInvoice')->name('invoice');
@@ -32,6 +35,7 @@ Route::get('set-currency/{currency}', function ($currency) {
     session(['currency' => $currency]);
     return redirect()->back();
 })->name('set.currency');
+
 Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     Route::middleware(['guest'])->group(function () {
         Route::get('login', 'LoginController@index')->name('login.index');
@@ -133,7 +137,6 @@ Route::group(['middleware' => ['localization'], 'namespace' => 'Frontend', 'as' 
     Route::get('terms-conditions', 'PageController@terms')->name('terms.index');
 
     Route::group(['middleware' => ['auth']], function () {
-
         // Account
         Route::get('account/profile', 'AccountController@profile')->name('account.profile.index');
         Route::put('account/profile/update', 'AccountController@updateProfile')->name('account.profile.update');

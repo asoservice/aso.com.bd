@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('marketer_users')->onDelete('set null');
             $table->tinyInteger('level')->default(1);
             $table->enum('status', ['pending', 'active', 'suspended'])->default('pending');
-            $table->decimal('current_balance', 15, 2)->default(0.00);
             $table->decimal('total_earned', 15, 2)->default(0.00);
             $table->decimal('last_30_days_earnings', 15, 2)->default(0.00);
             $table->string('bank_name')->nullable();

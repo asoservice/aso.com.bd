@@ -260,7 +260,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'as' => 'backe
     Route::resource('faq-category', 'FaqCategoryController');
 
     // Faq
-    Route::resource('faq', 'FaqController');
+    Route::resource('faq', 'FaqsController');
 
     Route::get('/clear-cache', function () {
         Artisan::call('cache:clear');

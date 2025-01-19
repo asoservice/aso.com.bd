@@ -56,8 +56,8 @@ class Campaign extends Model
 
     public function calculateConversionRate(): float
     {
-        return $this->visits > 0 
-            ? ($this->approved_orders / $this->visits) * 100 
+        return $this->visits > 0
+            ? ($this->approved_orders / $this->visits) * 100
             : 0;
     }
 

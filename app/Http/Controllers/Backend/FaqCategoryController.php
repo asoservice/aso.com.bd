@@ -11,9 +11,8 @@ use Auth;
 class FaqCategoryController extends Controller
 {
     public $repository;
-    public function __construct(FaqCategoryRepository $repository)
-    {
-        $this->authorizeResource(FaqCategory::class, 'faq-category');
+    public function __construct(FaqCategoryRepository $repository){
+        // $this->authorizeResource(FaqCategory::class, 'faq-category');
         $this->repository = $repository;
     }
     /**
@@ -29,7 +28,7 @@ class FaqCategoryController extends Controller
      */
     public function create(Request $request)
     {
-        // return $this->repository->create($request);
+        return $this->repository->createForm();
     }
 
     /**
@@ -61,7 +60,7 @@ class FaqCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $this->repository->update($request, $id);
+        return $this->repository->updateData($request, $id);
     }
 
     /**

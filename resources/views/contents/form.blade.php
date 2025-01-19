@@ -3,10 +3,10 @@
         <div class="card-header">
             <h5>{{ 'Add New Faq Category' }}</h5>
         </div>
-        <form action="{{ $action }}" id="categoryForm" @submit.prevent="onsubmit" method="POST" enctype="multipart/form-data">
+        <form action="{{ $action }}" id="contents-form" @submit.prevent="onsubmit" method="POST" enctype="multipart/form-data">
             @csrf 
-            @if (isset($method))
-                @method($media)
+            @if (isset($method) && $method)
+                @method($method)
             @endif
             <div class="card-body">
                 @isset($fields)

@@ -633,8 +633,8 @@
                                 @endcan
                                 @can('backend.faq-category.create')
                                     <li>
-                                        <a href="{{ route('backend.faq-category.create') }}" class="{{ Request::is('backend/faq-category/create') ? 'active' : '' }}">
-                                            {{ 'Add Faq Category' }}
+                                        <a href="{{ route('backend.faq.index') }}" class="{{ Request::is('backend/faq') ? 'active' : '' }}">
+                                            {{ 'All Faq' }}
                                         </a>
                                     </li>
                                 @endcan

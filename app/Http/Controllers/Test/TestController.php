@@ -135,12 +135,12 @@ class TestController extends Controller
     {
         // $this->app->findAndSetData(5);
         // return $this->app->model::get();
+        // ->addInput('Description2', 'description2', 'normal')
         $blogs = DB::table('blogs')->latest('id')->get(['id', 'title']);
         return $this->app
         ->addInput('Description', 'description', 'description')
             ->addInput('Name', 'name', value: true)
             ->addInput('Email', 'email')
-            // ->addInput('Description2', 'description2', 'normal')
             ->addFileInput('Profile Picture', 'profile_picture', required: true)
             ->addSwitchInput('Status', 'status', 'on')
             ->addSelectInput('Select Blog', 'blog_id', function($o) use ($blogs) {$o->data = $blogs; return $o;})

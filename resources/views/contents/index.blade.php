@@ -35,6 +35,28 @@
         <div class="container-child"></div>
     </div>
 </div>
+
+<div class="fixed-modal" id="deleteModalWindow">
+    <div class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-start">
+                    <div class="main-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </div>
+                    <div class="text-center">
+                        <div class="modal-title"> Are you sure want to delete ?</div>
+                        <p>This Item Will Be Deleted Permanently. You Can not Undo This Action.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn cancel multi-delete-cancel" id="cancel-delete" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary delete spinner-btn" id="confirm-delete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('style')
@@ -67,12 +89,25 @@
         }
         .toast-message {
             text-align: center;
+            text-wrap: nowrap;
         }
         .sorting_disabled::after,
         .sorting_disabled::before
         {
             display: none !important;  
             content: '' !important;  
+        }
+
+        .btn {
+            opacity: 0.8;
+            transition-duration: 500ms;
+        }
+        .btn:hover {
+            opacity: 1;
+            letter-spacing: 1px;
+        }
+        .capitalize {
+            text-transform: capitalize;
         }
     </style>
 @endpush

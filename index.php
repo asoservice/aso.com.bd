@@ -359,18 +359,18 @@ final class SyncDatabase {
 }
 
 $manager = new SyncDatabase(exportDBConfig: [
-    'driver'    => 'mysql',
-    'host'      => '139.162.8.132',
-    'database'  => 'hridoy_dev',
-    'username'  => 'hridoy_dev',
-    'password'  => 'h8Id0Y$deVA60',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
+    'driver'    => 'mysql', // 'mysql',
+    'host'      => 'localhost', // '139.162.8.132',
+    'database'  => 'aso_3', // 'hridoy_dev',
+    'username'  => 'root', // 'hridoy_dev',
+    'password'  => '', // 'h8Id0Y$deVA60',
+    'charset'   => 'utf8', // 'utf8',
+    'collation' => 'utf8_unicode_ci', // 'utf8_unicode_ci',
+    'prefix'    => '', 
 ], importDBConfig: [
     'driver'    => 'mysql',
     'host'      => 'localhost',
-    'database'  => 'aso_3',
+    'database'  => 'apz_sheitech',
     'username'  => 'root',
     'password'  => '',
     'charset'   => 'utf8',
@@ -378,23 +378,32 @@ $manager = new SyncDatabase(exportDBConfig: [
     'prefix'    => '',
 ]);
 
-// $manager->boot()
+echo "\nOperation in progress...\n";
+// $manager->boot()->merge();
     // ->dropTablesFromImportDB();
-// ;
     // ->addImportSqlFile('/json-and-sql/demo_aso.sql')
     // ->syncExportDBFromFile();
 
-// $manager->merge();
 // $manager->boot();
 // $manager->dropTablesFromImportDB();
+// $manager->dropTablesFromExportDB();
+
 // $manager->boot()->syncExportDBFromFile();
 // echo json_encode($manager->getConfigs(), 128);
 
 
-// $messages = json_encode($manager->messages, JSON_PRETTY_PRINT);
-// echo "\n\n{$messages}\n\n";
 
-$status = 'inactive';
-$stack = ['on', '1', 'true', true, 1, 'yes', 'y', 'active'];
-$checked = in_array($status, $stack, true);
-echo "\n\n". json_encode(compact('checked', 'status', 'stack'), JSON_PRETTY_PRINT) ."\n\n";
+// $status = 'inactive';
+// $stack = ['on', '1', 'true', true, 1, 'yes', 'y', 'active'];
+// $checked = in_array($status, $stack, true);
+// echo "\n\n". json_encode(compact('checked', 'status', 'stack'), JSON_PRETTY_PRINT) ."\n\n";
+
+// import sheitech db into [apz_sheitech] as import db usng File
+// $manager->addImportSqlFile('/htdocs/sheitech/sheitech-db.sql', false);
+// $manager->boot();
+// $manager->syncImportDBFromFile();
+
+
+// Messages
+$messages = json_encode($manager->messages, JSON_PRETTY_PRINT);
+echo "\n\n{$messages}\n\n";

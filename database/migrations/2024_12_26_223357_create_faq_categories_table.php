@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 100); // Name of the category
             $table->string('slug', 120)->unique(); // Unique slug for the category
             $table->text('description')->nullable(); // Optional description
-            $table->string('icon', 50)->nullable(); // Optional icon
+            $table->string('icon')->nullable(); // Optional icon
             $table->integer('sort_order')->default(0); // Sorting order
             $table->enum('status', ['active', 'inactive'])->default('active'); // Active or inactive status
             $table->timestamps(); // Created at and updated at

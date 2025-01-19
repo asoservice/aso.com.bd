@@ -30,6 +30,34 @@
         static toggle() {
             $('.spinner-box').toggleClass('active');
         }
+
+
+        static alert(type = 'warning', text = 'Alert type/text undefined') {
+            if(type in toastr) {
+                toastr[type](text);
+            } else toastr.warning(text || `Invalid toastr type: [${type}]`);
+        }
+
+        static multipleAlert(alerts = []) {
+            alerts?.forEach(({ type, text,  message}) => {
+                if(type in toastr) {
+                    if(text) toastr[type](text);
+                    if(message) toastr[type](message);
+                } else toastr.warning(text || `Invalid toastr type: [${type}]`);
+            });
+        }
+
+        static responseMessages(response, key = 'message') {
+            if(response && Object.isExtensible(response) && key in response) {
+                if(Array.isArray(response[key])) {
+                    this.multipleAlert(response[key]);
+                } else this.alert();
+            }
+        }
+
+        static error(text = 'Network Error...') {
+            loader.alert('error', text);
+        }
     }
 </script>
 

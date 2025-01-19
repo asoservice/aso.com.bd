@@ -18,13 +18,13 @@ final class ContentsLoader
     public $data;
     public $model;
     private $dataTable;
-    private Request|HttpRequest $request;
+    private HttpRequest $request;
     public string|int $id = 0;
     private string $fields = '';
     public bool $isData = false;
-    private array $storableData = [];
+    public array $storableData = [];
     private array $unlikableFiles = [];
-    private array $validateInputs = [];
+    public array $validateInputs = [];
     private bool $dataTableMake = true;
     private string $baseAssetPath = 'storage/media';
     private array $with = ['status' => 'undefined', 'message' => []];
@@ -43,7 +43,7 @@ final class ContentsLoader
 
     public function initDataTable(bool $make = true){
         $this->dataTableMake = $make;
-        $this->dataTable = DataTables::of($this->model::query());
+        $this->dataTable = DataTables::of($this->model::query()->latest('id'));
         
         return $this;
     }
@@ -159,11 +159,59 @@ final class ContentsLoader
         return $this;
     }
 
+    public function addSelectColumn(callable|array $options, string $label = 'Status', string $key = 'status', bool $multiple = false, string $placeholder = 'Select One'){
+        $this->dataTableRaws['labels'][] = $label;
+        $this->dataTableRaws['rawColumns'][] = $key;
+        $this->dataTableRaws['columns'][] = ['data'=> $key, 'name'=> $key, 'orderable'=> false, 'searchable'=> false];
+        
+        $isMultiple = $multiple ? ['nameKey'=> "{$key}[]", 'multiple'=> 'multiple'] : ['nameKey'=> $key, 'multiple'=> ''];
+
+        $makeOption = function (?string $newValue) use ($options){
+            $htmlOption = "";
+
+            if(is_array($options)){
+                foreach($options as $optKey => $optVal){
+                    $isSelected = $optKey == $newValue ? 'selected' : '';
+                    $htmlOption .= "<option value='{$optKey}' {$isSelected}>{$optVal}</option>";
+                }
+            } else {
+                $getObjectOptions = new stdClass();
+                $getObjectOptions->key = 'id';
+                $getObjectOptions->value = 'title';
+                $getOptions = $options($getObjectOptions);
+
+                foreach($getOptions->data as $opt){
+                    $isSelected = $opt->{$getOptions->key} == $newValue ? 'selected' : '';
+                    $htmlOption .= "<option value='{$opt->{$getOptions->key}}' {$isSelected}>{$opt->{$getOptions->value}}</option>";
+                    
+                }
+            }
+
+            return $htmlOption;
+        };
+
+
+        $this->dataTable->addColumn($key, function ($row) use($key, $isMultiple, $makeOption, $placeholder) {
+            $value = isset($row->{$key}) ? $row->{$key} : null;
+            $url = $this->getRoute('edit', $row->id); 
+                
+            return "<div class='form-group row'>
+                    <select class='form-control table-select' table-select='{$url}' table-select-key='{$key}' id='{$key}-{$row->id}' search='true'
+                        name='{$isMultiple['nameKey']}' data-placeholder='{$placeholder}' {$isMultiple['multiple']}>
+                        <option hidden disabled>{$placeholder}</option>
+                        {$makeOption($value)}
+                    </select>
+                </div>";
+        });
+
+        return $this;
+    }
+
     public function renderDataTable(){
         if (request()->ajax()) {
             return $this->dataTable->rawColumns($this->dataTableRaws['rawColumns'])->make($this->dataTableMake);
         }
-
+        
         return view($this->views['index'], ['routes'=> $this->routes, 'columns' => $this->dataTableRaws['columns'], 'labels' => $this->dataTableRaws['labels']]);
     }
 
@@ -225,10 +273,10 @@ final class ContentsLoader
         return '/undefined/';
     }
     
-    protected function addMessage(string $key, string $message, string $type = 'multiple'): void
+    protected function addMessage(string $key, string $message): void
     {
-        $this->with['status'] = $type;
-        $this->with['message'][$key] = $message;
+        $this->with['status'] = 'multiple';
+        $this->with['message'][] = ['type'=> $key, 'message' => $message];
     }    
 
     public function setModel($model = null){
@@ -385,15 +433,18 @@ final class ContentsLoader
         return $this;
     }
     
-    public function addSelectInput(string $title, string $key, callable|array $options, ?string $value = null, bool $required = false, string $note = '', bool $multiple = false){
-        $newValue  = old($key) ?? $value;
-        $isRequired = $required ? 'required' : '';
+    public function addSelectInput(string $title, string $key, callable|array $options, null|bool|string $value = null, bool $required = false, string $note = '', bool $multiple = false, string $placeholder = 'Select One'){
+        if($value === true){
+            $newValue = isset($this->data->{$key}) ? $this->data->{$key} : '';
+        } else {
+            $newValue  = old($key) ?? $value;
+        }
 
+        $isRequired = $required ? 'required' : '';
         $newNote = $this->makeNote($required, $note);
-        
         $isMultiple = $multiple ? ['nameKey'=> "{$key}[]", 'multiple'=> 'multiple'] : ['nameKey'=> $key, 'multiple'=> ''];
 
-        $makeOption = function () use ($options, $newValue, $title){
+        $makeOption = function () use ($options, $newValue){
             $htmlOption = "";
 
             if(is_array($options)){
@@ -417,15 +468,15 @@ final class ContentsLoader
             return $htmlOption;
         };
 
-
+        $opts = $makeOption();
         $this->fields .= "
             <div class='form-group row'>
                 <label class='col-md-2' for='{$key}'>{$title} {$newNote}</label>
                 <div class='col-md-10 error-div select-dropdown'>
-                    <select id='blog_categories' {$isRequired} class='custom-select-2 form-control' id='{$key}' search='true'
-                        name='{$isMultiple['nameKey']}' data-placeholder='{$title}' {$isMultiple['multiple']}>
+                    <select {$isRequired} class='custom-select-2 form-control' id='{$key}' search='true'
+                        name='{$isMultiple['nameKey']}' data-placeholder='{$placeholder}' {$isMultiple['multiple']}>
                         <option></option>
-                        {$makeOption()}
+                        {$opts}
                     </select>
                     <!-- <span class='invalid-feedback d-block' role='alert' id='{$key}-alert'> <strong></strong></span> -->
                 </div>
@@ -435,7 +486,7 @@ final class ContentsLoader
         return $this;
     }
 
-    public function addRequest(Request|HttpRequest $request){
+    public function addRequest(HttpRequest $request){
         $this->request = $request;
         return $this;
     }
@@ -457,7 +508,7 @@ final class ContentsLoader
     {
         $name = $inputName ?? $tableKey;
         $input = $this->getRequestData($name, $type);
-        $defaultValue = $value ?? $input;
+        $defaultValue = is_string($value) ? $value : $input;
 
         if ($required) {
             $this->validateInputs[$name] = $required;
@@ -472,14 +523,14 @@ final class ContentsLoader
         $name = $inputName ?? $tableKey;
         $path = $this->baseAssetPath . '/' . $module . '/';
 
+        $this->request->validate([$name => $required]);
         if($this->request->hasFile($name)){
             if($value === true && isset($this->data->{$tableKey})){
                 $oldFile = $this->data->{$tableKey};
             }
 
-            if($required) $this->validateInputs[$name] = $required;
+            // if($required) $this->validateInputs[$name] = $required;
             $this->storableData[$tableKey] = $this->storeFile($this->request->file($name), $path, $oldFile);
-            info(json_encode(['addFile-storableData'=> $this->storableData], 128));
             return $this;
         }
         
@@ -492,6 +543,7 @@ final class ContentsLoader
         $path = $this->baseAssetPath . $module . '/';
     
         // Check if files exist in the request
+        $this->request->validate([$name => $required]);
         if ($this->request->hasFile($name)) {
             $files = $this->request->file($name);
     
@@ -542,13 +594,12 @@ final class ContentsLoader
 
         $pathname = $path . $filename;
         $this->storedFilePaths[] = $pathname;
-        info(json_encode(compact('pathname', 'oldFile', 'createPath'), JSON_PRETTY_PRINT));
         return $pathname;
     } 
 
-    public function addCreator(string $tableKey = 'created_by', ?int $auth_id = null)
+    public function addCreator(string $tableKey = 'created_by', ?int $authId = null)
     {
-        $id = is_null($auth_id) ? Auth::id() : $auth_id;
+        $id = is_null($authId) ? Auth::id() : $authId;
         $this->storableData[$tableKey] = $id;
 
         return $this;
@@ -591,9 +642,9 @@ final class ContentsLoader
         return view($this->views['edit'], ['fields' => $this->fields, 'routes'=> $this->routes, 'with'=> $this->with]);
     }
 
-    public function formOnly(string $action = 'update', string $id = null){
+    public function formOnly(string $action = 'update', string $id = null, ?string $method = null){
         $route = $this->getRoute($action, $id);
-        return view($this->views['form'], ['fields' => $this->fields, 'routes'=> $this->routes, 'action'=> $route, 'onlyForm'=> true]);
+        return view($this->views['form'], ['fields' => $this->fields, 'routes'=> $this->routes, 'action'=> $route, 'onlyForm'=> true, 'method'=> $method]);
     }
 
     private function rollbackFiles(){
@@ -606,12 +657,9 @@ final class ContentsLoader
 
     public function storeData(bool $encoded = false)
     {
-        info(json_encode($this->validateInputs, 128));
         try {
-            info(json_encode(['validateInputs' => $this->validateInputs, 'all'=>$this->request->all()], 128));
-            $this->request->validate($this->validateInputs); // Validation
+            $this->request->validate($this->validateInputs);
             $crateModel = $this->model::create($this->storableData); // Data creation
-            info(json_encode(['createModel' => $crateModel, 'storableData' => $this->storableData, 'request' => $this->validateInputs], JSON_PRETTY_PRINT));
 
             // JSON response for API/ajax handling
             if ($encoded) {
@@ -627,7 +675,7 @@ final class ContentsLoader
             $this->addMessage('success', 'Data Created Successfully!');
             return redirect($this->routes['index'])->with($this->with['status'], $this->with['message']);
         } catch (ValidationException $e) {
-            // $this->rollbackFiles();
+            $this->rollbackFiles();
             // Handle validation errors
             if ($encoded) {
                 return response()->json([
@@ -638,10 +686,9 @@ final class ContentsLoader
             }
 
             // Redirect with validation errors for standard form submission
-            info('ValidationError: ' . json_encode($e->errors(), JSON_PRETTY_PRINT));
             return redirect()->back()->with('errors',$e->errors())->withInput();
         } catch (Exception $e) {
-            // $this->rollbackFiles();
+            $this->rollbackFiles();
             // Handle unexpected exceptions
             if ($encoded) {
                 return response()->json([
@@ -650,48 +697,73 @@ final class ContentsLoader
                     'error' => $e->getMessage(),
                 ], 500);
             }
-
-            info('Exception: ' . $e->getMessage());
+    
             return redirect($this->routes['index'])->with('error', 'An unexpected error occurred.')->withInput();
         }
     }
 
     public function updateData(bool $isCreator = false, string $creatorKey = 'created_by', bool $encoded = false)
     {
-        // make an update initiative function for reuse!
-        $update = function () use ($encoded) {
-            $this->request->validate($this->validateInputs);
+        try {
+            // make an update initiative function for reuse!
+            $update = function () use ($encoded) {
+                $this->request->validate($this->validateInputs);
 
-            // find the data and update this using model
-            $updatedData = $this->data->update($this->storableData);
+                // find the data and update this using model
+                $updatedData = $this->data->update($this->storableData);
 
-            if ($encoded) {
+                if ($encoded) {
+                    $this->addMessage('success', 'Data Updated Successfully!');
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => $this->with['message'],
+                        'result' => $updatedData,
+                    ]);
+                }
+
                 $this->addMessage('success', 'Data Updated Successfully!');
-                return response()->json([
-                    'status' => 'success',
-                    'message' => $this->with['message'],
-                    'result' => $updatedData,
-                ]);
-            }
+                return redirect($this->routes['index'])->with($this->with['status'], $this->with['message']);
+            };
 
-            $this->addMessage('success', 'Data Updated Successfully!');
-            return redirect($this->routes['index'])->with($this->with['status'], $this->with['message']);
-        };
+            if ($isCreator && isset($this->model->{$creatorKey})) {
+                if ($this->model->{$creatorKey} == Auth::id() || Helpers::hasRole('admin')) {
+                    return $update();
+                }
+                
+                if($encoded){
+                    $this->addMessage('error', 'You are not authorized to update this data!');
+                    return response()->json(['status' => 'error', 'message' => $this->with['message']]);
+                }
 
-        if ($isCreator && isset($this->model->{$creatorKey})) {
-            if ($this->model->{$creatorKey} == Auth::id() || Helpers::hasRole('admin')) {
-                return $update();
-            }
-            
-            if($encoded){
                 $this->addMessage('error', 'You are not authorized to update this data!');
-                return response()->json(['status' => 'error', 'message' => $this->with['message']]);
+                return redirect()->route($this->routes['index'])->with($this->with['status'], $this->with['message']);
+            }
+        } catch (ValidationException $e) {
+            $this->rollbackFiles();
+            // Handle validation errors
+            if ($encoded) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Validation Failed!',
+                    'errors' => $e->errors(),
+                ], 422);
             }
 
-            $this->addMessage('error', 'You are not authorized to update this data!');
-            return redirect()->route($this->routes['index'])->with($this->with['status'], $this->with['message']);
+            // Redirect with validation errors for standard form submission
+            return redirect()->back()->with('errors',$e->errors())->withInput();
+        } catch (Exception $e) {
+            $this->rollbackFiles();
+            // Handle unexpected exceptions
+            if ($encoded) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'An unexpected error occurred.',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+    
+            return redirect($this->routes['index'])->with('error', 'An unexpected error occurred.')->withInput();
         }
-
         return $update();
     }
 

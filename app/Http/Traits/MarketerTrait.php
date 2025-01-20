@@ -12,7 +12,10 @@ use App\Models\{
     MarketerSetting,
     MarketerWallet,
     MarketerWithdrawRequest,
-    CampaignAnalytics
+    CampaignAnalytics,
+    MarketerLink,
+    ClickTracking,
+    ConversionTracking
 };
 use Illuminate\Support\Facades\{DB, Log};
 use Carbon\Carbon;
@@ -48,44 +51,38 @@ trait MarketerTrait
      */
     public function registerMarketer(User $user, ?string $parentReferralCode = null): MarketerUser
     {
-        try {
-            return DB::transaction(function () use ($user, $parentReferralCode) {
-                $settings = $this->getMarketerSetting();
-                $parentMarketer = null;
-                $level = 1;
+        return DB::transaction(function () use ($user, $parentReferralCode) {
+            $settings = $this->getMarketerSetting();
+            $parentMarketer = null;
+            $level = 1;
 
-                if ($parentReferralCode) {
-                    $parentMarketer = MarketerUser::where('referral_code', $parentReferralCode)->first();
-                    if ($parentMarketer) {
-                        $level = $parentMarketer->level + 1;
-                        if ($level > $settings->max_marketer_level) {
-                            throw new Exception("Maximum marketer level of {$settings->max_marketer_level} reached");
-                        }
+            if ($parentReferralCode) {
+                $parentMarketer = MarketerUser::where('referral_code', $parentReferralCode)->first();
+                if ($parentMarketer) {
+                    $level = $parentMarketer->level + 1;
+                    if ($level > $settings->max_marketer_level) {
+                        throw new Exception("Maximum marketer level of {$settings->max_marketer_level} reached");
                     }
                 }
+            }
 
-                $marketerUser = MarketerUser::create([
-                    'user_id' => $user->id,
-                    'referral_code' => $this->generateUniqueReferralCode(),
-                    'parent_marketer_id' => $parentMarketer?->id,
-                    'level' => $level,
-                    'status' => 'active',
-                    'total_earned' => 0,
-                    'last_30_days_earnings' => 0
-                ]);
+            $marketerUser = MarketerUser::create([
+                'user_id' => $user->id,
+                'referral_code' => $this->generateUniqueReferralCode(),
+                'parent_id' => $parentMarketer?->id,
+                'level' => $level,
+                'status' => 'pending',
+                'total_earned' => 0,
+                'last_30_days_earnings' => 0
+            ]);
 
-                // Create initial wallet
-                MarketerWallet::create([
-                    'marketer_id' => $marketerUser->id,
-                    'balance' => 0
-                ]);
+            MarketerWallet::create([
+                'marketer_id' => $marketerUser->id,
+                'balance' => 0
+            ]);
 
-                return $marketerUser;
-            });
-        } catch (Exception $e) {
-            Log::error('Failed to register marketer:', ['error' => $e->getMessage(), 'user_id' => $user->id]);
-            throw $e;
-        }
+            return $marketerUser;
+        });
     }
 
     /**
@@ -93,32 +90,23 @@ trait MarketerTrait
      */
     public function createCampaign(MarketerUser $marketer, array $data): Campaign
     {
-        try {
-            return DB::transaction(function () use ($marketer, $data) {
-                $this->validateCampaignData($data);
+        return DB::transaction(function () use ($marketer, $data) {
+            $this->validateCampaignData($data);
 
-                return Campaign::create([
-                    'marketer_id' => $marketer->id,
-                    'name' => $data['name'],
-                    'description' => $data['description'] ?? null,
-                    'target_amount' => $data['target_amount'] ?? null,
-                    'commission_rate' => $data['commission_rate'],
-                    'start_date' => $data['start_date'],
-                    'end_date' => $data['end_date'] ?? null,
-                    'tracking_code' => $this->generateUniqueTrackingCode(),
-                    'landing_page_url' => $data['landing_page_url'] ?? null,
-                    'target_demographics' => $data['target_demographics'] ?? null,
-                    'status' => $data['status'] ?? 'draft',
-                    'visits' => 0,
-                    'approved_orders' => 0,
-                    'total_commission' => 0,
-                    'conversion_rate' => 0
-                ]);
-            });
-        } catch (Exception $e) {
-            Log::error('Failed to create campaign:', ['error' => $e->getMessage(), 'marketer_id' => $marketer->id]);
-            throw $e;
-        }
+            return Campaign::create([
+                'marketer_id' => $marketer->id,
+                'name' => $data['name'],
+                'description' => $data['description'] ?? null,
+                'target_amount' => $data['target_amount'] ?? null,
+                'commission_rate' => $data['commission_rate'],
+                'start_date' => $data['start_date'],
+                'end_date' => $data['end_date'] ?? null,
+                'tracking_code' => $this->generateUniqueTrackingCode(),
+                'landing_page_url' => $data['landing_page_url'] ?? null,
+                'target_demographics' => $data['target_demographics'] ?? null,
+                'status' => $data['status'] ?? 'draft'
+            ]);
+        });
     }
 
     /**
@@ -126,64 +114,49 @@ trait MarketerTrait
      */
     public function recordCampaignVisit(Campaign $campaign, array $visitorData = []): void
     {
-        try {
-            DB::transaction(function () use ($campaign, $visitorData) {
-                $today = now()->toDateString();
-
-                $analytics = CampaignAnalytics::firstOrNew([
-                    'campaign_id' => $campaign->id,
-                    'date' => $today
-                ]);
-
-                // Update or initialize analytics
-                $analytics->daily_visits = ($analytics->daily_visits ?? 0) + 1;
-
-                // Track unique visitors
-                if (!empty($visitorData['visitor_id']) || !empty($visitorData['ip'])) {
-                    $uniqueIdentifier = $visitorData['visitor_id'] ?? $visitorData['ip'];
-                    $uniqueKey = "campaign:{$campaign->id}:visitors:{$today}";
-
-                    if (!Redis::sismember($uniqueKey, $uniqueIdentifier)) {
-                        Redis::sadd($uniqueKey, $uniqueIdentifier);
-                        Redis::expire($uniqueKey, 86400);
-                        $analytics->unique_visitors = ($analytics->unique_visitors ?? 0) + 1;
-                    }
-                }
-
-                // Update device breakdown
-                if (!empty($visitorData['device_type'])) {
-                    $deviceBreakdown = $analytics->device_breakdown ?? [];
-                    $deviceBreakdown[$visitorData['device_type']] =
-                        ($deviceBreakdown[$visitorData['device_type']] ?? 0) + 1;
-                    $analytics->device_breakdown = $deviceBreakdown;
-                }
-
-                // Update traffic sources
-                if (!empty($visitorData['source'])) {
-                    $trafficSources = $analytics->traffic_sources ?? [];
-                    $trafficSources[$visitorData['source']] =
-                        ($trafficSources[$visitorData['source']] ?? 0) + 1;
-                    $analytics->traffic_sources = $trafficSources;
-                }
-
-                // Calculate conversion rate
-                if ($analytics->daily_visits > 0) {
-                    $analytics->conversion_rate =
-                        ($analytics->approved_orders / $analytics->daily_visits) * 100;
-                }
-
-                $analytics->save();
-
-                // Update campaign totals
-                $campaign->increment('visits');
-                $campaign->updateAnalytics();
-            });
-        } catch (Exception $e) {
-            Log::error('Failed to record campaign visit:', [
-                'error' => $e->getMessage(),
-                'campaign_id' => $campaign->id
+        DB::transaction(function () use ($campaign, $visitorData) {
+            $analytics = CampaignAnalytics::firstOrNew([
+                'campaign_id' => $campaign->id,
+                'date' => now()->toDateString()
             ]);
-            throw $e;
+
+            $analytics->daily_visits = ($analytics->daily_visits ?? 0) + 1;
+
+            if (!empty($visitorData['visitor_id']) || !empty($visitorData['ip'])) {
+                $uniqueIdentifier = $visitorData['visitor_id'] ?? $visitorData['ip'];
+                $uniqueKey = "campaign:{$campaign->id}:visitors:" . now()->toDateString();
+
+                if (!Redis::sismember($uniqueKey, $uniqueIdentifier)) {
+                    Redis::sadd($uniqueKey, $uniqueIdentifier);
+                    Redis::expire($uniqueKey, 86400);
+                    $analytics->unique_visitors = ($analytics->unique_visitors ?? 0) + 1;
+                }
+            }
+
+            $this->updateAnalyticsMetrics($analytics, $visitorData);
+            $analytics->save();
+
+            $campaign->increment('visits');
+            $campaign->updateAnalytics();
+        });
+    }
+
+    private function updateAnalyticsMetrics(CampaignAnalytics $analytics, array $visitorData): void
+    {
+        if (!empty($visitorData['device_type'])) {
+            $deviceBreakdown = $analytics->device_breakdown ?? [];
+            $deviceBreakdown[$visitorData['device_type']] = ($deviceBreakdown[$visitorData['device_type']] ?? 0) + 1;
+            $analytics->device_breakdown = $deviceBreakdown;
+        }
+
+        if (!empty($visitorData['source'])) {
+            $trafficSources = $analytics->traffic_sources ?? [];
+            $trafficSources[$visitorData['source']] = ($trafficSources[$visitorData['source']] ?? 0) + 1;
+            $analytics->traffic_sources = $trafficSources;
+        }
+
+        if ($analytics->daily_visits > 0) {
+            $analytics->conversion_rate = ($analytics->approved_orders / $analytics->daily_visits) * 100;
         }
     }
 
@@ -198,34 +171,25 @@ trait MarketerTrait
         ?Campaign $campaign = null,
         string $type = 'sale'
     ): MarketerTransaction {
-        try {
-            return DB::transaction(function () use ($marketer, $amount, $orderId, $campaign, $type) {
-                $transaction = MarketerTransaction::create([
-                    'marketer_id' => $marketer->id,
-                    'campaign_id' => $campaign?->id,
-                    'order_id' => $orderId,
-                    'amount' => $amount,
-                    'commission_earned' => 0,
-                    'status' => 'pending',
-                    'transaction_type' => $type
-                ]);
-
-                $this->distributeCommissions($transaction, $campaign);
-
-                if ($campaign) {
-                    $this->updateCampaignAnalytics($campaign, $transaction);
-                }
-
-                return $transaction->fresh();
-            });
-        } catch (Exception $e) {
-            Log::error('Failed to record transaction:', [
-                'error' => $e->getMessage(),
+        return DB::transaction(function () use ($marketer, $amount, $orderId, $campaign, $type) {
+            $transaction = MarketerTransaction::create([
                 'marketer_id' => $marketer->id,
-                'order_id' => $orderId
+                'campaign_id' => $campaign?->id,
+                'order_id' => $orderId,
+                'amount' => $amount,
+                'commission_earned' => 0,
+                'status' => 'pending',
+                'transaction_type' => $type
             ]);
-            throw $e;
-        }
+
+            $this->distributeCommissions($transaction, $campaign);
+
+            if ($campaign) {
+                $this->updateCampaignAnalytics($campaign, $transaction);
+            }
+
+            return $transaction->fresh();
+        });
     }
 
     /**
@@ -238,35 +202,27 @@ trait MarketerTrait
     {
         $settings = $this->getMarketerSetting();
         $marketer = $transaction->marketer;
-        $currentParent = $marketer->parentMarketer;
+        $currentParent = $marketer->parent;
         $level = 1;
         $totalCommission = 0;
 
         while ($currentParent && $level <= $settings->max_marketer_level) {
-            $last30DaysEarnings = $this->calculateLast30DaysEarnings($currentParent);
+            if ($this->calculateLast30DaysEarnings($currentParent) >= $settings->min_earning_requirement) {
+                $commissionAmount = $this->calculateCommissionAmount($transaction, $campaign, $level);
 
-            if ($last30DaysEarnings >= $settings->min_earning_requirement) {
-                $tier = MarketerTier::where('level', $level)->first();
-                $commissionRate = $campaign?->commission_rate ?? $tier->percentage;
-                $commissionAmount = $transaction->amount * ($commissionRate / 100);
-
-                CommissionDistribution::create([
-                    'transaction_id' => $transaction->id,
-                    'marketer_id' => $marketer->id,
-                    'parent_marketer_id' => $currentParent->id,
-                    'campaign_id' => $campaign?->id,
-                    'level' => $level,
-                    'percentage' => $commissionRate,
-                    'amount' => $commissionAmount,
-                    'status' => 'pending',
-                    'processing_date' => now()->addDays($settings->commission_waiting_days)
-                ]);
+                $this->createCommissionDistribution(
+                    $transaction,
+                    $marketer,
+                    $currentParent,
+                    $level,
+                    $commissionAmount
+                );
 
                 $totalCommission += $commissionAmount;
                 $this->updateMarketerEarnings($currentParent, $commissionAmount);
             }
 
-            $currentParent = $currentParent->parentMarketer;
+            $currentParent = $currentParent->parent;
             $level++;
         }
 
@@ -274,6 +230,29 @@ trait MarketerTrait
             'commission_earned' => $totalCommission,
             'status' => 'approved'
         ]);
+    }
+
+    private function createCommissionDistribution(
+        MarketerTransaction $transaction,
+        MarketerUser $marketer,
+        MarketerUser $parentMarketer,
+        int $level,
+        float $commissionAmount
+    ): void {
+        CommissionDistribution::create([
+            'transaction_id' => $transaction->id,
+            'marketer_id' => $marketer->id,
+            'parent_marketer_id' => $parentMarketer->id,
+            'level' => $level,
+            'percentage' => $this->getCommissionRate($level),
+            'amount' => $commissionAmount,
+            'status' => 'pending'
+        ]);
+    }
+
+    private function getCommissionRate(int $level): float
+    {
+        return MarketerTier::where('level', $level)->value('percentage') ?? 10.0;
     }
 
     /**
@@ -741,5 +720,282 @@ trait MarketerTrait
             ->get()
             ->pluck('campaigns')
             ->flatten();
+    }
+
+    /**
+     * Create a new marketing link
+     * @param MarketerUser $marketer
+     * @param array $data
+     * @return MarketerLink
+     * @throws Exception
+     */
+    public function createMarketingLink(MarketerUser $marketer, array $data): MarketerLink
+    {
+        try {
+            return DB::transaction(function () use ($marketer, $data) {
+                $this->validateLinkData($data);
+
+                $trackingCode = $this->generateUniqueLinkTrackingCode();
+                $shortenedUrl = $this->generateShortenedUrl($data['original_url'], $trackingCode);
+
+                return MarketerLink::create([
+                    'marketer_id' => $marketer->id,
+                    'campaign_id' => $data['campaign_id'] ?? null,
+                    'product_id' => $data['product_id'] ?? null,
+                    'provider_id' => $data['provider_id'] ?? null,
+                    'original_url' => $data['original_url'],
+                    'tracking_code' => $trackingCode,
+                    'shortened_url' => $shortenedUrl,
+                    'utm_source' => $data['utm_source'] ?? null,
+                    'utm_medium' => $data['utm_medium'] ?? null,
+                    'utm_campaign' => $data['utm_campaign'] ?? null,
+                    'utm_content' => $data['utm_content'] ?? null,
+                    'status' => $data['status'] ?? 'active',
+                    'expires_at' => $data['expires_at'] ?? null
+                ]);
+            });
+        } catch (Exception $e) {
+            Log::error('Failed to create marketing link:', [
+                'error' => $e->getMessage(),
+                'marketer_id' => $marketer->id
+            ]);
+            throw $e;
+        }
+    }
+
+    /**
+     * Record a link click
+     * @param MarketerLink $link
+     * @param array $clickData
+     * @return void
+     */
+    public function recordLinkClick(MarketerLink $link, array $clickData): void
+    {
+        try {
+            DB::transaction(function () use ($link, $clickData) {
+                // Check for unique visitor
+                $uniqueIdentifier = $clickData['visitor_id'] ?? $clickData['ip'];
+                $uniqueKey = "link:{$link->id}:visitors:" . now()->toDateString();
+
+                $isUnique = !Redis::sismember($uniqueKey, $uniqueIdentifier);
+                if ($isUnique) {
+                    Redis::sadd($uniqueKey, $uniqueIdentifier);
+                    Redis::expire($uniqueKey, 86400); // Expire after 24 hours
+                    $link->increment('unique_clicks');
+                }
+
+                // Record click
+                $link->increment('clicks');
+
+                ClickTracking::create([
+                    'marketer_link_id' => $link->id,
+                    'ip_address' => $clickData['ip'] ?? null,
+                    'user_agent' => $clickData['user_agent'] ?? null,
+                    'referrer' => $clickData['referrer'] ?? null,
+                    'device_type' => $clickData['device_type'] ?? null,
+                    'country' => $clickData['country'] ?? null,
+                    'city' => $clickData['city'] ?? null,
+                    'is_unique' => $isUnique
+                ]);
+
+                // Update conversion rate
+                if ($link->conversions > 0) {
+                    $link->update([
+                        'conversion_rate' => ($link->conversions / $link->clicks) * 100
+                    ]);
+                }
+            });
+        } catch (Exception $e) {
+            Log::error('Failed to record link click:', [
+                'error' => $e->getMessage(),
+                'link_id' => $link->id
+            ]);
+            throw $e;
+        }
+    }
+
+    /**
+     * Record a link conversion
+     * @param MarketerLink $link
+     * @param array $conversionData
+     * @return void
+     */
+    public function recordLinkConversion(MarketerLink $link, array $conversionData): void
+    {
+        try {
+            DB::transaction(function () use ($link, $conversionData) {
+                $link->increment('conversions');
+                $link->increment('total_revenue', $conversionData['amount']);
+
+                // Calculate commission
+                $commissionRate = $link->campaign?->commission_rate ??
+                    $this->getDefaultCommissionRate($link->marketer);
+                $commission = $conversionData['amount'] * ($commissionRate / 100);
+
+                $link->increment('total_commission', $commission);
+
+                ConversionTracking::create([
+                    'marketer_link_id' => $link->id,
+                    'order_id' => $conversionData['order_id'],
+                    'amount' => $conversionData['amount'],
+                    'commission' => $commission,
+                    'customer_id' => $conversionData['customer_id'] ?? null,
+                    'product_id' => $conversionData['product_id'] ?? null
+                ]);
+
+                // Update conversion rate
+                $link->update([
+                    'conversion_rate' => ($link->conversions / $link->clicks) * 100
+                ]);
+
+                // Record transaction if campaign exists
+                if ($link->campaign_id) {
+                    $this->recordTransaction(
+                        $link->marketer,
+                        $conversionData['amount'],
+                        $conversionData['order_id'],
+                        $link->campaign
+                    );
+                }
+            });
+        } catch (Exception $e) {
+            Log::error('Failed to record link conversion:', [
+                'error' => $e->getMessage(),
+                'link_id' => $link->id
+            ]);
+            throw $e;
+        }
+    }
+
+    /**
+     * Get link analytics
+     * @param MarketerLink $link
+     * @return array
+     */
+    public function getLinkAnalytics(MarketerLink $link): array
+    {
+        $clickStats = ClickTracking::where('marketer_link_id', $link->id)
+            ->select(
+                DB::raw('COUNT(*) as total_clicks'),
+                DB::raw('COUNT(DISTINCT ip_address) as unique_visitors'),
+                DB::raw('COUNT(DISTINCT DATE(created_at)) as active_days'),
+                DB::raw('AVG(CASE WHEN is_unique THEN 1 ELSE 0 END) * 100 as unique_click_rate')
+            )
+            ->first();
+
+        $deviceBreakdown = ClickTracking::where('marketer_link_id', $link->id)
+            ->select('device_type', DB::raw('COUNT(*) as count'))
+            ->groupBy('device_type')
+            ->get()
+            ->pluck('count', 'device_type')
+            ->toArray();
+
+        $locationStats = ClickTracking::where('marketer_link_id', $link->id)
+            ->select('country', DB::raw('COUNT(*) as count'))
+            ->groupBy('country')
+            ->orderByDesc('count')
+            ->limit(10)
+            ->get()
+            ->pluck('count', 'country')
+            ->toArray();
+
+        return [
+            'general_stats' => [
+                'total_clicks' => $clickStats->total_clicks,
+                'unique_visitors' => $clickStats->unique_visitors,
+                'active_days' => $clickStats->active_days,
+                'unique_click_rate' => round($clickStats->unique_click_rate, 2),
+                'conversions' => $link->conversions,
+                'conversion_rate' => $link->conversion_rate,
+                'total_revenue' => $link->total_revenue,
+                'total_commission' => $link->total_commission
+            ],
+            'device_breakdown' => $deviceBreakdown,
+            'top_countries' => $locationStats,
+            'referrers' => $this->getTopReferrers($link),
+            'hourly_distribution' => $this->getHourlyClickDistribution($link)
+        ];
+    }
+
+    /**
+     * Validate link data
+     * @param array $data
+     * @throws Exception
+     */
+    private function validateLinkData(array $data): void
+    {
+        if (empty($data['original_url'])) {
+            throw new Exception('Original URL is required');
+        }
+
+        if (!filter_var($data['original_url'], FILTER_VALIDATE_URL)) {
+            throw new Exception('Invalid URL format');
+        }
+
+        if (!empty($data['campaign_id'])) {
+            $campaign = Campaign::find($data['campaign_id']);
+            if (!$campaign) {
+                throw new Exception('Invalid campaign ID');
+            }
+        }
+    }
+
+    /**
+     * Generate unique tracking code for links
+     */
+    private function generateUniqueLinkTrackingCode(int $length = 10): string
+    {
+        do {
+            $code = 'LNK_' . Str::random($length);
+        } while (MarketerLink::where('tracking_code', $code)->exists());
+
+        return $code;
+    }
+
+    /**
+     * Generate shortened URL
+     */
+    private function generateShortenedUrl(string $originalUrl, string $trackingCode): string
+    {
+        // Implementation depends on your URL shortening service
+        // This is a simple example using the tracking code
+        return config('app.url') . '/go/' . $trackingCode;
+    }
+
+    /**
+     * Get top referrers for a link
+     */
+    private function getTopReferrers(MarketerLink $link): array
+    {
+        return ClickTracking::where('marketer_link_id', $link->id)
+            ->whereNotNull('referrer')
+            ->select('referrer', DB::raw('COUNT(*) as count'))
+            ->groupBy('referrer')
+            ->orderByDesc('count')
+            ->limit(10)
+            ->pluck('count', 'referrer')
+            ->toArray();
+    }
+
+    /**
+     * Get hourly click distribution
+     */
+    private function getHourlyClickDistribution(MarketerLink $link): array
+    {
+        return ClickTracking::where('marketer_link_id', $link->id)
+            ->select(DB::raw('HOUR(created_at) as hour'), DB::raw('COUNT(*) as count'))
+            ->groupBy('hour')
+            ->orderBy('hour')
+            ->pluck('count', 'hour')
+            ->toArray();
+    }
+
+    /**
+     * Get default commission rate for marketer
+     */
+    private function getDefaultCommissionRate(MarketerUser $marketer): float
+    {
+        return MarketerTier::where('level', $marketer->level)
+            ->value('percentage') ?? 10.0; // Default 10% if no tier found
     }
 }
